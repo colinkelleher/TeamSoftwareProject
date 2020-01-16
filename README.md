@@ -17,16 +17,6 @@
     
     There should be a comment above all functions in the following format:
     
-    /*
-    Comment line 1
-    Comment line 2
-    Comment line 3
-    */
-    
-    If additional comments are needed within the function they should be in the following format:
-    
-    // This is an example of a comment line 1
-    // This is an example of a comment line 2
-    
+ 
 ## Due Dates
 - [ ] Design Brief - Friday 17 Jan 2020 @ 23:59
