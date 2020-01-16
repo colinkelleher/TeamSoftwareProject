@@ -1,4 +1,4 @@
-# CS3500 - SoftwareEngineeringProject 2019
+# Team Software Project
 
 
 ## Team Members
@@ -9,8 +9,8 @@
     Peter O'Donoghue - 117326743
     Colum O'Donovan - 117363271
     
-## Programming Langague 
-    C Programming Language
+## Programming Langagues
+    Python Programming Language
 
 ## Coding Requirements
     All code will be commented to ensure everyone on the team can understand what is happening and ensure maintainability
