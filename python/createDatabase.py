@@ -8,6 +8,7 @@ Note: You must be in the root of the project directory
 """
 def _create_user_db():
     print("creating users table")
+    cursor.execute("DROP TABLE IF EXISTS users;")
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,6 +24,7 @@ def _create_user_db():
 
 def _create_product_db():
     print("creating product table")
+    cursor.execute("DROP TABLE IF EXISTS products;")
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS products(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,13 +40,15 @@ def _create_product_db():
 
 def _create_location_db():
     print("creating location table")
+    cursor.execute("DROP TABLE IF EXISTS locations;")
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS location(
+        CREATE TABLE IF NOT EXISTS locations(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title VARCHAR(255),
             description TEXT,
             comments INTEGER,
-            map VARCHAR(255)
+            map VARCHAR(255),
+            location_type integer
         );
     """)
     print("created location table")
