@@ -19,4 +19,8 @@
     
  
 ## Due Dates
-- [ ] Design Brief - Friday 17 Jan 2020 @ 23:59
+- [x] Design Brief - Friday 17 Jan 2020 @ 23:59
+
+
+## Team Meetings
+- [x] Tuesday 21 Jan 2020 @ 14:00
