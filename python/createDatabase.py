@@ -51,7 +51,7 @@ def _create_location_db():
 
 def createDatabase():
     """
-    Function to create the table
+    Function to create the table.
     :return: None
     """
     _create_user_db()
