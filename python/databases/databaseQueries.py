@@ -23,5 +23,26 @@ def select_all(table):
     return result
 
 
+def select_all_with_conditions(table, column_name, value):
+    """
+    This function will return the results from a select statement with a where clause
+
+    Arguments:
+        table -- Name of the table to query
+        column_name -- The name of the column that is being compared
+        value -- The value that is to be matched
+
+    Returns:
+        result -- List of tuples representing each row returned
+    """
+
+    sql = "SELECT * FROM %s WHERE %s = %s" % (table, column_name, value)
+
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+    return result
+
+
 if __name__ == "__main__":
-    print(select_all("products"))
+    print(select_all_with_conditions("products", "location", "1"))
