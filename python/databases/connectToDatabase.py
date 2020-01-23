@@ -18,5 +18,6 @@ def connect(url="../databases/database.db"):
     else:
         FileNotFoundError("This is not a valid path")
 
-if __name__ =="__main__":
+
+if __name__ == "__main__":
     connect()

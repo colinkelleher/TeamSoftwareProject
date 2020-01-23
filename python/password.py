@@ -13,8 +13,8 @@ class Password(object):
         """
         self._password = self._generate(str(password))
 
-
-    def _generate(self,password):
+    @staticmethod
+    def _generate(password):
         password = hashlib.sha256(password.encode()).hexdigest()
         return password
 

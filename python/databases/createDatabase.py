@@ -1,4 +1,6 @@
-from connectToDatabase import connect
+from python.databases.connectToDatabase import connect
+
+
 connection, cursor = connect()
 """
 To generate the tables run the following in the terminal.
@@ -6,6 +8,8 @@ python3 createDatabase.py
 
 Note: You must be in the root of the project directory
 """
+
+
 def _create_user_db():
     print("creating users table")
     cursor.execute("DROP TABLE IF EXISTS users;")
@@ -53,7 +57,8 @@ def _create_location_db():
     """)
     print("created location table")
 
-def createDatabase():
+
+def create_database():
     """
     Function to create the table.
     :return: None
@@ -62,5 +67,6 @@ def createDatabase():
     _create_product_db()
     _create_location_db()
 
+
 if __name__ == "__main__":
-    createDatabase()
+    create_database()
