@@ -7,7 +7,15 @@ try:
 except:
     from login import *
     from update_product_location import update_location
+"""
+            API endpoint for updating product location.
+            
+    An ajax request is made to execute this endpoint. Url is /api/update_product_location.py?pid=PRODUCT_ID&lid=LOCATION_ID .
+    API returns json with updated and message fields
+    "updated" field --> True if the location was updated. False if not
+    "message" field --> Different messages depending on outcome. These are ready to be inserted into HTML and displayed to the the user.
 
+"""
 print('Content-Type: text/html')
 print()
 message = {"updated" : False, "message" : ""}
@@ -21,6 +29,7 @@ else:
         result = update_location(pid, lid)
         if result:
             message["message"] = "That was updated"
+            message["updated"] = True
         elif result == 0:
             message["message"] = "Sorry, that location does not exist"
 
