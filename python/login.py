@@ -7,6 +7,13 @@ from time import time
 from shelve import open
 from http.cookies import SimpleCookie
 
+"""
+loggedIn() -> Can be run to check if a user is logged in on loading each page
+isAdmin() -> Can be run to check if a user has admin rights before allowing access to restricted content
+tryLogIn() -> To be run to change state from logged out to logged in
+logOut() -> To be run to change state from logged in to logged out
+"""
+
 def loggedIn():
     """ Checks if a user is logged in
 
