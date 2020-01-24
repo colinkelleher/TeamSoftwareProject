@@ -2,7 +2,7 @@ import sqlite3
 from os import path
 
 
-def connect(url="../databases/database.db"):
+def connect(url="../../databases/database.db"):
     """
     :param url: String --> path to the database to be connected to
     :return: connection --> sqlite3.connect() obj

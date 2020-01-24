@@ -1,5 +1,5 @@
 from python.databases.connectToDatabase import connect
-
+from python.password import Password
 connection, cursor = connect()
 
 
@@ -9,9 +9,10 @@ def populate_users_table():
     """
 
     print("Populating users table")
+    _hashed_password = Password("123")
     try:
         cursor.execute("""INSERT INTO users (fname, lname, password, role) 
-                          VALUES ('Liam', 'de la Cour', '123', 1)""")
+                          VALUES ('Liam', 'de la Cour', ? , 1)""", (str(_hashed_password), ))
         connection.commit()
         print("Populated users table")
     except Exception as e:
@@ -26,7 +27,7 @@ def populate_products_table():
     print("Populating products table")
 
     try:
-        sql = "INSERT INTO products (title, description, location, comments) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO products (title, description, location, comments) VALUES (?, ?, ?, ?)"
 
         val = [
             ("Cod", "Some smelly Cod", 1, 1),
@@ -53,7 +54,7 @@ def populate_locations_table():
     print("Populating locations table")
 
     try:
-        sql = "INSERT INTO locations (title, description, comments, location_type) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO locations (title, description, comments, location_type) VALUES (?, ?, ?, ?)"
 
         val = [
             ("Fish Fridge", "Where the fish be stored", 5, 1),
