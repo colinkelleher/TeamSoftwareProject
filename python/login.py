@@ -8,7 +8,8 @@ from shelve import open
 from http.cookies import SimpleCookie
 
 def loggedIn():
-    """
+    """ Checks if a user is logged in
+
     Function to check if user is logged in or not. Should be run on every page
     which requires a user to be logged in to use.
     @return authenticated -> boolean showing if already logged in or not
@@ -40,11 +41,16 @@ def loggedIn():
     return authenticated, username
 #end loggedIn
 
-def isAdmin():
-    """
-    Function to check if a (loggged in) user has admin rights
-    @param username
-    @return True or False
+def isAdmin(username):
+    """Function to check if a user has admin rights
+
+    Queries the users database to see if the current user has a role with
+        admin rights. Should only be used if user is already confirmed to be
+        logged in.
+    ### can be changed to not need username arg, but should be already stored from loggedIn() above
+
+    @param username -> unique id in DB (currently an id number)
+    @return True or False - is the user an admin
     """
 
     # assumption that role will be the string "admin" for admin rights
@@ -54,11 +60,32 @@ def isAdmin():
         return True
     # not admin
     return False
-
 #end isAdmin
 
-def tryLogIn():
+def tryLogIn(username, password):
+    """Function to attempt to log in a user
+
+    Function takes in a username and password and queries them against the
+        database. If successful, a cookie is created and given to the user
+        as proof of login. Escaped username and password can be taken from a
+        form and used here. It is assumed that the user isn't already logged in.
+    @param  username -> unique id in DB (currently an id number)
+            password -> Password object
+    @return if unsuccessful ->   returns None
+            if successful ->    returns the cookie
+                                the cookie must be printed to the webpage header
     """
-    Function to attempt to log in a user using username and password supplied
-    """
+    result = select_all_with_2_conditions("users","id",username,"password",str(password))
+    if len(result) == 0:
+        return None
+
+    cookie = SimpleCookie()
+    sid = sha256(repr(time()).encode()).hexdigest()
+    cookie['sid'] = sid
+    session_store = open('sessions/sess_' + sid, writeback=True)
+    session_store['authenticated'] = True
+    session_store['username'] = username
+    session_store.close()
+    #print(cookie) ### EDIT THIS - cookie needs to be appropriately printed to http header.
+    return cookie
 #end tryLogIn
