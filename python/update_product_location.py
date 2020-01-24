@@ -6,16 +6,17 @@ def update_location(product_id, location_id):
     Function to update a products location
     :param product_id: String/Int representing the product id
     :param location_id: String/Int representing the location id
-    :return: None
+    :return: 0 --> Location not found
+             -1 --> product not found
+             -2 --> Error with database
+             1 --> Updated okay
     """
     location = select_all_with_conditions("locations", "id", location_id)
     product = select_all_with_conditions("products", "id", product_id)
     if len(location) == 0:
-        print("location not found")
-        return
+        return 0
     if len(product) == 0:
-        print("product not found")
-        return
+        return -1
 
     try:
         connection, cursor = connect()
@@ -24,9 +25,9 @@ def update_location(product_id, location_id):
                           WHERE id = ?;
         """, (location_id, product_id))
         connection.commit()
-        print("updated")
+        return 1
 
     except:
-        print("db error")
+        return -2
 if __name__ == "__main__":
     update_location("1", "1")
