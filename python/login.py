@@ -1,5 +1,10 @@
-from password import Password
-from python.databases.databaseQueries import select_all_with_conditions
+try:
+    from python.password import Password
+    from python.databases.databaseQueries import select_all_with_conditions
+
+except:
+    from password import Password
+    from databases.databaseQueries import select_all_with_conditions
 
 from os import environ
 from hashlib import sha256
