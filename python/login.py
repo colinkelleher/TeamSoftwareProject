@@ -89,3 +89,26 @@ def tryLogIn(username, password):
     #print(cookie) ### EDIT THIS - cookie needs to be appropriately printed to http header.
     return cookie
 #end tryLogIn
+
+def logOut():
+    """Function to log out the current users
+
+    Takes users cookie and sets the 'authenticated' value to False, logging them out
+    @return True or False ->    True if unsuccessful,
+                                False if unsuccessful
+    """
+    try:
+        cookie = SimpleCookie()
+        http_cookie_header = environ.get('HTTP_COOKIE')
+        if http_cookie_header:
+            cookie.load(http_cookie_header)
+            if 'sid' in cookie:
+                sid = cookie['sid'].value
+                session_store = open('sessions/sess_' + sid, writeback=True)
+                session_store['authenticated'] = False
+                session_store.close()
+        # successfully logged out
+        return True
+    except IOError:
+        #failed to access the session files
+        return False
