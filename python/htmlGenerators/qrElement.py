@@ -3,6 +3,11 @@ import io
 
 
 def create_qr_info(qrid):
+    """
+    :param qrid Integer id of whatever the qr code will be showing
+    Function to create a div with the qr code svg image of the id and its hex representation
+    Returns an html string
+    """
     hex_id = ("0x%08X" % qrid)[2:].upper()
     img = pyqrcode.create(hex_id)
     buffer = io.BytesIO()
