@@ -35,7 +35,7 @@ def addProduct(vals):
     # returns 1 if successful, -1 otherwise
     try:
         connection, cursor = connect()
-        sql = "INSERT INTO products (title, location, description, comments) VALUES (?, ?, ?, ?)"
+        sql = "INSERT INTO products (title, location, description, comments) VALUES (?, ?, ?, ?);"
         cursor.execute(sql, vals[0], vals[1], vals[2], vals[3],)
         connection.commit()
         return 1
@@ -48,7 +48,7 @@ def removeProduct(vals):
     # returns 1 if successful, -1 otherwise
     try:
         connection, cursor = connect()
-        sql = "DELETE FROM products WHERE title=? and description=? and location=? and comments=?"
+        sql = "DELETE FROM products WHERE title=? and description=? and location=? and comments=?;"
         cursor.execute(sql, vals[0], vals[1], vals[2], vals[3],)
         connection.commit()
         return 1
