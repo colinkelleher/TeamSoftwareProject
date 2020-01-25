@@ -85,7 +85,7 @@ scanQrCode = (function(element, callback){
     qrConfirm = document.getElementById('qrconfirm')
 
     qrConfirm.addEventListener('click', confirmQr)
-    document.getElementById('qrenterid', enterQrId)
+    document.getElementById('qrenterid').addEventListener('click', enterQrId)
 
     qrInput.style.background = 'transparent'
 
