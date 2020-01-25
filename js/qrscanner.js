@@ -25,7 +25,7 @@ scanQrCode = (function(element, callback){
 
   function confirmQr(){
     qrConfirmed = true;
-    qrCallback(qrInput.value)
+    qrCallback(parseInt(qrInput.value, 16))
     qrContainer.parentNode.parentNode.removeChild(qrContainer.parentNode)
     video.srcObject.getTracks().forEach(track => track.stop())
     video.srcObjec = ""

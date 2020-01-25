@@ -3,7 +3,8 @@ import io
 
 
 def create_qr_info(qrid):
-    img = pyqrcode.create(qrid)
+    hex_id = ("0x%08X" % qrid)[2:].upper()
+    img = pyqrcode.create(hex_id)
     buffer = io.BytesIO()
     img.svg(buffer)
     value = buffer.getvalue().decode()
@@ -16,7 +17,7 @@ def create_qr_info(qrid):
                 <br>
                 <p>%s</p>
         </div>
-        """ % (svg, qrid)
+        """ % (svg, hex_id)
 
 
 if __name__ == '__main__':
