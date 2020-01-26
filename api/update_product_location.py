@@ -4,8 +4,7 @@ try:
     from python.login import *
     from python.update_product_location import update_location
 except:
-    from ~/public_html/TeamSoftwareProject/python/login import *
-    from  ~/public_html/TeamSoftwareProject/python/update_product_location import update_location
+    pass
 """
             API endpoint for updating product location.
             
