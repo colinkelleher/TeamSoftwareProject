@@ -17,7 +17,7 @@ except:
 print('Content-Type: text/html')
 print()
 message = {"updated" : False, "message" : ""}
-if loggedIn():
+if not loggedIn():
     message["message"] = "Sorry, you don't seem to be logged in"
 else:
     form_data = FieldStorage()
