@@ -59,7 +59,7 @@ def populate_locations_table():
         val = []
 
         for i in range(1,37):
-            val.append(("Generic Storage Shelf %d" % i, "Where stuff is stored", 5, 1, "images/locations/%d.png" % i))
+            val.append(("Generic Storage Shelf %d" % i, "Where stuff is stored", 5, 1, "/TeamSoftwareProject/images/locations/%d.png" % i))
 
         cursor.executemany(sql, val)
         connection.commit()

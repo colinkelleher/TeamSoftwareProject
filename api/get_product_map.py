@@ -11,9 +11,9 @@ API returns an image tag containing the map
 """
 print('Content-Type: text/html')
 print()
-message = "<img src = 'images/404.gif'/> "
+message = "<img src = '/TeamSoftwareProject/images/404.gif'/> "
 if not loggedIn():
-    message = "<img src = 'images/404.gif'/> "
+    pass
 else:
     form_data = FieldStorage()
     pid = form_data.getfirst("pid")
