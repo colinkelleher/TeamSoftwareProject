@@ -65,5 +65,37 @@ def select_all_with_2_conditions(table, column_name1, value1, column_name2, valu
     return result
 
 
+def get_product_info(prod_id):
+    """
+    Function will return the products information
+    :param prod_id: Integer representing the product id
+    :return: dictionary containing all information about a product
+            {"id" : int,
+            "title" : string,
+            "description" : string,
+            "location_id" : int,
+            "location_info" : dictionary,
+            "comment_id" : string,
+            "photo" : string}
+    """
+    info = {}
+    prod_info = select_all_with_conditions("products", "id", prod_id)
+    if prod_info:
+        prod_info = prod_info[-1]
+        info["id"] = int(prod_info[0])
+        info["title"] = prod_info[1]
+        info["description"] = prod_info[2]
+        info["location_id"] = int(prod_info[3])
+
+        location_info = select_all_with_conditions("locations", "id", info["location_id"])
+        if location_info:
+            location_info = location_info[-1]
+            #todo Finish location_info. Will implement get_location_info() first
+        info["location_info"] = {}
+        info["comment_id"] = str(prod_info[4])
+        info["photo"] = prod_info[5]
+
+    return info
+
 if __name__ == "__main__":
-    print(select_all_with_conditions("products", "location", "1"))
+    print(get_product_info(1))
