@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 from cgi import FieldStorage
-try:
-    from python.login import *
-    from python.update_product_location import update_location
-except:
-    pass
+from python.login import *
+from python.update_product_location import update_location
 """
             API endpoint for updating product location.
             
