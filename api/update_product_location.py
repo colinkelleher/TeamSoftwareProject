@@ -3,7 +3,6 @@ from cgi import FieldStorage
 try:
     from python.login import *
     from python.update_product_location import update_location
-
 except:
     from ../python/login import *
     from ../python/update_product_location import update_location
