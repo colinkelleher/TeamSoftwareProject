@@ -5,8 +5,8 @@ try:
     from python.update_product_location import update_location
 
 except:
-    from login import *
-    from update_product_location import update_location
+    from ../python/login import *
+    from ../python/update_product_location import update_location
 """
             API endpoint for updating product location.
             
