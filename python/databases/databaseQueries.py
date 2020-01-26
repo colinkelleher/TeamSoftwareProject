@@ -65,6 +65,31 @@ def select_all_with_2_conditions(table, column_name1, value1, column_name2, valu
     return result
 
 
+def get_location_info(location_id):
+    """
+        Function will return the locations information
+        :param location: Integer representing the location id
+        :return: dictionary containing all information about a location
+                {"id" : int,
+                "title" : string,
+                "description" : string,
+                "comment_id" : string,
+                "map" : string,
+                "location_type" : int}
+        """
+    info = {}
+    location_info = select_all_with_conditions("locations", "id", location_id)
+    if location_info:
+        location_info= location_info[-1]
+        info["id"] = int(location_info[0])
+        info["title"] = location_info[1]
+        info["description"] = location_info[2]
+        info["comment_id"] = location_info[3]
+        info["map"] = location_info[4]
+        info["location_type"] = location_info[5]
+
+    return info
+
 def get_product_info(prod_id):
     """
     Function will return the products information
@@ -86,12 +111,7 @@ def get_product_info(prod_id):
         info["title"] = prod_info[1]
         info["description"] = prod_info[2]
         info["location_id"] = int(prod_info[3])
-
-        location_info = select_all_with_conditions("locations", "id", info["location_id"])
-        if location_info:
-            location_info = location_info[-1]
-            #todo Finish location_info. Will implement get_location_info() first
-        info["location_info"] = {}
+        info["location_info"] = get_location_info(info["location_id"])
         info["comment_id"] = str(prod_info[4])
         info["photo"] = prod_info[5]
 
@@ -99,3 +119,4 @@ def get_product_info(prod_id):
 
 if __name__ == "__main__":
     print(get_product_info(1))
+    print(get_location_info(1))
