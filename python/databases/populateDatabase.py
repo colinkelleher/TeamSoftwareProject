@@ -31,9 +31,9 @@ def populate_products_table():
 
         val = [
             ("Cod", "Some smelly Cod", 1, 1),
-            ("Salmon", "Tasty Salmon", 1, 2),
-            ("Strawberries", "Eww", 2, 3),
-            ("Pineapples", "Pen Pineapple Apple Pen", 2, 4)
+            ("Salmon", "Tasty Salmon", 10, 2),
+            ("Strawberries", "Eww", 20, 3),
+            ("Pineapples", "Pen Pineapple Apple Pen", 22, 4)
         ]
 
         cursor.executemany(sql, val)
