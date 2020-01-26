@@ -54,12 +54,12 @@ def populate_locations_table():
     print("Populating locations table")
 
     try:
-        sql = "INSERT INTO locations (title, description, comments, location_type) VALUES (?, ?, ?, ?)"
+        sql = "INSERT INTO locations (title, description, comments, location_type, map) VALUES (?, ?, ?, ?, ?)"
 
-        val = [
-            ("Fish Fridge", "Where the fish be stored", 5, 1),
-            ("Fruit Fridge", "Where the fruits go", 6, 2)
-        ]
+        val = []
+
+        for i in range(1,37):
+            val.append(("Generic Storage Shelf %d" % i, "Where stuff is stored", 5, 1, "images/locations/%d.png" % i))
 
         cursor.executemany(sql, val)
         connection.commit()
