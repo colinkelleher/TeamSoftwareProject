@@ -16,7 +16,7 @@ except:
 """
 print('Content-Type: text/html')
 print()
-message = {"updated" : False, "message" : ""}
+message = {"updated" : False, "message": ""}
 if not loggedIn():
     message["message"] = "Sorry, you don't seem to be logged in"
 else:
