@@ -23,7 +23,7 @@ else:
         result = get_product_info(pid)
         if result:
             map = result["location_info"]["map"]
-            map = map.split(".png")[0]
+            map = map.split(".")[0]
             map+="-min.png"
             message = "<img src = '%s'/> " % map
 
