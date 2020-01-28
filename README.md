@@ -19,7 +19,7 @@
     
  
 ## Due Dates
-- [x] Design Brief - Friday 17 Jan 2020 @ 23:59
+https://github.com/colinkelleher/TeamSoftwareProject/issues/3
 
 
 ## Team Meetings
