@@ -1,25 +1,76 @@
+import os
+
 from python.login import *
-from python.users.user_types import *
+
+"""
+Creates user variable of the right kind
+
+If the user shouldn't be allowed to view the page:
+    Show the 404 page and exit
+    Can handle permissions if all python webpages import this 
+
+Three different kinds of users:
+    - Someone not logged in 
+    - Normal user
+    - Manager
+Can add role specific methods like
+    Is authorized
+    Nav options
+    ...
+"""
 
 
-class User(object):
-
-    def factory():
-        logged_in, username = loggedIn()
-        if isAdmin(username):
-            return Admin(logged_in)
-        else:
-            return User(logged_in)
-
-    factory = staticmethod(factory)
-
-    def __init__(self, logged_in):
-        self._logged_in = logged_in
-
-    def getType(self):
-        return "normal user"
+def get_user():
+    logged_in, session = loggedIn()
+    if not logged_in:
+        return NotLoggedInUser()
+    if session['role'] == '1':
+        return Manager(session)
+    else:
+        return User(session)
 
 
-if __name__ == '__main__':
-    u = User.factory()
-    print(u.getType())
+def print_404_and_exit():
+    print('Content-Type: text/html')
+    print()
+    message = "<img src ='/TeamSoftwareProject/images/404.gif' id='map'/> "
+    print(message)
+    exit(0)
+
+
+user = get_user()
+
+if not user.is_authorized():
+    print_404_and_exit()
+
+
+class NotLoggedInUser:
+
+    def __init__(self, session=None):
+        self.logged_in = False
+        self.user_id = None
+        self.fname = None
+        self.lname = None
+        self.image = None
+
+    def is_authorized(self):
+        uri = os.environ['REQUEST_URI']
+        return True
+
+
+class User(NotLoggedInUser):
+
+    def __init__(self, session):
+        NotLoggedInUser.__init__(self, session)
+        self.logged_in = True
+        self.user_id = session['user_id']
+        self.fname = session['fname']
+        self.lname = session['lname']
+        self.image = session['image']
+
+
+class Manager(User):
+
+    def __init__(self, session):
+        User.__init__(self, session)
+
