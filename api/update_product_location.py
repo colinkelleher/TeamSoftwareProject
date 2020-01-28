@@ -44,4 +44,4 @@ else:
     elif not lid:
         message["message"] = "Sorry, the location ID is empty"
 
-print("'%s'" % str(message), end="")
+print(str(message), end="")
