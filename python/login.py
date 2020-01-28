@@ -25,10 +25,10 @@ def loggedIn():
     Function to check if user is logged in or not. Should be run on every page
     which requires a user to be logged in to use.
     @return authenticated -> boolean showing if already logged in or not
-            username -> string of this user's username, empty string if unsuccessful
+            user_id -> string of this user's user_id, empty string if unsuccessful
     """
     authenticated = False
-    username = ""
+    user_id = ""
     try:
         cookie = SimpleCookie()
         http_cookie_header = environ.get('HTTP_COOKIE')
@@ -45,28 +45,28 @@ def loggedIn():
 
                 session_store = open('sessions/sess_' + sid, writeback=True)
                 authenticated = session_store.get("authenticated")
-                username = session_store.get("username")
+                user_id = session_store.get("user_id")
 
     except IOError:
-        authenticated,username = False,""
+        authenticated,user_id = False,""
 
-    return authenticated, username
+    return authenticated, user_id
 #end loggedIn
 
-def isAdmin(username):
+def isAdmin(user_id):
     """Function to check if a user has admin rights
 
     Queries the users database to see if the current user has a role with
         admin rights. Should only be used if user is already confirmed to be
         logged in.
-    ### can be changed to not need username arg, but should be already stored from loggedIn() above
+    ### can be changed to not need user_id arg, but should be already stored from loggedIn() above
 
-    @param username -> unique id in DB (currently an id number)
+    @param user_id -> unique id in DB (currently an id number)
     @return True or False - is the user an admin
     """
 
     # assumption that role will be the string "admin" for admin rights
-    result = select_all_with_2_conditions("users","id",username,"role","admin")
+    result = select_all_with_2_conditions("users","id",user_id,"role","admin")
     if len(result) > 0:
         # This user is an admin
         return True
@@ -74,20 +74,20 @@ def isAdmin(username):
     return False
 #end isAdmin
 
-def tryLogIn(username, password):
+def tryLogIn(user_id, password):
     """Function to attempt to log in a user
 
-    Function takes in a username and password and queries them against the
+    Function takes in a user_id and password and queries them against the
         database. If successful, a cookie is created and given to the user
-        as proof of login. Escaped username and password can be taken from a
+        as proof of login. Escaped user_id and password can be taken from a
         form and used here. It is assumed that the user isn't already logged in.
-    @param  username -> unique id in DB (currently an id number)
+    @param  user_id -> unique id in DB (currently an id number)
             password -> Password object
     @return if unsuccessful ->   returns None
             if successful ->    returns the cookie
                                 the cookie must be printed to the webpage header
     """
-    result = select_all_with_2_conditions("users","id",username,"password",str(password))
+    result = select_all_with_2_conditions("users","id",user_id,"password",str(password))
     if len(result) == 0:
         return None
 
@@ -96,7 +96,7 @@ def tryLogIn(username, password):
     cookie['sid'] = sid
     session_store = open('sessions/sess_' + sid, writeback=True)
     session_store['authenticated'] = True
-    session_store['username'] = username
+    session_store['user_id'] = user_id
     session_store.close()
     #print(cookie) ### EDIT THIS - cookie needs to be appropriately printed to http header.
     return cookie
