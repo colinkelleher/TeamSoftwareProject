@@ -19,7 +19,6 @@ def draw_point(path_to_blank_map, x, y, output_path, point_size=20, color=(255, 
     font = ImageFont.truetype("/usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheroscn-regular.otf", 16)
     draw.text((10, 10), location_name, color, font=font)
     del draw
-
     map_image.save(output_path, "PNG")
 
 
