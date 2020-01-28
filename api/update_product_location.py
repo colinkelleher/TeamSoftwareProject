@@ -2,6 +2,7 @@
 from cgi import FieldStorage
 from python.login import *
 from python.update_product_location import update_location
+
 """
             API endpoint for updating product location.
             
@@ -13,7 +14,7 @@ from python.update_product_location import update_location
 """
 print('Content-Type: text/html')
 print()
-message = {"updated" : False, "message": ""}
+message = {"updated": False, "message": ""}
 if not loggedIn():
     message["message"] = "Sorry, you don't seem to be logged in"
 else:
@@ -43,4 +44,4 @@ else:
     elif not lid:
         message["message"] = "Sorry, the location ID is empty"
 
-print(str(message))
+print(str(message), end="")
