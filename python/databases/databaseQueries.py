@@ -1,6 +1,13 @@
 from python.databases.connectToDatabase import connect
+from string import Template
 
 connection, cursor = connect()
+
+
+def execute(statement, *args):
+    if 'sqlite3' in str(cursor.__class__):
+        statement = statement.replace('%s', '?')
+    cursor.execute(statement, args)
 
 
 def select_all(table):
@@ -36,9 +43,10 @@ def select_all_with_conditions(table, column_name, value):
         result -- List of tuples representing each row returned
     """
 
-    sql = "SELECT * FROM %s WHERE %s = %s" % (table, column_name, value)
+    sql = Template("SELECT * FROM ${table} WHERE ${column_name} = %s")
+    sql = sql.substitute(dict(table=table, column_name=column_name))
 
-    cursor.execute(sql)
+    execute(sql, value)
     result = cursor.fetchall()
 
     return result
@@ -56,10 +64,11 @@ def select_all_with_2_conditions(table, column_name1, value1, column_name2, valu
     Returns:
         result -- List of tuples representing each row returned
     """
+    sql = Template("SELECT * FROM ${table} WHERE ${column1} = %s AND ${column2} = %s")
+    sql = sql.substitute(dict(table=table, column1=column_name1, column2=column_name2))
 
-    sql = "SELECT * FROM %s WHERE %s = %s AND %s = %s" % (table, column_name1, value1, column_name2, value2)
+    execute(sql, value1, value2)
 
-    cursor.execute(sql)
     result = cursor.fetchall()
 
     return result
