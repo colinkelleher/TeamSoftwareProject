@@ -1,5 +1,3 @@
-import os
-
 from python.login import *
 
 """
@@ -18,6 +16,37 @@ Can add role specific methods like
     Nav options
     ...
 """
+
+
+class NotLoggedInUser:
+
+    def __init__(self, session=None):
+        self.logged_in = False
+        self.user_id = None
+        self.fname = None
+        self.lname = None
+        self.image = None
+
+    def is_authorized(self):
+        # uri = os.environ['REQUEST_URI']
+        return True
+
+
+class User(NotLoggedInUser):
+
+    def __init__(self, session):
+        NotLoggedInUser.__init__(self, session)
+        self.logged_in = True
+        self.user_id = session['user_id']
+        self.fname = session['fname']
+        self.lname = session['lname']
+        self.image = session['image']
+
+
+class Manager(User):
+
+    def __init__(self, session):
+        User.__init__(self, session)
 
 
 def get_user():
@@ -42,35 +71,4 @@ user = get_user()
 
 if not user.is_authorized():
     print_404_and_exit()
-
-
-class NotLoggedInUser:
-
-    def __init__(self, session=None):
-        self.logged_in = False
-        self.user_id = None
-        self.fname = None
-        self.lname = None
-        self.image = None
-
-    def is_authorized(self):
-        uri = os.environ['REQUEST_URI']
-        return True
-
-
-class User(NotLoggedInUser):
-
-    def __init__(self, session):
-        NotLoggedInUser.__init__(self, session)
-        self.logged_in = True
-        self.user_id = session['user_id']
-        self.fname = session['fname']
-        self.lname = session['lname']
-        self.image = session['image']
-
-
-class Manager(User):
-
-    def __init__(self, session):
-        User.__init__(self, session)
 
