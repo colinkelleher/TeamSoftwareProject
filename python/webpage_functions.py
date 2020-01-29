@@ -57,7 +57,7 @@ def print_html(filename, inputs={}):
     print()
     login_html = path_stuff.get_abs_paths()['py_html'] + '/' + filename
     template = Template(open(login_html, 'r').read())
-    template = template.safe_substitute(path_stuff.get_urls())
+    template = Template(template.safe_substitute(path_stuff.get_urls()))
     print(template.safe_substitute(inputs))
 
 
