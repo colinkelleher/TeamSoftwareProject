@@ -11,6 +11,10 @@
     
 ## Programming Langagues
     Python Programming Language
+    JavaScript
+    Bash
+    CSS
+    HTML
 
 ## Coding Requirements
     All code will be commented to ensure everyone on the team can understand what is happening and ensure maintainability
