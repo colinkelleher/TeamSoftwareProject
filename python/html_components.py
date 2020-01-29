@@ -74,6 +74,7 @@ def print_nav():
             </nav>
         </div>
     """
+    print(nav)
 
 def print_main():
     main = """
@@ -263,3 +264,4 @@ def print_main():
     <footer><center>&copy; SMS | Stock Management Software 2020</center></footer>
 
     """
+    print(main)
