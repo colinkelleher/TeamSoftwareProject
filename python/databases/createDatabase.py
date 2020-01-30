@@ -16,6 +16,8 @@ def _create_user_db():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email VARCHAR(255) UNIQUE,
+            username VARCHAR(255) UNIQUE,
             fname VARCHAR(255),
             lname VARCHAR(255),
             password VARCHAR(255),
