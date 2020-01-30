@@ -38,7 +38,8 @@ def _create_product_db():
             description TEXT,
             location INTEGER,
             comments INTEGER,
-            photo VARCHAR(255)
+            photo VARCHAR(255),
+            expiry_date DATE
         );
     """)
     print("created product table")
