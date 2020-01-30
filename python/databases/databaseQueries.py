@@ -99,6 +99,7 @@ def get_location_info(location_id):
 
     return info
 
+
 def get_product_info(prod_id):
     """
     Function will return the products information
@@ -126,6 +127,26 @@ def get_product_info(prod_id):
 
     return info
 
+
+def get_product_that_expires_on(date):
+    """
+    This function returns all products that are expiring on a given date
+
+    Arguments:
+        date -- A string representing the date of expiry you wish to query against '(YYYY-MM-DD)'
+
+    Returns:
+        products - A list where each item is a tuple of of each row returned by the query
+
+    """
+
+    products = select_all_with_conditions("products", "expiry_date", date)
+
+    return products
+
+
 if __name__ == "__main__":
     print(get_product_info(1))
     print(get_location_info(1))
+
+    print(get_product_that_expires_on("2020-01-30"))
