@@ -45,6 +45,7 @@ def get_abs_paths():
         chdir('../')
 
     dirs = dict()
+    dirs['root'] = getcwd()
     for file in listdir('.'):
         if isdir(file):
             dirs[file.lower()] = abspath(file)
