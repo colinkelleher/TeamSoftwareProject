@@ -100,6 +100,34 @@ def get_location_info(location_id):
     return info
 
 
+def select_all_with_join(table1, table2, on_condition1, on_condition2, where_condition, where_value):
+    """
+    Select all rows of one table joined with another
+
+    Arguments:
+        table1 -- The first table of the join
+        table2 -- The second table of the join
+        on_condition1 -- The condition of the first table to match with the second
+        on_condition2 -- The condition of the second table to match with the first
+        where_condition -- The field of the table to compare
+        where_value -- The value of the where_condition to match
+    Returns:
+        result -- A list of tuples which contain the fields of each row
+
+    """
+
+    sql = Template("SELECT * FROM ${table1} JOIN ${table2} ON ${condition1} = ${condition2} "
+                   "WHERE ${where_condition} = %s")
+    sql = sql.substitute(dict(table1=table1, table2=table2, condition1=on_condition1, condition2=on_condition2,
+                              where_condition=where_condition))
+
+    execute(sql, where_value)
+
+    result = cursor.fetchall()
+
+    return result
+
+
 def get_product_info(prod_id):
     """
     Function will return the products information
@@ -130,7 +158,7 @@ def get_product_info(prod_id):
 
 def get_product_that_expires_on(date):
     """
-    This function returns all products that are expiring on a given date
+    This function returns all products, and the location of it, that are expiring on a given date
 
     Arguments:
         date -- A string representing the date of expiry you wish to query against '(YYYY-MM-DD)'
@@ -140,7 +168,8 @@ def get_product_that_expires_on(date):
 
     """
 
-    products = select_all_with_conditions("products", "expiry_date", date)
+    products = select_all_with_join("products", "locations", "products.location", "locations.id",
+                                    "expiry_date", date)
 
     return products
 
@@ -148,5 +177,7 @@ def get_product_that_expires_on(date):
 if __name__ == "__main__":
     print(get_product_info(1))
     print(get_location_info(1))
+
+    print(select_all_with_join("products", "locations", "products.location", "locations.id", "expiry_date", "2020-01-30"))
 
     print(get_product_that_expires_on("2020-01-30"))
