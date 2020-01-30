@@ -1,4 +1,5 @@
-from python.databases.databaseQueries import select_all, select_all_with_conditions
+from python.databases.databaseQueries import select_all, select_all_with_conditions, get_product_that_expires_on
+from datetime import datetime
 
 
 def create_table_of_locations():
@@ -49,5 +50,28 @@ def create_table_of_products_from_location(location_id, location_name):
     return output
 
 
+def create_table_of_products_that_expire_today():
+    """
+    Creates a html table containing info about products whose expiry is today
+    """
+
+    todays_date = datetime.date(datetime.now())
+
+    products_expiring = get_product_that_expires_on(todays_date)
+
+    output = "<section><table>"
+
+    output += "<tr><th>%s</th><th>%s</th></tr>" % ("Product Name", "Location")
+
+    for product in products_expiring:
+        output += "<tr><td>%s</td><td>%s</td></tr>" % (product[1], product[8])
+
+    output += "</table></section>"
+
+    return output
+
+
 if __name__ == "__main__":
     print(create_table_of_locations())
+    print(create_table_of_products_that_expire_today())
+
