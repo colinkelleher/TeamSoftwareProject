@@ -1,0 +1,44 @@
+<!-- include qr scripts -->
+${qrScanner}
+
+<form action="" id="addProductForm">
+<!--    (title, location, description, comments)-->
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" value="${title}"/>
+    <br>
+
+    <input type="button" id="locationButton" value="Press to set a Location"/>
+    <label for="loc">Location: </label>
+    <input type="text" name="loc" id="loc" value="${loc}" disabled/>
+    <br>
+
+    <label for="description">Description: </label>
+    <input type="text" name="description" id="description" value="${description}"/>
+    <br>
+
+    <!-- Need to send list of comments -->
+    <label for="comments">Comments: </label>
+    <input type="text" name="comments" id="comments" value="${comments}"/>
+    <br>
+
+    <input type="submit">
+</form>
+
+<script>
+    // Scan qr code when button is pressed
+    let locationButton = document.getElementById('locationButton');
+    let loc = document.getElementById('loc');
+    let productForm = document.getElementById('addProductForm');
+
+    locationButton.addEventListener('click', function(){
+        scanQrCode(locationButton, function(code){
+            // Show hex value as easier to read
+            loc.value = decimalToHex(code, 8)
+        })
+    });
+    // Convert back to integer id when submitting form
+    productForm.addEventListener('submit', function(){
+        loc.value = parseInt(loc.value, 16);
+        loc.disabled = false;
+    })
+</script>

@@ -35,11 +35,11 @@ def addProduct(vals):
     # returns 1 if successful, -1 otherwise
     try:
         connection, cursor = connect()
-        sql = "INSERT INTO products (title, location, description, comments) VALUES (?, ?, ?, ?);"
-        cursor.execute(sql, vals[0], vals[1], vals[2], vals[3],)
+        sql = "INSERT INTO products (title, description, location, comments) VALUES (?, ?, ?, ?);"
+        cursor.execute(sql, (vals[0], vals[1], vals[2], vals[3]))
         connection.commit()
         return 1
-    except:
+    except Exception as e:
         return -1
 
 def removeProduct(vals):

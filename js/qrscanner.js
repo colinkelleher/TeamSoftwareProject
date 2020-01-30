@@ -12,6 +12,26 @@ Using https://github.com/cozmo/jsQR library for reading qr codes from image data
 
 */
 
+/**
+ * For formatting qr ids to hex so easier to read
+ */
+function decimalToHex(d, padding) {
+    let hex = Number(d).toString(16).toUpperCase();
+    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+    while (hex.length < padding) {
+        hex = "0" + hex;
+    }
+
+    return hex;
+}
+
+/**
+To start scanning for a qrCode use the scanQrCode(element, callback) function
+  - element is a html element that you want to put the qr scanner under
+  - callback is a function that returns the qr code after it has been read
+  - Example function exampleCallback(code){...}
+ */
 scanQrCode = (function(element, callback){
   var canvas;
   var canvasElement;
@@ -35,6 +55,7 @@ scanQrCode = (function(element, callback){
     qrInput.disabled = false;
     qrInput.focus();
     qrInput.style.background = '#deee';
+    qrConfirm.style.visibility = 'visible'
   }
 
   function tick() {
