@@ -28,7 +28,7 @@ def get_urls():
     paths = get_abs_paths()
 
     for key, path in paths.items():
-        path = path[path.rfind('public_html') + len('public_html'):] + "/"
+        path = path[path.rfind('public_html') + len('public_html'):]
         path = get_username_prefix() + path
         dirs[key] = path
     return dirs
