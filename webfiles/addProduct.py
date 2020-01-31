@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from cgitb import enable
+try: import fix_import
+except: pass
 from python.webpage_functions import print_html, get_form_data, has_form_data
 from python.addRemoveProduct import addProduct
-enable()
 """
 Checks if (title, location, description, comments) form values are there
 If not, resends form with as much data as possible filled in
