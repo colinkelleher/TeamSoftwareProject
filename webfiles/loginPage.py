@@ -9,6 +9,21 @@ from python.login import *
 from python.html_components import *
 from python.webpage_functions import get_form_data, has_form_data
 
+"""
+A login page.
+Self-processing
+Prints main dashboard if successful login or if already logged in
+        (Correct html may need to be added in here)
+Prints login page normally
+Prints error logging in page if wrong details entered
+
+# Either needs to be moved to a different folder to work or paths need to
+            change in different functions - e.g. sessions
+# Currently does NOT have 'Remember me' functionality
+# Tested except for DB querying parts
+"""
+
+#Currently unused
 DASHBOARD_PATH = ""
 LOGIN_PATH = ""
 
