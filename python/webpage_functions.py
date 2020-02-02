@@ -45,6 +45,11 @@ def get_form_data(key):
     return escape(form_data.getfirst(key, "").strip())
 
 
+def get_html_template(filename):
+    path = path_stuff.get_abs_paths()['py_html'] + '/' + filename
+    return Template(open(path, 'r').read())
+
+
 def print_html(filename, inputs={}):
     """
     Prints a html page from files in py_html
@@ -60,8 +65,7 @@ def print_html(filename, inputs={}):
     print('Content-Type: text/html')
     print(cookie)
     print()
-    login_html = path_stuff.get_abs_paths()['py_html'] + '/' + filename
-    template = Template(open(login_html, 'r').read())
+    template = get_html_template(filename)
     # Need to merge default dictionary with inputs dict
     default = {
         'qrScanner':    """

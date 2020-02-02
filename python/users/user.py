@@ -31,6 +31,34 @@ class NotLoggedInUser:
         # uri = os.environ['REQUEST_URI']
         return True
 
+    def get_nav_items(self):
+        return {
+                'Charts': [('chartsjs.html', 'Charts.js')],
+                'Components': [
+                    ('cards.html', 'Cards'),
+                    ('forms.html', 'Forms'),
+                    {'Icons': [
+                        ('icons.html', 'Solid Icons'),
+                        ('icons.html#regular-icons', 'Regular Icons'),
+                        ('icons.html#brand-icons', 'Brand Icons')
+                    ]},
+                    ('stats.html', 'Stats'),
+                    ('tables.html', 'Tables'),
+                    ('typography.html', 'Typography'),
+                    ('userinterface.html', 'User Interface')
+                ],
+                'Layouts': [
+                    ('blank.html', 'Blank'),
+                    ('content.html', 'Content'),
+                    ('login.html', 'Log in'),
+                    ('signup.html', 'Sign up')
+                ],
+                'About': [
+                    ('https://github.com/HackerThemes/spur-template', 'Github'),
+                    ('http://hackerthemes.com', 'HacketThemes')
+                ]
+            }
+
 
 class User(NotLoggedInUser):
 
