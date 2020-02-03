@@ -33,6 +33,10 @@ class NotLoggedInUser:
 
     def get_nav_items(self):
         return {
+                'Home': [
+                    'fas fa-home',
+                    ('${root}/index.py')
+                ],
                 'Charts': [('chartsjs.html', 'Charts.js')],
                 'Components': [
                     ('cards.html', 'Cards'),
@@ -69,6 +73,14 @@ class User(NotLoggedInUser):
         self.fname = session['fname']
         self.lname = session['lname']
         self.image = session['image']
+
+    def get_nav_items(self):
+        return {
+            'Home': [
+                'fas fa-home',
+                '${root}/index.py'
+            ]
+        }
 
 
 class Manager(User):
