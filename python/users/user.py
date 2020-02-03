@@ -29,7 +29,7 @@ class NotLoggedInUser:
 
     def is_authorized(self):
         # uri = os.environ['REQUEST_URI']
-        return True
+        return False
 
     def get_nav_items(self):
         return [
