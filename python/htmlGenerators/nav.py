@@ -5,7 +5,7 @@ start_nav = """
 <nav class="dash-nav-list">
 """
 end_nav = '</nav>'
-bold = Template('<i class="${icon}"></i>')
+bold = Template('<i class="${icon}"></i> ${title} ')
 start_menu = """
         <div class="dash-nav-dropdown-menu">"""
 end_menu = """
@@ -28,7 +28,7 @@ dropdown = Template("""
 
 def get_item(title, item):
     if type(item[0]) == str:
-        title = bold.safe_substitute(icon=item[0])
+        title = bold.safe_substitute(icon=item[0], title=title)
         item.pop(0)
     # item could be empty list, list of (tuples (link, name) or another dictionary)
     if len(item) == 0:
@@ -54,31 +54,34 @@ def get_nav():
     """
     items = user.get_nav_items()
     nav = start_nav
-    for title, item in items.items():
-        nav += get_item(title, item)
+    for item in items:
+        r = item.popitem()
+        nav += get_item(*r)
     nav += end_nav
     return nav
 
 
 if __name__ == '__main__':
     """
-    So dictionary where each key is the title of nav item
+    So list of single item dictionaries where each key is the title of nav item
     Then the item is a list
         - If the first item is a string, it's used as the nav item image class
         - If it's a tuple (href, name), it's the expanded nav item link and name
         - If it's another dictionary, everythings recursive
         - Need to do - if tuple of length one, it's not dropdown nav item, just single button
     """
-    items = {
-        'Home': [
+    o = [
+        {'Home': [
             'fas fa-home',
             '${root}/index.py'
-        ],
-        'Charts': [
+        ]
+        },
+        {'Charts': [
             'fas fa-home',
             ('chartsjs.html', 'Charts.js')
-        ],
-        'Components': [
+        ]
+        },
+        {'Components': [
             'fas fa-home',
             ('cards.html', 'Cards'),
             ('forms.html', 'Forms'),
@@ -91,18 +94,21 @@ if __name__ == '__main__':
             ('tables.html', 'Tables'),
             ('typography.html', 'Typography'),
             ('userinterface.html', 'User Interface')
-        ],
-        'Layouts': [
+        ]
+        },
+        {'Layouts': [
             'fas fa-home',
             ('blank.html', 'Blank'),
             ('content.html', 'Content'),
             ('login.html', 'Log in'),
             ('signup.html', 'Sign up')
-        ],
-        'About': [
+        ]
+        },
+        {'About': [
             'fas fa-home',
             ('https://github.com/HackerThemes/spur-template', 'Github'),
             ('http://hackerthemes.com', 'HacketThemes')
         ]
-    }
+        }
+    ]
     print(get_nav())

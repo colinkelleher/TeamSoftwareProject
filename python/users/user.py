@@ -32,36 +32,14 @@ class NotLoggedInUser:
         return True
 
     def get_nav_items(self):
-        return {
+        return [
+            {
                 'Home': [
                     'fas fa-home',
-                    ('${root}/index.py')
-                ],
-                'Charts': [('chartsjs.html', 'Charts.js')],
-                'Components': [
-                    ('cards.html', 'Cards'),
-                    ('forms.html', 'Forms'),
-                    {'Icons': [
-                        ('icons.html', 'Solid Icons'),
-                        ('icons.html#regular-icons', 'Regular Icons'),
-                        ('icons.html#brand-icons', 'Brand Icons')
-                    ]},
-                    ('stats.html', 'Stats'),
-                    ('tables.html', 'Tables'),
-                    ('typography.html', 'Typography'),
-                    ('userinterface.html', 'User Interface')
-                ],
-                'Layouts': [
-                    ('blank.html', 'Blank'),
-                    ('content.html', 'Content'),
-                    ('login.html', 'Log in'),
-                    ('signup.html', 'Sign up')
-                ],
-                'About': [
-                    ('https://github.com/HackerThemes/spur-template', 'Github'),
-                    ('http://hackerthemes.com', 'HacketThemes')
+                    '${root}/index.py'
                 ]
             }
+        ]
 
 
 class User(NotLoggedInUser):
@@ -75,12 +53,14 @@ class User(NotLoggedInUser):
         self.image = session['image']
 
     def get_nav_items(self):
-        return {
-            'Home': [
-                'fas fa-home',
-                '${root}/index.py'
-            ]
-        }
+        return [
+            {
+                'Home': [
+                    'fas fa-home',
+                    '${root}/index.py'
+                ]
+            }
+        ]
 
 
 class Manager(User):
