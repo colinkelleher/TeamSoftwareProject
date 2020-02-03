@@ -80,3 +80,8 @@ def print_html(filename, inputs={}):
     print(template.safe_substitute(path_stuff.get_urls()))
 
 
+if not user.is_authorized():
+    print_html('404.html')
+    exit(0)
+
+

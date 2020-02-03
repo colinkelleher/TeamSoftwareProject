@@ -32,32 +32,14 @@ class NotLoggedInUser:
         return True
 
     def get_nav_items(self):
-        return {
-                'Charts': [('chartsjs.html', 'Charts.js')],
-                'Components': [
-                    ('cards.html', 'Cards'),
-                    ('forms.html', 'Forms'),
-                    {'Icons': [
-                        ('icons.html', 'Solid Icons'),
-                        ('icons.html#regular-icons', 'Regular Icons'),
-                        ('icons.html#brand-icons', 'Brand Icons')
-                    ]},
-                    ('stats.html', 'Stats'),
-                    ('tables.html', 'Tables'),
-                    ('typography.html', 'Typography'),
-                    ('userinterface.html', 'User Interface')
-                ],
-                'Layouts': [
-                    ('blank.html', 'Blank'),
-                    ('content.html', 'Content'),
-                    ('login.html', 'Log in'),
-                    ('signup.html', 'Sign up')
-                ],
-                'About': [
-                    ('https://github.com/HackerThemes/spur-template', 'Github'),
-                    ('http://hackerthemes.com', 'HacketThemes')
+        return [
+            {
+                'Home': [
+                    'fas fa-home',
+                    '${root}/index.py'
                 ]
             }
+        ]
 
 
 class User(NotLoggedInUser):
@@ -69,6 +51,16 @@ class User(NotLoggedInUser):
         self.fname = session['fname']
         self.lname = session['lname']
         self.image = session['image']
+
+    def get_nav_items(self):
+        return [
+            {
+                'Home': [
+                    'fas fa-home',
+                    '${root}/index.py'
+                ]
+            }
+        ]
 
 
 class Manager(User):
@@ -87,16 +79,6 @@ def get_user():
         return User(session)
 
 
-def print_404_and_exit():
-    print('Content-Type: text/html')
-    print()
-    message = "<img src ='/TeamSoftwareProject/images/404.gif' id='map'/> "
-    print(message)
-    exit(0)
-
-
 user = get_user()
 
-if not user.is_authorized():
-    print_404_and_exit()
 
