@@ -29,7 +29,7 @@ class NotLoggedInUser:
 
     def is_authorized(self):
         # uri = os.environ['REQUEST_URI']
-        return False
+        return True
 
     def get_nav_items(self):
         return [
@@ -79,16 +79,6 @@ def get_user():
         return User(session)
 
 
-def print_404_and_exit():
-    print('Content-Type: text/html')
-    print()
-    message = "<img src ='/TeamSoftwareProject/images/404.gif' id='map'/> "
-    print(message)
-    exit(0)
-
-
 user = get_user()
 
-if not user.is_authorized():
-    print_404_and_exit()
 
