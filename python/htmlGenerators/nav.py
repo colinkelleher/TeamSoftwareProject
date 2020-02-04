@@ -48,6 +48,24 @@ def get_item(title, item):
     return dropdown.safe_substitute(title=title, content=content)
 
 
+def get_items(item, depth=0):
+    title = item[0]
+    links = item[1]
+    if len(item) == 3:
+        title = bold.safe_substitute(icon=item[1], title=title)
+        links = item[2]
+    if type(links) == str:
+        if depth == 0:
+            return single_item.safe_substitute(link=links, name=title)
+        else:
+            return link.safe_substitute(link=links, name=title)
+    content = start_menu
+    for i in links:
+        content += get_items(i, depth+1)
+    content += end_menu
+    return dropdown.safe_substitute(title=title, content=content)
+
+
 def get_nav():
     """
     Items is list of dictionaries fpr however many items you want in dropdown nav
@@ -55,60 +73,41 @@ def get_nav():
     items = user.get_nav_items()
     nav = start_nav
     for item in items:
-        r = item.popitem()
-        nav += get_item(*r)
+        nav += get_items(item)
     nav += end_nav
     return nav
 
 
 if __name__ == '__main__':
-    """
-    So list of single item dictionaries where each key is the title of nav item
-    Then the item is a list
-        - If the first item is a string, it's used as the nav item image class
-        - If it's a tuple (href, name), it's the expanded nav item link and name
-        - If it's another dictionary, everythings recursive
-        - Need to do - if tuple of length one, it's not dropdown nav item, just single button
-    """
-    o = [
-        {'Home': [
-            'fas fa-home',
-            '${root}/index.py'
-        ]
-        },
-        {'Charts': [
-            'fas fa-home',
-            ('chartsjs.html', 'Charts.js')
-        ]
-        },
-        {'Components': [
-            'fas fa-home',
-            ('cards.html', 'Cards'),
-            ('forms.html', 'Forms'),
-            {'Icons': [
-                ('icons.html', 'Solid Icons'),
-                ('icons.html#regular-icons', 'Regular Icons'),
-                ('icons.html#brand-icons', 'Brand Icons')
-            ]},
-            ('stats.html', 'Stats'),
-            ('tables.html', 'Tables'),
-            ('typography.html', 'Typography'),
-            ('userinterface.html', 'User Interface')
-        ]
-        },
-        {'Layouts': [
-            'fas fa-home',
-            ('blank.html', 'Blank'),
-            ('content.html', 'Content'),
+    # Every item is a tuple (title, icon, link/list of links
+    # If length is 2, don't set an icon
+    simpler = [
+        ('Home', 'fas fa-home', '${root}/index.py'),
+        ('Charts', 'fas fa-home', [
+            ('Charts.js', 'chartsjs.html')
+        ]),
+        ('Components', 'fas fa-home', [
+            ('Cards', 'cards.html'),
+            ('Forms', 'forms.html'),
+            ('Icons', [
+                ('Solid Icons', 'icons.html'),
+                ('Regular Icons', 'icons.html#regular-icons'),
+                ('Brand Icons', 'icons.html#brand-icons')
+            ]),
+            ('Stats', 'stats.html'),
+            ('Tables', 'tables.html'),
+            ('Typography', 'typography.html'),
+            ('User Interface', 'userinterface.html')
+        ]),
+        ('Layouts', 'fas fa-home', [
+            ('Blank', 'blank.html'),
+            ('Content', 'content.html'),
             ('login.html', 'Log in'),
-            ('signup.html', 'Sign up')
-        ]
-        },
-        {'About': [
-            'fas fa-home',
-            ('https://github.com/HackerThemes/spur-template', 'Github'),
-            ('http://hackerthemes.com', 'HacketThemes')
-        ]
-        }
+            ('Sign up', 'signup.html')
+        ]),
+        ('About', 'fas fa-home', [
+            ('Github', 'https://github.com/HackerThemes/spur-template'),
+            ('HackerThemes', 'http://hackerthemes.com')
+        ])
     ]
     print(get_nav())
