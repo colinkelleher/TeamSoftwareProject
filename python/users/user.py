@@ -32,14 +32,7 @@ class NotLoggedInUser:
         return True
 
     def get_nav_items(self):
-        return [
-            {
-                'Home': [
-                    'fas fa-home',
-                    '${root}/index.py'
-                ]
-            }
-        ]
+        return [('Home', 'fas fa-home', '${root}/index.py')]
 
 
 class User(NotLoggedInUser):
