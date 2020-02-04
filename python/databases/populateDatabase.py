@@ -1,6 +1,7 @@
 from python.databases.connectToDatabase import connect
 from python.password import Password
 connection, cursor = connect()
+from random import randint
 
 
 def populate_users_table():
@@ -29,15 +30,16 @@ def populate_products_table():
     try:
         sql = "INSERT INTO products (title, description, location, comments) VALUES (?, ?, ?, ?)"
 
-        val = [
-            ("Cod", "Some smelly Cod", 1, 1),
-            ("Salmon", "Tasty Salmon", 10, 2),
-            ("Strawberries", "Eww", 20, 3),
-            ("Pineapples", "Pen Pineapple Apple Pen", 22, 4)
-        ]
+        for i in range(100):
+            val = [
+                ("Cod", "Some smelly Cod", randint(1, 9), 1),
+                ("Salmon", "Tasty Salmon", randint(1, 9), 2),
+                ("Strawberries", "Eww", randint(1, 9), 3),
+                ("Pineapples", "Pen Pineapple Apple Pen", randint(1,10), 4)
+            ]
 
-        cursor.executemany(sql, val)
-        connection.commit()
+            cursor.executemany(sql, val)
+            connection.commit()
 
         print("Populated products table")
 
