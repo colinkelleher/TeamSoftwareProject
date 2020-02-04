@@ -1,4 +1,3 @@
-from python.webpage_functions import get_html_template, user
 from string import Template
 
 start_nav = """
@@ -26,28 +25,6 @@ dropdown = Template("""
     </div>""")
 
 
-def get_item(title, item):
-    if type(item[0]) == str:
-        title = bold.safe_substitute(icon=item[0], title=title)
-        item.pop(0)
-    # item could be empty list, list of (tuples (link, name) or another dictionary)
-    if len(item) == 0:
-        return dropdown.safe_substitute(title=title, content="")
-    content = ""
-    for i in item:
-        if type(i) == str:
-            return single_item.safe_substitute(link = i, name = title)
-        content += start_menu
-        if type(i) == tuple or type(i) == list:
-            href, name = i
-            content += link.substitute(link=href, name=name)
-        else:
-            for t, j in i.items():
-                content += get_item(t, j)
-        content += end_menu
-    return dropdown.safe_substitute(title=title, content=content)
-
-
 def get_items(item, depth=0):
     title = item[0]
     links = item[1]
@@ -66,11 +43,10 @@ def get_items(item, depth=0):
     return dropdown.safe_substitute(title=title, content=content)
 
 
-def get_nav():
+def get_nav(items):
     """
     Items is list of dictionaries fpr however many items you want in dropdown nav
     """
-    items = user.get_nav_items()
     nav = start_nav
     for item in items:
         nav += get_items(item)

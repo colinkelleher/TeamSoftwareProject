@@ -8,6 +8,7 @@ from pprint import pprint
 
 from python.users.user import user
 from python import path_stuff
+from python.htmlGenerators.nav import get_nav
 
 
 """
@@ -71,7 +72,8 @@ def print_html(filename, inputs={}):
         'qrScanner':    """
                             <script src="${js}/qrscanner.js"></script>
                             <script src="${js}/libs/jsQR.js"></script>
-                        """
+                        """,
+        'nav': get_nav(user.get_nav_items())
     }
     # First run inputs and default through templating
     # Then substitute absolute paths into that template
