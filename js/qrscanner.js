@@ -42,6 +42,7 @@ scanQrCode = (function(element, callback){
   var qrButtonDiv;
   var qrConfirmed = false;
   var qrCallback = null;
+  var scrolledOnce = false;
 
   function confirmQr(){
     qrConfirmed = true;
@@ -70,7 +71,10 @@ scanQrCode = (function(element, callback){
       qrInput.style.width = canvasElement.width + 'px';
       qrButtonDiv.style.width = canvasElement.width + 'px';
       qrContainer.style.height = canvasElement.height + 'px';
-      qrButtonDiv.scrollIntoView();
+      if (!scrolledOnce) {
+        qrButtonDiv.scrollIntoView();
+        scrolledOnce = true;
+      }
       canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
       var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
       var code = jsQR(imageData.data, imageData.width, imageData.height, {
