@@ -1,7 +1,9 @@
 import csv
 import os
 
+# Location to csv outputs
 csv_output_location = "output/"
+# Location of product csv file
 product_history_output_path = csv_output_location + "product_history.csv"
 
 
