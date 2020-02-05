@@ -15,7 +15,7 @@ try:
                         <span><b>ID</b></span>
                         <span><b>Title</b></span>
                         <span><b>Description</b></span>
-                        </section>"""
+                        </section> """
     for i in items:
         item = """<span>%d</span>
                   <span>%s</span>
@@ -39,9 +39,20 @@ html = """
                     <th>ID</th><th>Title</th><th>Description</th><th>Comment</th>
                 </tr>
                 <tr>
-                    <td>1</td><td>Cod</td><td>Some smelly cod</td><td>Comment here. long comment 12345</td>
+                    <td id="id">1</td><td id="title"></td><td id="description"></td>
+                    <td>Comments coming soon</td>
                 </tr>
             </table>
+            <h3 id="linfo">Location Information</h3>
+            <table>
+                <tr>
+                    <th>ID</th><th>Title</th><th>Description</th>
+                </tr>
+                <tr>
+                    <td id="lid"></td><td id="ltitle"></td><td id="ldescription"></td>
+                </tr>
+            </table>
+            <!--
             <section id="admin">
                 <h3>Admin</h3>
                 <div>
@@ -54,7 +65,7 @@ html = """
                     <button onClick="delete_prod()">Delete</button>
                     <p id="delete_message">
                 </div>
-            </section>
+            </section> -->
         </section>  
         <section id="right">
             %s
@@ -103,10 +114,14 @@ style = """
         grid-template-columns: 1fr 1fr 1fr;
     }
     #info{
+        text-align: center;
         grid-column:2;
         display:inline;
     }
-
+    table{
+        width:100%;
+        text-align: center;
+    }
     tr{
         padding:2em;
     }
@@ -119,6 +134,14 @@ style = """
         bottom: 10%;
     }
     
+    #linfo{
+        margin-top: 40%;
+    }
+    
+    h3{
+        text-align:center;
+    }
+    
 </style>
 """
 
@@ -126,6 +149,25 @@ javascript = """
 <script>
     function getInfo(id){
         console.log(id);
+        
+        var xhttp1 = new XMLHttpRequest();
+        xhttp1.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var json = JSON.parse(this.responseText);
+                console.log(json.location_info)
+                document.getElementById("id").innerHTML = json.id;
+                document.getElementById("title").innerHTML = json.title;
+                document.getElementById("description").innerHTML = json.description;
+                document.getElementById("lid").innerHTML = json.location_info.id;
+                document.getElementById("ltitle").innerHTML = json.location_info.title;
+                document.getElementById("ldescription").innerHTML = json.location_info.description;
+
+            }
+        };
+        xhttp1.open("GET", "/TeamSoftwareProject/api/get_product_info.py?pid="+id, true);
+        xhttp1.send();
+        
+        
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -136,6 +178,8 @@ javascript = """
         };
         xhttp.open("GET", "/TeamSoftwareProject/api/get_product_map.py?pid="+id, true);
         xhttp.send();
+        
+        
     }
     
     function generate(){ 
@@ -145,7 +189,7 @@ javascript = """
     
     function delete_prod(){ 
         if (confirm('Are you sure you want to save this thing into the database?')) {
-            var message = document.getElementById("delete_message").innerHTML = "This has been deleted" 
+            var message = document.getElementById("delete_message").innerHTML = "This has been deleted. Refresh to stop seeing it" 
         }else {
             return;
         }
