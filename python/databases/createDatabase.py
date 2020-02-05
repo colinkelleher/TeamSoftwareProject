@@ -39,7 +39,8 @@ def _create_product_db():
             location INTEGER,
             comments INTEGER,
             photo VARCHAR(255),
-            expiry_date DATE
+            expiry_date DATE,
+            volume INTEGER
         );
     """)
     print("created product table")
@@ -55,7 +56,8 @@ def _create_location_db():
             description TEXT,
             comments INTEGER,
             map VARCHAR(255),
-            location_type integer
+            location_type INTEGER,
+            capacity INTEGER
         );
     """)
     print("created location table")
