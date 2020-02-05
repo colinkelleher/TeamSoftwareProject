@@ -28,4 +28,11 @@ def add_product_to_history(product_id, product_title, location_id):
 
 if __name__ == "__main__":
 
-    add_product_to_history(1, "Ham", 1)
+    for i in range(1, 11, 1):
+        add_product_to_history(i, "ham", 1)
+
+    for i in range(11, 26, 1):
+        add_product_to_history(i, "fish", 2)
+
+    for i in range(26, 37, 1):
+        add_product_to_history(i, "ham", 3)
