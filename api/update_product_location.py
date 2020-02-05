@@ -27,7 +27,7 @@ else:
     lid = form_data.getfirst("lid")
     if pid and lid:
         result = update_location(pid, lid)
-        if result:
+        if result == 1:
             message["message"] = "That was updated"
             message["updated"] = True
         elif result == 0:
