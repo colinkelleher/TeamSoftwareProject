@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from python.webpage_functions import user, print_html, get_form_data, has_form_data
+from python.webpage_functions import user, print_html, get_form_data, has_form_data, cookie
 from python.htmlGenerators import viewProducts, nav
 
 
@@ -13,9 +13,7 @@ if not user.logged_in:
             logInCookie = tryLogIn(login_id, password)
             if logInCookie:
                 # successful
-                #########################################
-                ##### logInCookie needs to be printed to header of dashboard?
-                #########################################
+                cookie = logInCookie
                 # print the main dashboard
                 print_html('main.html', dict(main=viewProducts.create_table_of_locations()))
             else:
