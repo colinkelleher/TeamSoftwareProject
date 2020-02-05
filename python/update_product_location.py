@@ -27,7 +27,10 @@ def update_location(product_id, location_id):
         connection.commit()
         return 1
 
-    except:
+    except Exception as e:
+        print('Content-Type: text/html')
+        print()
+        print(str(e))
         return -2
 if __name__ == "__main__":
     update_location("1", "1")
