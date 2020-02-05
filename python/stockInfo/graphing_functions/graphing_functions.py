@@ -30,12 +30,21 @@ def _draw_bar_chart(title, x_label, y_label, x_items, item_counts, png_name):
     plt.savefig(path_to_created_graphs + "/" + png_name + ".png", bbox_inches="tight")
 
 
-def create_graph_of_product_history():
+def _get_number_of_occurrences_in_csv_file_by_index(path_to_csv_file, col_index):
     """
-    This function creates a graph of total products stored, and saves it as a png
+    This function counts the number of times a field appears in a csv file, and returns a dictionary of
+    these counts
+
+    Arguments:
+        path_to_csv_file -- String - The path to the csv file you wish to parse
+        col_index -- Int - The column index of the data you wish to compare (Starts at 0)
+
+    Returns:
+        items -- Dictionary - A dictionary where the key is the occurring item, and its value is the number of times
+                              that it occurs
     """
 
-    with open(product_history_csv_path) as csv_file:
+    with open(path_to_csv_file) as csv_file:
         csv_reader = csv.reader(csv_file)
 
         items = {}
@@ -44,10 +53,20 @@ def create_graph_of_product_history():
             if index == 0:
                 pass
             else:
-                if row[1] in items.keys():
-                    items[row[1]] += 1
+                if row[col_index] in items.keys():
+                    items[row[col_index]] += 1
                 else:
-                    items[row[1]] = 1
+                    items[row[col_index]] = 1
+
+        return items
+
+
+def create_graph_of_product_history():
+    """
+    This function creates a graph of total products stored, and saves it as a png
+    """
+
+    items = _get_number_of_occurrences_in_csv_file_by_index(product_history_csv_path, 1)
 
     item_names = []
     item_count = []
