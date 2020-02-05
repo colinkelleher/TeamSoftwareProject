@@ -64,14 +64,14 @@ scanQrCode = (function(element, callback){
       return
     }
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-      canvasElement.hidden = false;
-
-      canvasElement.height = video.videoHeight;
-      canvasElement.width = video.videoWidth;
-      qrInput.style.width = canvasElement.width + 'px';
-      qrButtonDiv.style.width = canvasElement.width + 'px';
-      qrContainer.style.height = canvasElement.height + 'px';
       if (!scrolledOnce) {
+        canvasElement.hidden = false;
+        canvasElement.height = video.videoHeight;
+        canvasElement.width = video.videoWidth;
+        qrInput.style.top = (canvasElement.height - qrInput.style.height.slice(0, -2)) + "px";
+        qrInput.style.width = canvasElement.width + 'px';
+        qrButtonDiv.style.width = canvasElement.width + 'px';
+        qrContainer.style.height = canvasElement.height + 'px';
         qrButtonDiv.scrollIntoView();
         scrolledOnce = true;
       }
@@ -93,7 +93,7 @@ scanQrCode = (function(element, callback){
     var textStuff = '<div>'
       +'<div id="qrcontainer" style="position:relative;width:100%;height:400px">'
         +'<canvas width="100%" height="400px" id="qrcanvas" style="display:block;"></canvas>'
-        +'<textarea disabled id="qrinput" style="position:absolute;left:10px;top:150px;width:80%;height:200px;font-size:50pt;font-weight:bold;border:none;color:black;"></textarea>'
+        +'<textarea disabled id="qrinput" style="position:absolute;top:200px;width:80%;height:200px;font-size:50pt;font-weight:bold;border:none;color:black;"></textarea>'
       +'</div>'
       +'<div id="qrButtonDiv">'
         +'<input id="qrconfirm" value="Confirm Code" type="button" style="visibility:hidden;">'
