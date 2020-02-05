@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import csv
+from python.databases.databaseQueries import select_fullness_of_locations
 
 product_history_csv_path = "../output/product_history.csv"
 path_to_created_graphs = "../output/created_graphs"
@@ -98,5 +99,35 @@ def create_graph_of_times_all_locations_have_been_used():
                     "location_history")
 
 
+def create_graph_of_how_full_locations_are():
+    """
+    This function creates a graph showing how much space has been used in each location
+    """
+
+    rows = select_fullness_of_locations()
+
+    full_size = []
+    empty_size = []
+    location_names = []
+
+    index = [i for i in range(0, len(rows), 1)]
+
+    for row in rows:
+        used = row[3]
+        capacity = row[2]
+
+        full_size.append(float((used/capacity) * 100))
+        empty_size.append(float(100 - ((used/capacity) * 100)))
+
+        location_names.append(row[1])
+
+    used = plt.bar(index, full_size, color="b")
+    available = plt.bar(index, empty_size, color="r", bottom=full_size)
+    plt.xticks(index, location_names)
+    plt.legend((used[0], available[0]), ("Space used", "Space available"))
+
+    plt.savefig(path_to_created_graphs + "/location_space_used.png", bbox_inches="tight")
+
+
 if __name__ == "__main__":
-    create_graph_of_times_all_locations_have_been_used()
+    create_graph_of_how_full_locations_are()
