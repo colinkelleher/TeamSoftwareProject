@@ -174,6 +174,28 @@ def get_product_that_expires_on(date):
     return products
 
 
+def select_fullness_of_locations():
+    """
+    This function joins the product and location tables, groups them by location id,
+    and gets the info about the table id, its title, its total capacity and how full it
+    currently is
+
+    Returns:
+        result -- A list of tuples, where each tuple
+                  is a row in the returned table, (id, name, capacity, how full it is)
+    """
+
+    sql = "SELECT l.id, l.title, l.capacity, SUM(p.volume) " \
+          "FROM locations AS l JOIN products AS p " \
+          "ON l.id = p.location GROUP BY l.id"
+
+    execute(sql)
+
+    result = cursor.fetchall()
+
+    return result
+
+
 if __name__ == "__main__":
     print(get_product_info(1))
     print(get_location_info(1))
@@ -181,3 +203,5 @@ if __name__ == "__main__":
     print(select_all_with_join("products", "locations", "products.location", "locations.id", "expiry_date", "2020-01-30"))
 
     print(get_product_that_expires_on("2020-01-30"))
+
+    print(select_fullness_of_locations())
