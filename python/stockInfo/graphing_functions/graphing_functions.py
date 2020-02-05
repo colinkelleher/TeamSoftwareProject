@@ -125,6 +125,8 @@ def create_graph_of_how_full_locations_are():
     available = plt.bar(index, empty_size, color="r", bottom=full_size)
     plt.xticks(index, location_names)
     plt.legend((used[0], available[0]), ("Space used", "Space available"))
+    plt.xlabel("Locations")
+    plt.ylabel("Percent of Capacity")
 
     plt.savefig(path_to_created_graphs + "/location_space_used.png", bbox_inches="tight")
 
