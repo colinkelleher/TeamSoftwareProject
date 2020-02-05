@@ -1,6 +1,9 @@
 import csv
 import os
 
+csv_output_location = "output/"
+product_history_output_path = csv_output_location + "product_history.csv"
+
 
 def add_product_to_history(product_id, product_title, location_id, location_name):
     """
@@ -17,12 +20,12 @@ def add_product_to_history(product_id, product_title, location_id, location_name
 
     fields = ["id", "title", "location_id", "location_name"]
 
-    if not os.path.exists("output/product_history.csv"):
-        with open("output/product_history.csv", "w+", newline="") as file:
+    if not os.path.exists(product_history_output_path):
+        with open(product_history_output_path, "w+", newline="") as file:
             writer = csv.DictWriter(file, fields)
             writer.writeheader()
 
-    with open("output/product_history.csv", "a", newline="") as file:
+    with open(product_history_output_path, "a", newline="") as file:
         writer = csv.DictWriter(file, fields)
         writer.writerow({"id": product_id, "title": product_title, "location_id": location_id,
                          "location_name": location_name})
