@@ -80,5 +80,23 @@ def create_graph_of_product_history():
                     "product_history")
 
 
+def create_graph_of_times_all_locations_have_been_used():
+    """
+    This function creates a bar chart that shows the number of times a location has been used
+    """
+
+    locations = _get_number_of_occurrences_in_csv_file_by_index(product_history_csv_path, 3)
+
+    location_names = []
+    location_count = []
+
+    for location in locations.keys():
+        location_names.append(location)
+        location_count.append(locations[location])
+
+    _draw_bar_chart("Times Locations Have Been Used", "Location", "Times Used", location_names, location_count,
+                    "location_history")
+
+
 if __name__ == "__main__":
-    create_graph_of_product_history()
+    create_graph_of_times_all_locations_have_been_used()
