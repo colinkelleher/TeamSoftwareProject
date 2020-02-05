@@ -11,29 +11,43 @@
     var scanProduct = document.getElementById('scanProduct');
     var locationInfo = document.getElementById('locationName');
     var productMessage = document.getElementById('scanProductMessage');
-    // Just to simulate qr code sometimes not working
-    var error = false;
+
+    var lid = 0;
 
     function setMessage(success, message){
         productMessage.style.color = success ? 'green' : 'red';
         productMessage.innerHTML = message;
     }
 
+    function makeAjax(url, onResult){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4){
+                onResult(xhr.responseText);
+            }
+        };
+        xhr.open('GET', url);
+        xhr.send();
+    }
+
     scanLocation.addEventListener('click', function(){
         scanQrCode(scanLocation, function(id){
             locationInfo.innerText = 'Current Location: ' + id;
-            productDiv.style.visibility = 'visible';
+            lid = id;
+            makeAjax('${api}/get_location_name.py?lid=' + id, function(nameJSON){
+                const result = JSON.parse(nameJSON);
+                locationInfo.innerText = 'Current Location: ' + result['name'];
+                productDiv.style.visibility = 'visible';
+            });
         });
     });
     scanProduct.addEventListener('click', function(){
         productMessage.innerHTML = '';
         scanQrCode(scanProduct, function(id){
-            console.log('Scanned product with id ' + id);
-            if ((error = !error)){
-                setMessage(false, 'Message when doesnt work. Press again for it to work');
-            } else {
-                setMessage(true, 'Message when it works. Pressing again makes message disappear as next product being scanned');
-            }
+            makeAjax('${api}/update_product_location.py?lid=' + lid + '&pid=' + id, function(nameJSON){
+                const result = JSON.parse(nameJSON);
+                setMessage(result['updated'], result['message']);
+            });
         });
     });
 </script>
