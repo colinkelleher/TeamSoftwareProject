@@ -14,12 +14,12 @@ try:
     items_html = """<section id='header'>
                         <span><b>ID</b></span>
                         <span><b>Title</b></span>
-                        <span><b>Description</b></span>
+                        <!-- <span><b>Dessscription</b></span> -->
                         </section> """
     for i in items:
         item = """<span>%d</span>
                   <span>%s</span>
-                  <span>%s</span>""" % (i[0], i[1], i[2])
+                  <!-- <span>%s</span> -->""" % (i[0], i[1], i[2])
         items_html += """<section class='item' onclick="getInfo(id=%s);">
                             %s
                          </section>""" % (i[0], str(item))
@@ -39,17 +39,17 @@ html = """
                     <th>ID</th><th>Title</th><th>Description</th><th>Comment</th>
                 </tr>
                 <tr>
-                    <td id="id">1</td><td id="title"></td><td id="description"></td>
+                    <td id="id"></td><td id="title"></td><td id="description"></td>
                     <td>Comments coming soon</td>
                 </tr>
             </table>
             <h3 id="linfo">Location Information</h3>
             <table>
                 <tr>
-                    <th>ID</th><th>Title</th><th>Description</th>
+                    <th>ID</th><th>Title</th><th colspan="2">Description</th><th></th>
                 </tr>
                 <tr>
-                    <td id="lid"></td><td id="ltitle"></td><td id="ldescription"></td>
+                    <td id="lid"></td><td id="ltitle"></td><td id="ldescription" colspan="2"></td>
                 </tr>
             </table>
             <!--
@@ -86,7 +86,7 @@ style = """
         width:100%;
         padding-left:230px;
         display: grid;
-        grid-template-columns: 1fr 1fr 0.75fr;
+        grid-template-columns: 1fr 2fr 0.5fr;
     }
     #right{
         float:right;
