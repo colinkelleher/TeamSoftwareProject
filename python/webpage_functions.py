@@ -22,6 +22,8 @@ Handles web page specific things like
 """
 enable()
 
+form_data = FieldStorage()
+
 cookie_header = environ.get('HTTP_COOKIE')
 cookie = SimpleCookie()
 if cookie_header:
@@ -29,7 +31,7 @@ if cookie_header:
 
 
 def has_form_data():
-    return len(FieldStorage()) != 0
+    return len(form_data) != 0
 
 
 def get_form_data(key):
@@ -40,9 +42,6 @@ def get_form_data(key):
     @type key: String
     @return: Form data
     """
-    form_data = FieldStorage()
-    if len(form_data) == 0:
-        return None
     return escape(form_data.getfirst(key, "").strip())
 
 
