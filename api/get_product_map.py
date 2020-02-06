@@ -11,7 +11,7 @@ API returns an image tag containing the map
 """
 print('Content-Type: text/html')
 print()
-message = "<img src ='/TeamSoftwareProject/images/404.gif' id='map'/> "
+message = "/TeamSoftwareProject/images/404.gif"
 if not loggedIn():
     pass
 else:
@@ -25,6 +25,6 @@ else:
             map_image = result["location_info"]["map"]
             map_image = map_image.split(".")[0]
             map_image += "-min.png"
-            message = "<img src = '%s'/> " % map_image
+            message = map_image
 
 print(str(message))
