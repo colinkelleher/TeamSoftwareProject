@@ -30,7 +30,9 @@ def print_nav(root_path="/TeamSoftwareProject/"):
                 </a>
                 
                 <a href="#" class="dash-nav-item">
-                    <img src ="%simages/icons/view_prod.png" style="display:inline; max-height:25px;" alt="Map Icon:"/>
+                                <div class="icon">
+                                    <i class="fas fa-search-location"></i>
+                                </div>
                     View Product 
                 </a>
                 
