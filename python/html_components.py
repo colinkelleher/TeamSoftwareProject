@@ -25,20 +25,26 @@ def print_nav(root_path="/TeamSoftwareProject/"):
             </header>
             <nav class="dash-nav-list">
                 <a href="index.html" class="dash-nav-item">
-                    <i class=""></i>
+                    <i class="fas fa-home"></i>
                     Dashboard 
                 </a>
-                
                 <a href="#" class="dash-nav-item">
-                                <div class="icon">
-                                    <i class="fas fa-search-location"></i>
-                                </div>
+                    <i class="fas fa-map-marker-alt"></i>
                     View Product 
                 </a>
+                <a href="#" class="dash-nav-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    Analytics
+                </a>
+                <a href="https://cs1.ucc.ie/~kpp1/cgi-bin/project2/webfiles/updateLocation.py" class="dash-nav-item">
+                    <i class="fas fa-qrcode"></i>
+                    QR Scanner 
+                </a>
+                
                 
             </nav>
         </div>
-    """ % root_path
+    """
     print(nav)
 
 
@@ -104,7 +110,7 @@ def print_main(root_path="/TeamSoftwareProject/"):
                                         <i class="fas fa-cart-arrow-down"></i>
                                     </div>
                                     <div class="stats-data">
-                                        <div class="stats-number">$25,541</div>
+                                        <div class="stats-number">$25,541</ >
                                         <div class="stats-change">
                                             <span class="stats-percentage">+17.5%</span>
                                             <span class="stats-timeframe">from last month</span>
@@ -231,3 +237,7 @@ def print_main(root_path="/TeamSoftwareProject/"):
 
     """ % root_path
     print(main)
+
+
+if __name__ == "__main__":
+    print_nav()
