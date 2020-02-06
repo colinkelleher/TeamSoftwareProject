@@ -36,7 +36,7 @@ def print_nav(root_path="/TeamSoftwareProject/"):
                     <i class="fas fa-file-invoice-dollar"></i>
                     Analytics 
                 </a>
-                <a href="#" class="dash-nav-item">
+                <a href="https://cs1.ucc.ie/~kpp1/cgi-bin/project2/webfiles/updateLocation.py" class="dash-nav-item">
                     <i class="fas fa-qrcode"></i>
                     QR Scanner 
                 </a>
