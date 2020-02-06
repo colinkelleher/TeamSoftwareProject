@@ -24,11 +24,6 @@ enable()
 
 form_data = FieldStorage()
 
-cookie_header = environ.get('HTTP_COOKIE')
-cookie = SimpleCookie()
-if cookie_header:
-    cookie.load(cookie_header)
-
 
 def has_form_data():
     return len(form_data) != 0
@@ -50,7 +45,7 @@ def get_html_template(filename):
     return Template(open(path, 'r').read())
 
 
-def print_html(filename, inputs={}):
+def print_html(filename, inputs={}, cookie2=None):
     """
     Prints a html page from files in py_html
     Also prints the cookie that has been set
@@ -63,7 +58,8 @@ def print_html(filename, inputs={}):
     @param inputs: Dictionary of other html inputs to insert
     """
     print('Content-Type: text/html')
-    print(cookie)
+    if cookie2:
+        print(cookie2)
     print()
     template = get_html_template(filename)
     # Need to merge default dictionary with inputs dict
