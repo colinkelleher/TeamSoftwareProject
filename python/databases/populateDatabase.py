@@ -13,8 +13,8 @@ def populate_users_table():
     print("Populating users table")
     _hashed_password = Password("123")
     try:
-        cursor.execute("""INSERT INTO users (fname, lname, password, role) 
-                          VALUES ('Liam', 'de la Cour', ? , 1)""", (str(_hashed_password),))
+        cursor.execute("""INSERT INTO users (email, fname, lname, password, role) 
+                          VALUES ('t@t.c', 'Liam', 'de la Cour', ? , 1)""", (str(_hashed_password),))
         connection.commit()
         print("Populated users table")
     except Exception as e:
