@@ -13,3 +13,6 @@ find . -iname "*.py" -exec chmod +x {} +
 #Change all permisions for bash files
 echo "Chmoding bash files"
 find . -iname "*.sh" -exec chmod +x {} +
+
+#Fix database permissions so apis can write to it. The folder its in also needs to be writable
+find . -name '*.db' -exec sh -c 'chmod 756 $(dirname $1)' - {} \;
