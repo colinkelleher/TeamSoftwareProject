@@ -1,21 +1,13 @@
-from os import listdir, chdir, getcwd
+from os import listdir, chdir, getcwd, environ
 from os.path import isdir, exists, abspath
-from pathlib import Path
 
 
 def get_username_prefix():
     """
     cs1 servers need the ~kpp1 before actual path to file
-    check if its a cs server and return it
+    luckily environ has that in a variable
     """
-    cwd = getcwd()
-    while not exists('public_html'):
-        chdir('../')
-    public = Path('public_html')
-    prefix = ''
-    if public.group() == 'www-data':
-        prefix = '/~' + public.owner()
-    chdir(cwd)
+    prefix = environ['CONTEXT_PREFIX']
     return prefix
 
 
@@ -28,7 +20,8 @@ def get_urls():
     paths = get_abs_paths()
 
     for key, path in paths.items():
-        path = path[path.rfind('public_html') + len('public_html'):]
+        # context document root is path to public_html or whatever else the root is
+        path = path[len(environ['CONTEXT_DOCUMENT_ROOT']):]
         path = get_username_prefix() + path
         dirs[key] = path
     return dirs
