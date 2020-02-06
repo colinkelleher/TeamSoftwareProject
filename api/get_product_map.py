@@ -25,6 +25,6 @@ else:
             map_image = result["location_info"]["map"]
             map_image = map_image.split(".")[0]
             map_image += "-min.png"
-            message = "/TeamSoftwareProject/"+map_image
+            message = map_image
 
 print(str(message))
