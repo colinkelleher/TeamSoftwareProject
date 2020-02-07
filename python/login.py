@@ -129,7 +129,7 @@ def logOut():
             cookie.load(http_cookie_header)
             if 'sid' in cookie:
                 sid = cookie['sid'].value
-                session_store = open('sessions/sess_' + sid, writeback = True)
+                session_store = open(get_abs_paths()['python'] + 'sessions/sess_' + sid, writeback = True)
                 session_store['authenticated'] = False
                 session_store.close()
         # successfully logged out
