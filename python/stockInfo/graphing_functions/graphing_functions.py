@@ -131,5 +131,28 @@ def create_graph_of_how_full_locations_are():
     plt.savefig(path_to_created_graphs + "/location_space_used.png", bbox_inches="tight")
 
 
+def create_pie_chart_showing_where_majority_of_stock_is():
+    """
+    This function creates a pie chart that shows what percentage of the total product stored, is
+    stored at each location
+    """
+    rows = select_fullness_of_locations()
+
+    labels = []
+    sizes = []
+
+    for row in rows:
+        labels.append(row[1])
+        sizes.append(row[3])
+
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, labels=labels, autopct="%1.1f%%", startangle=90)
+    ax1.axis("equal")
+
+    plt.title("Percentage of Total Product Stored")
+
+    plt.savefig(path_to_created_graphs + "/pie_chart_of_space_used.png", bbox_inches="tight")
+
+
 if __name__ == "__main__":
-    create_graph_of_how_full_locations_are()
+    create_pie_chart_showing_where_majority_of_stock_is()
