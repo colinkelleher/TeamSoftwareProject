@@ -1,2 +1,5 @@
 
 .DS_Store
+python/sessions
+*__pycache__*
+.idea
