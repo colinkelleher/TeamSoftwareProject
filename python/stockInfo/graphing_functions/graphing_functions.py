@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import csv
-from python.databases.databaseQueries import select_fullness_of_locations
+from python.databases.databaseQueries import select_fullness_of_locations, get_count_of_product_expiring_soon
 
 product_history_csv_path = "../output/product_history.csv"
 path_to_created_graphs = "../output/created_graphs"
@@ -154,5 +154,24 @@ def create_pie_chart_showing_where_majority_of_stock_is():
     plt.savefig(path_to_created_graphs + "/pie_chart_of_space_used.png", bbox_inches="tight")
 
 
+def create_bar_chart_showing_count_of_expiring_food():
+    """
+    This function creates a bar chart where each day that has product expiring on it is represented by a bar,
+    and the height of the bar represents how much product is expiring on that day
+
+    """
+
+    rows = get_count_of_product_expiring_soon()
+
+    dates = []
+    date_count = []
+
+    for row in rows:
+        dates.append(row[1])
+        date_count.append(row[0])
+
+    _draw_bar_chart("Product Expiring On", "Date", "Amount of Product", dates, date_count, "product_expiring_soon")
+
+
 if __name__ == "__main__":
-    create_pie_chart_showing_where_majority_of_stock_is()
+    create_bar_chart_showing_count_of_expiring_food()
