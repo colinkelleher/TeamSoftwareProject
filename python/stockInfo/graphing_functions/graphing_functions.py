@@ -113,8 +113,8 @@ def create_graph_of_how_full_locations_are():
     index = [i for i in range(0, len(rows), 1)]
 
     for row in rows:
-        used = row[3]
-        capacity = row[2]
+        used = row['full']
+        capacity = row['capacity']
 
         full_size.append(float((used/capacity) * 100))
         empty_size.append(float(100 - ((used/capacity) * 100)))
@@ -142,8 +142,8 @@ def create_pie_chart_showing_where_majority_of_stock_is():
     sizes = []
 
     for row in rows:
-        labels.append(row[1])
-        sizes.append(row[3])
+        labels.append(row['title'])
+        sizes.append(row['full'])
 
     fig1, ax1 = plt.subplots()
     ax1.pie(sizes, labels=labels, autopct="%1.1f%%", startangle=90)
@@ -167,8 +167,8 @@ def create_bar_chart_showing_count_of_expiring_food():
     date_count = []
 
     for row in rows:
-        dates.append(row[1])
-        date_count.append(row[0])
+        dates.append(row['expiry_date'])
+        date_count.append(row['count'])
 
     _draw_bar_chart("Product Expiring On", "Date", "Amount of Product", dates, date_count, "product_expiring_soon")
 

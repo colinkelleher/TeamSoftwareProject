@@ -12,7 +12,7 @@ if has_form_data():
     location = get_form_data('lid')
     row = select_all_with_conditions('locations', 'id', location)
     if len(row):
-        output["name"] = row[0][1]
+        output["name"] = row[0]['title']
 
 print('Content-Type: text/json')
 print()
