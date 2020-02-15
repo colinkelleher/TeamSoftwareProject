@@ -10,6 +10,29 @@ def execute(statement, *args):
     cursor.execute(statement, args)
 
 
+def label_results_rows(rows):
+    """
+    Returns labelled result like
+    [ [email_value, password_value] ] converted to
+    [ {"email": email_value, "password": password_value} ]
+    @param rows: rows from cursor.fetchall
+    @type rows: list of tuples
+    @return: The rows but labelled with their column name
+    @rtype: List of dictionaries
+    """
+    # cursor.description is a list of tuples that are each column
+    # where the first item in a tuple is the column name
+    names = [x[0] for x in cursor.description]
+    result = list()
+    for row in rows:
+        result_row = dict()
+        for i in range(len(row)):
+            result_row[names[i]] = row[i]
+        result.append(result_row)
+
+    return result
+
+
 def select_all(table):
     """
     This function will return select everything from the provided table
