@@ -41,7 +41,7 @@ def select_all(table):
         table -- the name of the table you wish to select (String)
 
     Returns:
-        result -- list of tuples representing each row returned
+        result -- list of dictionaries representing each row returned
 
     """
 
@@ -50,7 +50,7 @@ def select_all(table):
     cursor.execute(sql)
     result = cursor.fetchall()
 
-    return result
+    return label_results_rows(result)
 
 
 def select_all_with_conditions(table, column_name, value):
@@ -63,7 +63,7 @@ def select_all_with_conditions(table, column_name, value):
         value -- The value that is to be matched
 
     Returns:
-        result -- List of tuples representing each row returned
+        result -- List of dictionaries representing each row returned
     """
 
     sql = Template("SELECT * FROM ${table} WHERE ${column_name} = %s")
@@ -72,7 +72,7 @@ def select_all_with_conditions(table, column_name, value):
     execute(sql, value)
     result = cursor.fetchall()
 
-    return result
+    return label_results_rows(result)
 
 
 def select_all_with_2_conditions(table, column_name1, value1, column_name2, value2):
@@ -85,7 +85,7 @@ def select_all_with_2_conditions(table, column_name1, value1, column_name2, valu
         value (1 & 2) -- The respective value that is to be matched
 
     Returns:
-        result -- List of tuples representing each row returned
+        result -- List of dictionaries representing each row returned
     """
     sql = Template("SELECT * FROM ${table} WHERE ${column1} = %s AND ${column2} = %s")
     sql = sql.substitute(dict(table=table, column1=column_name1, column2=column_name2))
@@ -94,7 +94,7 @@ def select_all_with_2_conditions(table, column_name1, value1, column_name2, valu
 
     result = cursor.fetchall()
 
-    return result
+    return label_results_rows(result)
 
 
 def get_location_info(location_id):
@@ -112,13 +112,7 @@ def get_location_info(location_id):
     info = {}
     location_info = select_all_with_conditions("locations", "id", location_id)
     if location_info:
-        location_info= location_info[-1]
-        info["id"] = int(location_info[0])
-        info["title"] = location_info[1]
-        info["description"] = location_info[2]
-        info["comment_id"] = location_info[3]
-        info["map"] = location_info[4]
-        info["location_type"] = location_info[5]
+        info = location_info[-1]
 
     return info
 
@@ -135,7 +129,7 @@ def select_all_with_join(table1, table2, on_condition1, on_condition2, where_con
         where_condition -- The field of the table to compare
         where_value -- The value of the where_condition to match
     Returns:
-        result -- A list of tuples which contain the fields of each row
+        result -- A list of dictionaries which contain the fields of each row
 
     """
 
@@ -148,7 +142,7 @@ def select_all_with_join(table1, table2, on_condition1, on_condition2, where_con
 
     result = cursor.fetchall()
 
-    return result
+    return label_results_rows(result)
 
 
 def get_product_info(prod_id):
@@ -159,7 +153,7 @@ def get_product_info(prod_id):
             {"id" : int,
             "title" : string,
             "description" : string,
-            "location_id" : int,
+            "location" : int,
             "location_info" : dictionary,
             "comment_id" : string,
             "photo" : string}
@@ -167,14 +161,8 @@ def get_product_info(prod_id):
     info = {}
     prod_info = select_all_with_conditions("products", "id", prod_id)
     if prod_info:
-        prod_info = prod_info[-1]
-        info["id"] = int(prod_info[0])
-        info["title"] = prod_info[1]
-        info["description"] = prod_info[2]
-        info["location_id"] = int(prod_info[3])
-        info["location_info"] = get_location_info(info["location_id"])
-        info["comment_id"] = str(prod_info[4])
-        info["photo"] = prod_info[5]
+        info = prod_info[-1]
+        info["location_info"] = get_location_info(info["location"])
 
     return info
 
@@ -187,7 +175,7 @@ def get_product_that_expires_on(date):
         date -- A string representing the date of expiry you wish to query against '(YYYY-MM-DD)'
 
     Returns:
-        products - A list where each item is a tuple of of each row returned by the query
+        products - A list where each item is a dictionary of of each row returned by the query
 
     """
 
@@ -204,11 +192,11 @@ def select_fullness_of_locations():
     currently is
 
     Returns:
-        result -- A list of tuples, where each tuple
+        result -- A list of dictionaries, where each dictionary
                   is a row in the returned table, (id, name, capacity, how full it is)
     """
 
-    sql = "SELECT l.id, l.title, l.capacity, SUM(p.volume) " \
+    sql = "SELECT l.id, l.title, l.capacity, SUM(p.volume) as full " \
           "FROM locations AS l JOIN products AS p " \
           "ON l.id = p.location GROUP BY l.id"
 
@@ -216,7 +204,7 @@ def select_fullness_of_locations():
 
     result = cursor.fetchall()
 
-    return result
+    return label_results_rows(result)
 
 
 def get_count_of_product_expiring_soon(limit=100):
@@ -228,10 +216,10 @@ def get_count_of_product_expiring_soon(limit=100):
         limit -- int - Represents the number of rows you wish to see in the result
 
     Returns:
-        result -- List of tuples representing each row in the selection
+        result -- List of dictionaries representing each row in the selection
     """
 
-    sql = """SELECT count(*), expiry_date
+    sql = """SELECT count(*) as count, expiry_date
              FROM products
              GROUP BY expiry_date
              ORDER BY expiry_date
@@ -242,7 +230,7 @@ def get_count_of_product_expiring_soon(limit=100):
 
     result = cursor.fetchall()
 
-    return result
+    return label_results_rows(result)
 
 
 if __name__ == "__main__":
