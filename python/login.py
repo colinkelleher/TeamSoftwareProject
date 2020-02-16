@@ -1,11 +1,11 @@
 try:
     from python.password import Password
-    from python.databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions
+    from python.databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user
     from python.path_stuff import get_abs_paths
 
 except:
     from password import Password
-    from databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions
+    from databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user
 
 from os import environ
 from hashlib import sha256
@@ -70,7 +70,7 @@ def isAdmin(user_id):
     """
 
     # assumption that role will be the string "admin" for admin rights
-    result = select_all_with_2_conditions("users", "id", user_id, "role", "admin")
+    result = select_all_with_2_conditions("users", "id", user_id, "role", "1")
     if len(result) > 0:
         # This user is an admin
         return True
@@ -87,7 +87,7 @@ def tryLogIn(user_id, password):
         database. If successful, a cookie is created and given to the user
         as proof of login. Escaped user_id and password can be taken from a
         form and used here. It is assumed that the user isn't already logged in.
-    @param  user_id -> unique id in DB (currently an id number)
+    @param  user_id -> unique id in DB (email)
             password -> Password object
     @return if unsuccessful ->   returns None
             if successful ->    returns the cookie
@@ -137,3 +137,18 @@ def logOut():
     except IOError:
         # failed to access the session files
         return False
+
+def register(email, pword, fname, lname):
+    """ Function to add a user to the database
+
+    Takes in the email, first name, last name and password and adds to the
+    Database if they satisfy all conditions
+    @param  email, first name, last name - all Strings
+            password - Password object
+    @ return boolean -  True if successfully added
+                        False if error occurs
+    """
+    # Sanitize the input as necessary
+
+    return add_user(fname, lname, email, pword)
+#end register

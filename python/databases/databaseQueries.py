@@ -221,6 +221,19 @@ def get_count_of_product_expiring_soon(limit=100):
 
     return result
 
+def add_user(fname, lname, email, password):
+    """
+    Adds user info to the database
+    returns True if successful
+    """
+    try:
+        cursor.execute("""INSERT INTO users (email, fname, lname, password, role)
+                          VALUES (?, ?, ?, ? , ?)""", (email, fname, lname, password, "0"))
+        connection.commit()
+    except Exception as e:
+        return False
+
+    return True
 
 if __name__ == "__main__":
     print(get_product_info(1))
