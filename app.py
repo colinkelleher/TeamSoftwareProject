@@ -2,6 +2,10 @@ from http.server import HTTPServer, CGIHTTPRequestHandler
 
 port = 8080
 
+# Code taken and modified from
+# https://github.com/Shashank9830/Python-CGI-WebApp/blob/master/webapp/simple_httpd.py
+# https://stackoverflow.com/a/36989254
+
 
 class CGIHandler(CGIHTTPRequestHandler):
 
