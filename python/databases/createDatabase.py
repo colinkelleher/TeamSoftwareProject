@@ -54,7 +54,7 @@ def _create_location_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title VARCHAR(255),
             description TEXT,
-            comments INTEGER,
+            comments TEXT,
             map VARCHAR(255),
             location_type INTEGER,
             capacity INTEGER
