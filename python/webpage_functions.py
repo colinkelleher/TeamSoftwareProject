@@ -1,10 +1,11 @@
-from cgitb import enable
+from cgitb import Hook
 from cgi import FieldStorage
 from html import escape
 from http.cookies import SimpleCookie
 from os import environ
 from string import Template
 from pprint import pprint
+import sys
 
 from python.users.user import user
 from python import path_stuff
@@ -20,7 +21,23 @@ Handles web page specific things like
     Prints html files from py_html folder, 
         adding in absolute urls and using string.Template for adding in python generated html
 """
-enable()
+
+
+"""
+Normal cgitb.enable doesn't want to work for some reason
+But if I print Content-Type: text/html
+And then run the handle method that cgitb uses it works
+No fancy html formatting though
+"""
+class Logger(Hook):
+
+    def handle(self, info=None):
+        print('Content-Type: text/html\n')
+        print(super().handle(info))
+
+
+# Intercept all exceptions and pass them to Logger class just like cgitb does
+sys.excepthook = Logger()
 
 form_data = FieldStorage()
 
@@ -80,5 +97,9 @@ def print_html(filename, inputs={}, cookie2=None):
 if not user.is_authorized():
     print_html('404.html')
     exit(0)
+
+
+# if __name__ == '__main__':
+#     raise KeyError('Hello maybe')
 
 
