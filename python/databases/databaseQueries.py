@@ -196,6 +196,57 @@ def select_fullness_of_locations():
     return result
 
 
+def get_count_of_product_expiring_soon(limit=100):
+    """
+    This function groups product that is expiring by date, and returns a count of how much is expiring in the
+    coming days. How far into the future you see is determined by the limit variable.
+
+    Arguments:
+        limit -- int - Represents the number of rows you wish to see in the result
+
+    Returns:
+        result -- List of tuples representing each row in the selection
+    """
+
+    sql = """SELECT count(*), expiry_date
+             FROM products
+             GROUP BY expiry_date
+             ORDER BY expiry_date
+             LIMIT %d;
+            """ % limit
+
+    execute(sql)
+
+    result = cursor.fetchall()
+
+    return result
+
+def add_user(fname, lname, email, password):
+    """
+    Adds user info to the database
+    returns True if successful
+    """
+    try:
+        cursor.execute("""INSERT INTO users (email, fname, lname, password, role)
+                          VALUES (?, ?, ?, ? , ?)""", (email, fname, lname, password, "0"))
+        connection.commit()
+    except Exception as e:
+        return False
+
+    return True
+
+def update_user(email, field, value):
+    """Update details about a user in the database
+    @return True or False if successful or not 
+    """
+    try:
+        cursor.execute("""UPDATE users SET ? = ? WHERE email = ?""", (field, value, email))
+        connection.commit()
+    except Exception as e:
+        return False
+
+    return True
+
 if __name__ == "__main__":
     print(get_product_info(1))
     print(get_location_info(1))
@@ -205,3 +256,7 @@ if __name__ == "__main__":
     print(get_product_that_expires_on("2020-01-30"))
 
     print(select_fullness_of_locations())
+
+    print()
+
+    print(get_count_of_product_expiring_soon())
