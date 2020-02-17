@@ -96,8 +96,8 @@ scanQrCode = (function(element, callback){
         +'<textarea disabled id="qrinput" style="position:absolute;top:200px;width:80%;height:200px;font-size:50pt;font-weight:bold;border:none;color:black;"></textarea>'
       +'</div>'
       +'<div id="qrButtonDiv">'
-        +'<input id="qrconfirm" value="Confirm Code" type="button" style="visibility:hidden;">'
-        +'<input id="qrenterid" value="Enter Id Manually" type="button" style="float:right;">'
+        +'<input id="qrenterid" value="Enter Id Manually" type="button">'
+        +'<input id="qrconfirm" value="Confirm Code" type="button" style="visibility:hidden; float:right;">'
       +'</div></div>'
     var template = document.createElement('template');
     template.innerHTML = textStuff.trim();
