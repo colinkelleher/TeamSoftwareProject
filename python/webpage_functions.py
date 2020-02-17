@@ -87,11 +87,12 @@ def print_html(filename, inputs={}, cookie2=None):
                         """,
         'nav': get_nav(user.get_nav_items())
     }
-    # First run inputs and default through templating
-    # Then substitute absolute paths into that template
-    merged = {**inputs, **default}
-    template = Template(template.safe_substitute(merged))
-    print(template.safe_substitute(path_stuff.get_urls()))
+    # First substitute all user inputs in the html like ${main} into whatever passed through in inputs dict
+    # Then substitute defaults above like nav
+    inputted = Template(template.safe_substitute(inputs))
+    html = template.safe_substitute(default)
+    # Print the html
+    print(html)
 
 
 if not user.is_authorized():
