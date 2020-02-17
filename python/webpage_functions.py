@@ -88,7 +88,7 @@ def print_html(filename, inputs={}, cookie2=None):
     # First substitute all user inputs in the html like ${main} into whatever passed through in inputs dict
     # Then substitute defaults above like nav
     inputted = Template(template.safe_substitute(inputs))
-    html = template.safe_substitute(default)
+    html = inputted.safe_substitute(default)
     # Print the html
     print(html)
 

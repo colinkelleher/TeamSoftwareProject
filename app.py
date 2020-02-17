@@ -7,9 +7,10 @@ class CGIHandler(CGIHTTPRequestHandler):
 
     def is_cgi(self):
         self.cgi_info = '', self.path[1:]
-        if self.path.count('/') == 1 or self.path.startwith('/api') or self.path.startwith('webfiles'):
-            return self.path.endswith('.py')
+        if self.path.count('/') == 1 or self.path.startswith('/api') or self.path.startswith('/webfiles'):
+            return '.py' in self.path
         return False
+
 
 try:
     httpd = HTTPServer(('', port), CGIHandler)
