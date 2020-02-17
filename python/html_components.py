@@ -64,13 +64,6 @@ def print_main(root_path="/TeamSoftwareProject/"):
                     <input type="text" class="searchbox-input" placeholder="type to search">
                 </form>
                 <div class="tools">
-                    <a href="https://github.com/HackerThemes/spur-template" target="_blank" class="tools-item">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#!" class="tools-item">
-                        <i class="fas fa-bell"></i>
-                        <i class="tools-item-count">4</i>
-                    </a>
                     <div class="dropdown tools-item">
                         <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user"></i>
