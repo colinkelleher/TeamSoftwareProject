@@ -5,7 +5,7 @@ try:
 
 except:
     from password import Password
-    from databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user
+    from databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user, update_user
 
 from os import environ
 from hashlib import sha256
@@ -18,6 +18,7 @@ loggedIn() -> Can be run to check if a user is logged in on loading each page
 isAdmin() -> Can be run to check if a user has admin rights before allowing access to restricted content
 tryLogIn() -> To be run to change state from logged out to logged in
 logOut() -> To be run to change state from logged in to logged out
+register() -> Adds user details to database (should sanatize in future)
 """
 
 
@@ -148,7 +149,17 @@ def register(email, pword, fname, lname):
     @ return boolean -  True if successfully added
                         False if error occurs
     """
-    # Sanitize the input as necessary
+    # Sanitize the input as necessary####################
 
     return add_user(fname, lname, email, pword)
 #end register
+
+def makeAdmin(email):
+    """ function to make a user an admin
+
+    @param email of the user to be made admin
+    @returns True or False if successful or not
+    """
+    updated = update_user(email, "role", "1")
+    return updated
+#end makeAdmin

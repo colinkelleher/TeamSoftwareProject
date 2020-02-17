@@ -235,6 +235,18 @@ def add_user(fname, lname, email, password):
 
     return True
 
+def update_user(email, field, value):
+    """Update details about a user in the database
+    @return True or False if successful or not 
+    """
+    try:
+        cursor.execute("""UPDATE users SET ? = ? WHERE email = ?""", (field, value, email))
+        connection.commit()
+    except Exception as e:
+        return False
+
+    return True
+
 if __name__ == "__main__":
     print(get_product_info(1))
     print(get_location_info(1))
