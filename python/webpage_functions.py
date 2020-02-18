@@ -93,12 +93,22 @@ def print_html(filename, inputs={}, cookie2=None):
     print(html)
 
 
+def print_main(content, inputs={}, cookie=None):
+    """
+    Prints main.html and sets content of page
+    :param content: Main part of the page that changes
+    :param inputs: If your content uses string templates you can input them here
+    :param cookie: Cookies you want to print
+    :return: Nothing
+    """
+    inputs['main'] = content
+    print_html('main.html', inputs, cookie)
+
+
 if not user.is_authorized():
     print_html('404.html')
     exit(0)
 
 
-# if __name__ == '__main__':
-#     raise KeyError('Hello maybe')
 
 

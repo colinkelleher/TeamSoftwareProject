@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from python.webpage_functions import user, print_html, get_form_data, has_form_data
+from python.webpage_functions import user, print_html, get_form_data, has_form_data, print_main
 from python.htmlGenerators import viewProducts, nav
 from python.password import Password
 from python.login import tryLogIn
@@ -18,7 +18,7 @@ if not user.logged_in:
                 cookie = logInCookie.copy()
                 #cookie = logInCookie
                 # print the main dashboard
-                print_html('main.html', dict(main=viewProducts.create_table_of_locations()), logInCookie)
+                print_main(viewProducts.create_table_of_locations())
             else:
                 # unsuccessful - print login page with error message
                 print_html('login.html') #### Error message?
@@ -27,4 +27,4 @@ if not user.logged_in:
             print_html('login.html')
 
 else:
-    print_html('main.html', dict(main=viewProducts.create_table_of_locations()))
+    print_main(viewProducts.create_table_of_locations())
