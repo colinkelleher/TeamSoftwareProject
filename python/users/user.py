@@ -20,12 +20,9 @@ Can add role specific methods like
 
 class NotLoggedInUser:
 
-    def __init__(self, session=None):
+    def __init__(self, email=None):
         self.logged_in = False
-        self.user_id = None
-        self.fname = None
-        self.lname = None
-        self.image = None
+        self.email = email
 
     def is_authorized(self):
         # uri = os.environ['REQUEST_URI']
@@ -37,39 +34,35 @@ class NotLoggedInUser:
 
 class User(NotLoggedInUser):
 
-    def __init__(self, session):
-        NotLoggedInUser.__init__(self, session)
+    def __init__(self, email):
+        NotLoggedInUser.__init__(self, email)
         self.logged_in = True
-        self.user_id = session['user_id']
-        self.fname = session['fname']
-        self.lname = session['lname']
-        self.image = session['image']
 
     def get_nav_items(self):
-        return [
-            {
-                'Home': [
-                    'fas fa-home',
-                    '${root}/index.py'
-                ]
-            }
+        return super().get_nav_items() + [
+            ('User stuff links', 'fas fa-horse', '#!')
         ]
 
 
 class Manager(User):
 
-    def __init__(self, session):
-        User.__init__(self, session)
+    def __init__(self, email):
+        User.__init__(self, email)
+
+    def get_nav_items(self):
+        return super().get_nav_items() + [
+            ('Admin stuff links', 'fas fa-home', '#!')
+        ]
 
 
 def get_user():
-    logged_in, session = loggedIn()
+    logged_in, email = loggedIn()
     if not logged_in:
         return NotLoggedInUser()
-    if session['role'] == '1':
-        return Manager(session)
+    if isAdmin(email):
+        return Manager(email)
     else:
-        return User(session)
+        return User(email)
 
 
 user = get_user()

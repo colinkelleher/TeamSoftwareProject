@@ -32,26 +32,25 @@ def loggedIn():
     """
     authenticated = False
     user_id = ""
-    try:
-        cookie = SimpleCookie()
-        http_cookie_header = environ.get('HTTP_COOKIE')
-        if not http_cookie_header:
+
+    cookie = SimpleCookie()
+    http_cookie_header = environ.get('HTTP_COOKIE')
+    if not http_cookie_header:
+        sid = sha256(repr(time()).encode()).hexdigest()
+        cookie['sid'] = sid
+    else:
+        cookie.load(http_cookie_header)
+        if 'sid' not in cookie:
             sid = sha256(repr(time()).encode()).hexdigest()
             cookie['sid'] = sid
         else:
-            cookie.load(http_cookie_header)
-            if 'sid' not in cookie:
-                sid = sha256(repr(time()).encode()).hexdigest()
-                cookie['sid'] = sid
-            else:
-                sid = cookie['sid'].value
+            sid = cookie['sid'].value
+            print(get_abs_paths()['python'] + 'sessions/sess_' + sid)
+            session_store = open(get_abs_paths()['python'] + '/sessions/sess_' + sid, writeback = True)
+            authenticated = session_store.get("authenticated")
+            user_id = session_store.get("user_id")
 
-                session_store = open(get_abs_paths()['python'] + 'sessions/sess_' + sid, writeback = True)
-                authenticated = session_store.get("authenticated")
-                user_id = session_store.get("user_id")
-
-    except IOError:
-        authenticated, user_id = False, ""
+    #authenticated, user_id = False, ""
 
     return authenticated, user_id
 
@@ -71,7 +70,7 @@ def isAdmin(user_id):
     """
 
     # assumption that role will be the string "admin" for admin rights
-    result = select_all_with_2_conditions("users", "id", user_id, "role", "1")
+    result = select_all_with_2_conditions("users", "email", user_id, "role", "1")
     if len(result) > 0:
         # This user is an admin
         return True
