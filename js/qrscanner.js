@@ -91,13 +91,13 @@ scanQrCode = (function(element, callback){
 
   function setup(element){
     var textStuff = '<div>'
-      +'<div id="qrcontainer" style="position:relative;width:100%;height:400px">'
-        +'<canvas width="100%" height="400px" id="qrcanvas" style="display:block;"></canvas>'
+      +'<div id="qrcontainer" style="position:relative; width:50%; height:10%; overflow: auto;">'
+        +'<canvas width="50%" height="10%" id="qrcanvas" style="display:block;"></canvas>'
         +'<textarea disabled id="qrinput" style="position:absolute;top:200px;width:80%;height:200px;font-size:50pt;font-weight:bold;border:none;color:black;"></textarea>'
       +'</div>'
       +'<div id="qrButtonDiv">'
-        +'<input id="qrconfirm" value="Confirm Code" type="button" style="visibility:hidden;">'
-        +'<input id="qrenterid" value="Enter Id Manually" type="button" style="float:right;">'
+        +'<input id="qrenterid" value="Enter Id Manually" type="button">'
+        +'<input id="qrconfirm" value="Confirm Code" type="button" float:left;">'
       +'</div></div>'
     var template = document.createElement('template');
     template.innerHTML = textStuff.trim();
