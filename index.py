@@ -17,7 +17,7 @@ if not user.logged_in:
             cookie = logInCookie.copy()
             # cookie = logInCookie
             # print the main dashboard
-            print_main(viewProducts.create_table_of_locations(), cookie=logInCookie)
+            print_html('redirect.html', dict(url='/index.py'), cookie2=logInCookie)
         else:
             # unsuccessful - print login page with error message
             print_html('login.html')  #### Error message?
