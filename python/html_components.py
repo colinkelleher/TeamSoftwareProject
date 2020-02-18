@@ -1,20 +1,20 @@
-def print_head(title="SMS | Stock Management Software", root_path="/TeamSoftwareProject/"):
+def print_head(title="SMS | Stock Management Software"):
     head = """
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
-        <link rel="stylesheet" href="%sBootstrap/css/spur.css">
+        <link rel="stylesheet" href="/Bootstrap/css/spur.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-        <script src="%sBootstrap/js/chart-js-config.js"></script>
+        <script src="/Bootstrap/js/chart-js-config.js"></script>
         <title>%s</title>
     </head>
-    """ % (root_path, root_path, title)
+    """ % (title)
 
     print(head)
 
-def print_nav(root_path="/TeamSoftwareProject/"):
+def print_nav():
     nav = """
     <div class="dash-nav dash-nav-dark">
             <header>
@@ -36,7 +36,7 @@ def print_nav(root_path="/TeamSoftwareProject/"):
                     <i class="fas fa-file-invoice-dollar"></i>
                     Analytics
                 </a>
-                <a href="https://cs1.ucc.ie/~kpp1/cgi-bin/project2/webfiles/updateLocation.py" class="dash-nav-item">
+                <a href="/webfiles/updateLocation.py" class="dash-nav-item">
                     <i class="fas fa-qrcode"></i>
                     QR Scanner 
                 </a>
@@ -48,7 +48,7 @@ def print_nav(root_path="/TeamSoftwareProject/"):
     print(nav)
 
 
-def print_main(root_path="/TeamSoftwareProject/"):
+def print_main():
     main = """
     <div class="dash-app">
             <header class="dash-toolbar">
@@ -224,11 +224,11 @@ def print_main(root_path="/TeamSoftwareProject/"):
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="%sBootstrap/js/spur.js"></script>
+    <script src="/Bootstrap/js/spur.js"></script>
 
     <footer><center>&copy; SMS | Stock Management Software 2020</center></footer>
 
-    """ % root_path
+    """
     print(main)
 
 

@@ -43,7 +43,7 @@
         scanQrCode(scanLocation, function(id){
             locationInfo.innerText = 'Current Location: ' + id;
             lid = id;
-            makeAjax('${api}/get_location_name.py?lid=' + id, function(nameJSON){
+            makeAjax('/api/get_location_name.py?lid=' + id, function(nameJSON){
                 const result = JSON.parse(nameJSON);
                 locationInfo.innerText = 'Current Location: ' + result['name'];
                 productDiv.style.visibility = 'visible';
@@ -53,7 +53,7 @@
     scanProduct.addEventListener('click', function(){
         productMessage.innerHTML = '';
         scanQrCode(scanProduct, function(id){
-            makeAjax('${api}/update_product_location.py?lid=' + lid + '&pid=' + id, function(nameJSON){
+            makeAjax('/api/update_product_location.py?lid=' + lid + '&pid=' + id, function(nameJSON){
                 const result = JSON.parse(nameJSON);
                 setMessage(result['updated'], result['message']);
             });

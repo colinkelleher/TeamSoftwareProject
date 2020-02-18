@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-try: import fix_import
-except: pass
 from cgi import FieldStorage
 from python.login import *
 from python.html_components import *
@@ -33,7 +31,7 @@ except Exception as e:
 html = """
 <main>
     <section id="main">
-        <img src="/TeamSoftwareProject/images/locations/main.png" id="map">
+        <img src="/images/locations/main.png" id="map">
         <section id="info">
             <h3>Product Information</h3>
             <table>
@@ -166,7 +164,7 @@ javascript = """
 
             }
         };
-        xhttp1.open("GET", "/TeamSoftwareProject/api/get_product_info.py?pid="+id, true);
+        xhttp1.open("GET", "/api/get_product_info.py?pid="+id, true);
         xhttp1.send();
         
         
@@ -178,7 +176,7 @@ javascript = """
 
             }
         };
-        xhttp.open("GET", "/TeamSoftwareProject/api/get_product_map.py?pid="+id, true);
+        xhttp.open("GET", "/api/get_product_map.py?pid="+id, true);
         xhttp.send();
         
         

@@ -66,8 +66,6 @@ def print_html(filename, inputs={}, cookie2=None):
     """
     Prints a html page from files in py_html
     Also prints the cookie that has been set
-    Adds in absolute urls where specified
-        Substitutes for example ${bootstrap} for /~kpp1/public_html/cgi-bin/.../Bootstrap
     Does same thing for inputs so like
         ${content} in html and inputs={'content': 'Hello World'}
 
@@ -82,16 +80,17 @@ def print_html(filename, inputs={}, cookie2=None):
     # Need to merge default dictionary with inputs dict
     default = {
         'qrScanner':    """
-                            <script src="${js}/qrscanner.js"></script>
-                            <script src="${js}/libs/jsQR.js"></script>
+                            <script src="/js/qrscanner.js"></script>
+                            <script src="/js/libs/jsQR.js"></script>
                         """,
         'nav': get_nav(user.get_nav_items())
     }
-    # First run inputs and default through templating
-    # Then substitute absolute paths into that template
-    merged = {**inputs, **default}
-    template = Template(template.safe_substitute(merged))
-    print(template.safe_substitute(path_stuff.get_urls()))
+    # First substitute all user inputs in the html like ${main} into whatever passed through in inputs dict
+    # Then substitute defaults above like nav
+    inputted = Template(template.safe_substitute(inputs))
+    html = inputted.safe_substitute(default)
+    # Print the html
+    print(html)
 
 
 if not user.is_authorized():

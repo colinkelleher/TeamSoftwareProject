@@ -62,32 +62,32 @@ def populate_locations_table():
         val = []
 
         val.append(("Computer closest to main door", "Used for storing items for a short period of time", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 1))
+                    "/images/locations/%d.png" % 1))
 
         val.append(("Middle computer on back row", "People always forget their keys here", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 2))
+                    "/images/locations/%d.png" % 2))
 
         val.append(("Computer at the back right", "This is used for storing items for a long period of time", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 3))
+                    "/images/locations/%d.png" % 3))
 
         val.append(("Computer on the right of the middle row", "This is where phones are left during working hours", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 4))
+                    "/images/locations/%d.png" % 4))
 
         val.append(("Computer in the middle of the middle row", "This is where the manager stores paper work and \
                                                                 items being inspected", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 5))
+                    "/images/locations/%d.png" % 5))
 
         val.append(("Computer on the right of the middle row", "This is where items are stored after being inspected", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 6))
+                    "/images/locations/%d.png" % 6))
 
         val.append(("Computer on the left of the first row", "Items are stored here if they are being sent to Lidl", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 7))
+                    "/images/locations/%d.png" % 7))
 
         val.append(("Computer in the middle of the fist row", "Items are stored here if they are being sent to Aldi", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 8))
+                    "/images/locations/%d.png" % 8))
 
         val.append(("Computer closest to the secondary door", "Items are stored here if they are being sent to SuperValu", 5, 1,
-                    "/TeamSoftwareProject/images/locations/%d.png" % 9))
+                    "/images/locations/%d.png" % 9))
 
         cursor.executemany(sql, val)
         connection.commit()
