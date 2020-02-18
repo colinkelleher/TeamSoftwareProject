@@ -1,4 +1,5 @@
 from http.server import HTTPServer, CGIHTTPRequestHandler
+import os
 
 port = 8080
 
@@ -17,6 +18,9 @@ class CGIHandler(CGIHTTPRequestHandler):
 
 
 try:
+    if 'PYTHONPATH' not in os.environ or os.getcwd() not in os.environ['PYTHONPATH']:
+        if os.name != 'nt':
+            os.system('PYTHONPATH=${PYTHONPATH}:/$(pwd) && export PYTHONPATH')
     httpd = HTTPServer(('', port), CGIHandler)
     print("Starting simple_httpd on port: " + str(httpd.server_port))
     httpd.serve_forever()
