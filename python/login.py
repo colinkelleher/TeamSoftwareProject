@@ -45,7 +45,7 @@ def loggedIn():
             cookie['sid'] = sid
         else:
             sid = cookie['sid'].value
-            print(get_abs_paths()['python'] + 'sessions/sess_' + sid)
+            #print(get_abs_paths()['python'] + 'sessions/sess_' + sid)
             session_store = open(get_abs_paths()['python'] + '/sessions/sess_' + sid, writeback = True)
             authenticated = session_store.get("authenticated")
             user_id = session_store.get("user_id")
