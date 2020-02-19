@@ -29,7 +29,7 @@ class NotLoggedInUser:
         return True
 
     def get_nav_items(self):
-        return [('Home', 'fas fa-home', '${root}/index.py')]
+        return [('Home', 'fas fa-home', '/index.py'),('Update Location', 'fas fa-qrcode', 'webfiles/updateLocation.py')]
 
 
 class User(NotLoggedInUser):
@@ -42,7 +42,6 @@ class User(NotLoggedInUser):
         return super().get_nav_items() + [
             ('User stuff links', 'fas fa-horse', '#!')
         ]
-
 
 class Manager(User):
 
