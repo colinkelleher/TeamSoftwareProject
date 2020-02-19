@@ -11,10 +11,10 @@ items_html = """<section id='header'>
 for i in items:
     item = """<span>%d</span>
               <span>%s</span>
-              <!-- <span>%s</span> -->""" % (i[0], i[1], i[2])
+              <!-- <span>%s</span> -->""" % (i['id'], i['title'], i['description'])
     items_html += """<section class='item' onclick="getInfo(id=%s);">
                         %s
-                     </section>""" % (i[0], str(item))
+                     </section>""" % (i['id'], str(item))
 
 
 

@@ -16,7 +16,7 @@ def create_table_of_locations():
 
     for location in locations:
 
-        output += create_table_of_products_from_location(location[0], location[1])
+        output += create_table_of_products_from_location(location['id'], location['title'])
 
     output += "</section>"
 
@@ -43,7 +43,7 @@ def create_table_of_products_from_location(location_id, location_name):
     output += "<tr><th>Product:</th><th>Description</th></tr>"
 
     for product in products_stored_in_location:
-        output += "<tr><td>%s</td><td>%s</td></tr>" % (product[1], product[2])
+        output += "<tr><td>%s</td><td>%s</td></tr>" % (product['title'], product['description'])
 
     output += "</table>"
 
@@ -64,7 +64,7 @@ def create_table_of_products_that_expire_today():
     output += "<tr><th>%s</th><th>%s</th></tr>" % ("Product Name", "Location")
 
     for product in products_expiring:
-        output += "<tr><td>%s</td><td>%s</td></tr>" % (product[1], product[8])
+        output += "<tr><td>%s</td><td>%s</td></tr>" % (product['title'], product['location'])
 
     output += "</table></section>"
 
