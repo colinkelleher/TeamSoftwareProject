@@ -1,59 +1,96 @@
-#!/usr/local/bin/python3
-from python.databases.connectToDatabase import connect
-from python.databases.databaseQueries import select_all_with_conditions
+from databases.connectToDatabase import connect
+from databases.databaseQueries import select_all
 from cgitb import enable
-from cgi import FieldStorage
 from html import escape
 enable()
 
-def processRequest():
-    # function to deal with form data and pass it to the appropriate function
-    form_data = FieldStorage()
-    if len(form_data) != 0:
-        request_type = escape(form_data.getfirst("request_type", "").strip())
-        title = escape(form_data.getfirst("title", "").strip())
-        description = escape(form_data.getfirst("description", "").strip())
-        location = escape(form_data.getfirst("location", "").strip())
-        comments = escape(form_data.getfirst("comments", "").strip())
-        if request_type == "add":
-            if not title or not description or not location or not comments:
-                print("Make sure to fill in all the details when adding a product.")
-            else:
-                vals = [title, description, location, comments]
-                addProduct(vals)
-        elif request_type == "remove":
-            if not title or not description or not location or not comments:
-                print("Make sure to fill in all the details when removing a product.")
-            else:
-                vals = [title, description, location, comments]
-                removeProduct(vals)
+
+def addProduct(values):
+    """
+      Function to add a product to the database."
+
+      @param - a list of values to be inputted
+
+      @returns - Suitable messages if there is or there is not an error.
+    """
+    try:
+        connection, cursor = connect()
+        id = values[0]
+        title = values[1]
+        description = values[2]
+        location = values[3]
+        comments = values[4]
+        photo = values[5]
+        expiry_date = values[6]
+        volume = values[7]
+        if id == None or id == "":
+            return ("Please enter and id.")
         else:
-            print("Please choose a valid request type(add or remove).")
+            sql = "SELECT id from products where id = ?;"
+            cursor.execute(sql, (int(id),))
+            if len(cursor.fetchall()) > 0:
+                connection.commit()
+                return ("Product is already in the database.")
 
-def addProduct(vals):
-    # function to add a product to the database
-    # returns 1 if successful, -1 otherwise
-    try:
-        connection, cursor = connect()
-        sql = "INSERT INTO products (title, description, location, comments) VALUES (?, ?, ?, ?);"
-        cursor.execute(sql, (vals[0], vals[1], vals[2], vals[3]))
-        connection.commit()
-        return 1
+            else:
+                try:
+                    sql = "INSERT INTO products (id, title, description, location, comments, photo, expiry_date, volume) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+                    cursor.execute(sql, (int(values[0]), values[1], values[2], values[3], values[4], values[5], values[6], values[7]))
+                    connection.commit()
+                    return ("Product successfully added!")
+                except Exception as e:
+                    print(e)
+
     except Exception as e:
-        return -1
+        print(e)
 
-def removeProduct(vals):
-    # function to remove a product from the database
-    # Will add a check after initial testing to see if the product is in the database before attempting to remove
-    # returns 1 if successful, -1 otherwise
+def removeProduct(id):
+    """
+    Function to remove a product to the database."
+
+    @param - an id of a product to remove
+
+    @returns - Suitable messages if there is or there is not an error.
+
+    """
+
     try:
         connection, cursor = connect()
-        sql = "DELETE FROM products WHERE title=? and description=? and location=? and comments=?;"
-        cursor.execute(sql, vals[0], vals[1], vals[2], vals[3],)
-        connection.commit()
-        return 1
-    except:
-        return -1
+
+
+        if id == None or id == "":
+            return("Please enter and id.")
+        else:
+            sql = "SELECT id from products where id = ?;"
+            cursor.execute(sql, (int(id),))
+            if len(cursor.fetchall()) == 0:
+                connection.commit()
+                return ("Product is not in the database.")
+
+            else:
+                try:
+                    sql = "DELETE FROM products WHERE id=?;"
+                    cursor.execute(sql, (int(id),))
+                    connection.commit()
+                    return ("Product successfully removed.")
+                except Exception as e:
+                    print(e)
+
+    except Exception as e:
+        print(e)
+
+
 
 if __name__ == "__main__":
-    processRequest()
+    # TESTING
+    values = ["45", "x", "xx", "xxx", "xxxx", "xxxx", 34, "xxxxxx"]
+    print(addProduct(values))
+    print(select_all("products"))
+
+    print("\n\n")
+    print(addProduct(values))
+    print(select_all("products"))
+    print("\n\n")
+    print(removeProduct("45"))
+    print(select_all("products"))
+    print(removeProduct("45"))
