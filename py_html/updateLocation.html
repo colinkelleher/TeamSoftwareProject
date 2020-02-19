@@ -1,7 +1,21 @@
-<input type="button" id="scanLocation" value="Scan a Location"/>
+<style>
+    #qrcontainer, #productDiv {
+    margin: 0 auto;
+    }
+    #qrenterid, #scanProduct{
+    left: auto;
+    top:auto;
+   }
+   #qrButtonDiv, #locationName, #scanProduct {
+   text-align: center;
+   }
+
+</style>
+
+<button type="button" id="scanLocation" class="btn btn-primary btn-lg mb-1">Scan a Location</button>
 <h3 id="locationName"></h3>
 <div id="productDiv" style="visibility: collapse">
-    <input type="button" id="scanProduct" value="Scan next Product"/>
+    <button type="button" id="scanProduct" class="btn btn-primary btn-lg mb-1">Scan next Product</button>
     <p id="scanProductMessage"></p>
 </div>
 
@@ -34,7 +48,7 @@
         scanQrCode(scanLocation, function(id){
             locationInfo.innerText = 'Current Location: ' + id;
             lid = id;
-            makeAjax('${api}/get_location_name.py?lid=' + id, function(nameJSON){
+            makeAjax('/api/get_location_name.py?lid=' + id, function(nameJSON){
                 const result = JSON.parse(nameJSON);
                 locationInfo.innerText = 'Current Location: ' + result['name'];
                 productDiv.style.visibility = 'visible';
@@ -44,7 +58,7 @@
     scanProduct.addEventListener('click', function(){
         productMessage.innerHTML = '';
         scanQrCode(scanProduct, function(id){
-            makeAjax('${api}/update_product_location.py?lid=' + lid + '&pid=' + id, function(nameJSON){
+            makeAjax('/api/update_product_location.py?lid=' + lid + '&pid=' + id, function(nameJSON){
                 const result = JSON.parse(nameJSON);
                 setMessage(result['updated'], result['message']);
             });

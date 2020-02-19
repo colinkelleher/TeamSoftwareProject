@@ -1,39 +1,27 @@
 #!/usr/bin/python3
-try: import fix_import
-except: pass
-from cgi import FieldStorage
-from python.login import *
-from python.html_components import *
+from python.webpage_functions import print_main
 from python.databases.databaseQueries import select_all
 
-print('Content-Type: text/html')
-print()
-print_head()
-print_nav()
-
-try:
-    items = select_all("products")
-    items_html = """<section id='header'>
-                        <span><b>ID</b></span>
-                        <span><b>Title</b></span>
-                        <!-- <span><b>Dessscription</b></span> -->
-                        </section> """
-    for i in items:
-        item = """<span>%d</span>
-                  <span>%s</span>
-                  <!-- <span>%s</span> -->""" % (i['id'], i['title'], i['description'])
-        items_html += """<section class='item' onclick="getInfo(id=%s);">
-                            %s
-                         </section>""" % (i['id'], str(item))
+items = select_all("products")
+items_html = """<section id='header'>
+                    <span><b>ID</b></span>
+                    <span><b>Title</b></span>
+                    <!-- <span><b>Dessscription</b></span> -->
+                    </section> """
+for i in items:
+    item = """<span>%d</span>
+              <span>%s</span>
+              <!-- <span>%s</span> -->""" % (i['id'], i['title'], i['description'])
+    items_html += """<section class='item' onclick="getInfo(id=%s);">
+                        %s
+                     </section>""" % (i['id'], str(item))
 
 
-except Exception as e:
-    print(e)
 
 html = """
 <main>
     <section id="main">
-        <img src="/TeamSoftwareProject/images/locations/main.png" id="map">
+        <img src="/images/locations/main.png" id="map">
         <section id="info">
             <h3>Product Information</h3>
             <table>
@@ -166,7 +154,7 @@ javascript = """
 
             }
         };
-        xhttp1.open("GET", "/TeamSoftwareProject/api/get_product_info.py?pid="+id, true);
+        xhttp1.open("GET", "/api/get_product_info.py?pid="+id, true);
         xhttp1.send();
         
         
@@ -178,7 +166,7 @@ javascript = """
 
             }
         };
-        xhttp.open("GET", "/TeamSoftwareProject/api/get_product_map.py?pid="+id, true);
+        xhttp.open("GET", "/api/get_product_map.py?pid="+id, true);
         xhttp.send();
         
         
@@ -198,4 +186,6 @@ javascript = """
     } 
     
     </script> """
-print(html, style, javascript)
+
+
+print_main(html + style + javascript)

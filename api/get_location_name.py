@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-try: import fix_import
-except: pass
 
 from json import dumps
 # Import to authenticate user, as well as form data stuff

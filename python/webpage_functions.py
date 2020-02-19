@@ -1,12 +1,11 @@
-from cgitb import enable
+from cgitb import Hook
 from cgi import FieldStorage
 from html import escape
-from http.cookies import SimpleCookie
-from os import environ
 from string import Template
-from pprint import pprint
+from os.path import exists
+import sys
 
-from python.users.user import user
+from python.user import get_user
 from python import path_stuff
 from python.htmlGenerators.nav import get_nav
 
@@ -20,9 +19,36 @@ Handles web page specific things like
     Prints html files from py_html folder, 
         adding in absolute urls and using string.Template for adding in python generated html
 """
-enable()
+
+
+"""
+Normal cgitb.enable doesn't want to work for some reason
+But if I print Content-Type: text/html
+And then run the handle method that cgitb uses it works
+No fancy html formatting though
+"""
+class Logger(Hook):
+
+    def handle(self, info=None):
+        print('Content-Type: text/html\n')
+        print(super().handle(info))
+
+
+# Intercept all exceptions and pass them to Logger class just like cgitb does
+sys.excepthook = Logger()
 
 form_data = FieldStorage()
+
+_cookie = None
+
+
+def set_cookie(cookie):
+    """
+    Set global cookie to be printed
+    Run print_html or print_main to print the cookie after
+    """
+    global _cookie
+    _cookie = cookie
 
 
 def has_form_data():
@@ -45,12 +71,10 @@ def get_html_template(filename):
     return Template(open(path, 'r').read())
 
 
-def print_html(filename, inputs={}, cookie2=None):
+def print_html(filename, inputs={}):
     """
     Prints a html page from files in py_html
     Also prints the cookie that has been set
-    Adds in absolute urls where specified
-        Substitutes for example ${bootstrap} for /~kpp1/public_html/cgi-bin/.../Bootstrap
     Does same thing for inputs so like
         ${content} in html and inputs={'content': 'Hello World'}
 
@@ -58,27 +82,46 @@ def print_html(filename, inputs={}, cookie2=None):
     @param inputs: Dictionary of other html inputs to insert
     """
     print('Content-Type: text/html')
-    if cookie2:
-        print(cookie2)
+    if _cookie:
+        print(_cookie)
     print()
     template = get_html_template(filename)
     # Need to merge default dictionary with inputs dict
     default = {
         'qrScanner':    """
-                            <script src="${js}/qrscanner.js"></script>
-                            <script src="${js}/libs/jsQR.js"></script>
+                            <script src="/js/qrscanner.js"></script>
+                            <script src="/js/libs/jsQR.js"></script>
                         """,
-        'nav': get_nav(user.get_nav_items())
+        'nav': get_nav(get_user().get_nav_items())
     }
-    # First run inputs and default through templating
-    # Then substitute absolute paths into that template
-    merged = {**inputs, **default}
-    template = Template(template.safe_substitute(merged))
-    print(template.safe_substitute(path_stuff.get_urls()))
+    # First substitute all user inputs in the html like ${main} into whatever passed through in inputs dict
+    # Then substitute defaults above like nav
+    inputted = Template(template.safe_substitute(inputs))
+    html = inputted.safe_substitute(default)
+    # Print the html
+    print(html)
 
 
-if not user.is_authorized():
-    print_html('404.html')
+def print_main(content, inputs={}):
+    """
+    Prints main.html and sets content of page
+    :param content: Main part of the page that changes. Can be a html string or a .html file from py_html
+    :param inputs: If your content uses string templates you can input them here
+    :return: Nothing
+    """
+    # If content endswith .html and a file like it exists in py_html, read that in as new content
+    if content.endswith('.html'):
+        html = path_stuff.get_abs_paths()['py_html'] + '/' + content
+        if exists(html):
+            content = open(html, 'r').read()
+    inputs['main'] = content
+    print_html('main.html', inputs)
+
+
+if not get_user().is_authorized():
+    print_html('redirect.html', dict(url='/index.py'))
     exit(0)
+
+
 
 
