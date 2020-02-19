@@ -1,13 +1,10 @@
 from cgitb import Hook
 from cgi import FieldStorage
 from html import escape
-from http.cookies import SimpleCookie
-from os import environ
 from string import Template
-from pprint import pprint
 import sys
 
-from python.users.user import get_user
+from python.user import get_user
 from python import path_stuff
 from python.htmlGenerators.nav import get_nav
 
