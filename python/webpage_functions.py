@@ -41,6 +41,17 @@ sys.excepthook = Logger()
 
 form_data = FieldStorage()
 
+_cookie = None
+
+
+def set_cookie(cookie):
+    """
+    Set global cookie to be printed
+    Run print_html or print_main to print the cookie after
+    """
+    global _cookie
+    _cookie = cookie
+
 
 def has_form_data():
     return len(form_data) != 0
@@ -62,7 +73,7 @@ def get_html_template(filename):
     return Template(open(path, 'r').read())
 
 
-def print_html(filename, inputs={}, cookie2=None):
+def print_html(filename, inputs={}):
     """
     Prints a html page from files in py_html
     Also prints the cookie that has been set
@@ -73,8 +84,8 @@ def print_html(filename, inputs={}, cookie2=None):
     @param inputs: Dictionary of other html inputs to insert
     """
     print('Content-Type: text/html')
-    if cookie2:
-        print(cookie2)
+    if _cookie:
+        print(_cookie)
     print()
     template = get_html_template(filename)
     # Need to merge default dictionary with inputs dict
@@ -93,16 +104,15 @@ def print_html(filename, inputs={}, cookie2=None):
     print(html)
 
 
-def print_main(content, inputs={}, cookie=None):
+def print_main(content, inputs={}):
     """
     Prints main.html and sets content of page
     :param content: Main part of the page that changes
     :param inputs: If your content uses string templates you can input them here
-    :param cookie: Cookies you want to print
     :return: Nothing
     """
     inputs['main'] = content
-    print_html('main.html', inputs, cookie)
+    print_html('main.html', inputs)
 
 
 if not get_user().is_authorized():
