@@ -1,4 +1,5 @@
 from python.login import *
+import os
 
 """
 Creates user variable of the right kind
@@ -25,8 +26,14 @@ class NotLoggedInUser:
         self.email = email
 
     def is_authorized(self):
-        # uri = os.environ['REQUEST_URI']
-        return True
+        """
+        Checks if a user is allowed on a page
+        app.py uses SCRIPT_NAME to get name and path to script
+
+        Anyone not logged should only be able to login or signup
+        """
+        uri = os.environ.get('SCRIPT_NAME') or []
+        return uri in ['/webfiles/signup.py', '/index.py']
 
     def get_nav_items(self):
         return [('Home', 'fas fa-home', '/index.py'),('Update Location', 'fas fa-qrcode', 'webfiles/updateLocation.py')]

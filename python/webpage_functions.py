@@ -116,7 +116,7 @@ def print_main(content, inputs={}):
 
 
 if not get_user().is_authorized():
-    print_html('404.html')
+    print_html('redirect.html', dict(url='/index.py'))
     exit(0)
 
 
