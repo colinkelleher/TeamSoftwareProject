@@ -1,17 +1,22 @@
-<main class="dash-content" xmlns="http://www.w3.org/1999/html">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-10">
+<style>
+    #qrcontainer, #productDiv {
+    margin: 0 auto;
+    }
+    #qrenterid, #scanProduct{
+    left: auto;
+    top:auto;
+   }
+   #qrButtonDiv, #locationName, #scanProduct {
+   text-align: center;
+   }
+
+</style>
+
 <button type="button" id="scanLocation" class="btn btn-primary btn-lg mb-1">Scan a Location</button>
 <h3 id="locationName"></h3>
 <div id="productDiv" style="visibility: collapse">
-    <input type="button" id="scanProduct" value="Scan next Product"/>
+    <button type="button" id="scanProduct" class="btn btn-primary btn-lg mb-1">Scan next Product</button>
     <p id="scanProductMessage"></p>
-</div>
-            </div>
-        </div>
-    </div>
-</main>
 </div>
 
 <script>
