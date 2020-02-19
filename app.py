@@ -1,5 +1,6 @@
 from http.server import HTTPServer, CGIHTTPRequestHandler
 import os
+import subprocess
 
 port = 8080
 
@@ -18,12 +19,17 @@ class CGIHandler(CGIHTTPRequestHandler):
 
 
 try:
-    if 'PYTHONPATH' not in os.environ or os.getcwd() not in os.environ['PYTHONPATH']:
-        if os.name != 'nt':
-            os.system('PYTHONPATH=${PYTHONPATH}:/$(pwd) && export PYTHONPATH')
+    # Get PYTHONPATH variable or '' if its not there
+    pythonpath = os.environ.get('PYTHONPATH') or ''
+    if os.getcwd() not in pythonpath:
+        # Add current working directory to PYTHONPATH and update os.environ
+        pythonpath += ':' + os.getcwd()
+        os.environ.update(PYTHONPATH=pythonpath)
+
     httpd = HTTPServer(('', port), CGIHandler)
     print("Starting simple_httpd on port: " + str(httpd.server_port))
     httpd.serve_forever()
+
 
 except KeyboardInterrupt as err:
     print("User pressed Ctrl + C : " + str(err))
