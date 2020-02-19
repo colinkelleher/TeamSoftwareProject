@@ -63,7 +63,3 @@ def get_user():
     else:
         return User(email)
 
-
-user = get_user()
-
-

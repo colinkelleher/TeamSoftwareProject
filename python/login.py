@@ -21,6 +21,11 @@ logOut() -> To be run to change state from logged in to logged out
 register() -> Adds user details to database (should sanatize in future)
 """
 
+# Add these so can know that someone just logged in
+# Before a cookie has been printed
+_loggedIn = False
+_user_id = ''
+
 
 def loggedIn():
     """ Checks if a user is logged in
@@ -30,6 +35,9 @@ def loggedIn():
     @return authenticated -> boolean showing if already logged in or not
             user_id -> string of this user's user_id, empty string if unsuccessful
     """
+    if _loggedIn:
+        return _loggedIn, _user_id
+
     authenticated = False
     user_id = ""
 
@@ -105,6 +113,8 @@ def tryLogIn(user_id, password):
         session_store['authenticated'] = True
         session_store['user_id'] = user_id
         session_store.close()
+        global _loggedIn, _user_id
+        _loggedIn, _user_id = True, user_id
     except Exception as e:
         print('Content-Type: text/html\n')
         print(e)
@@ -132,6 +142,8 @@ def logOut():
                 session_store = open(get_abs_paths()['python'] + 'sessions/sess_' + sid, writeback = True)
                 session_store['authenticated'] = False
                 session_store.close()
+                global _loggedIn
+                _loggedIn = False
         # successfully logged out
         return True
     except IOError:

@@ -7,7 +7,7 @@ from string import Template
 from pprint import pprint
 import sys
 
-from python.users.user import user
+from python.users.user import get_user
 from python import path_stuff
 from python.htmlGenerators.nav import get_nav
 
@@ -83,7 +83,7 @@ def print_html(filename, inputs={}, cookie2=None):
                             <script src="/js/qrscanner.js"></script>
                             <script src="/js/libs/jsQR.js"></script>
                         """,
-        'nav': get_nav(user.get_nav_items())
+        'nav': get_nav(get_user().get_nav_items())
     }
     # First substitute all user inputs in the html like ${main} into whatever passed through in inputs dict
     # Then substitute defaults above like nav
@@ -105,7 +105,7 @@ def print_main(content, inputs={}, cookie=None):
     print_html('main.html', inputs, cookie)
 
 
-if not user.is_authorized():
+if not get_user().is_authorized():
     print_html('404.html')
     exit(0)
 
