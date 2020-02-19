@@ -2,6 +2,7 @@ from cgitb import Hook
 from cgi import FieldStorage
 from html import escape
 from string import Template
+from os.path import exists
 import sys
 
 from python.user import get_user
@@ -104,10 +105,15 @@ def print_html(filename, inputs={}):
 def print_main(content, inputs={}):
     """
     Prints main.html and sets content of page
-    :param content: Main part of the page that changes
+    :param content: Main part of the page that changes. Can be a html string or a .html file from py_html
     :param inputs: If your content uses string templates you can input them here
     :return: Nothing
     """
+    # If content endswith .html and a file like it exists in py_html, read that in as new content
+    if content.endswith('.html'):
+        html = path_stuff.get_abs_paths()['py_html'] + '/' + content
+        if exists(html):
+            content = open(html, 'r').read()
     inputs['main'] = content
     print_html('main.html', inputs)
 
