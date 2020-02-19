@@ -49,6 +49,10 @@ class User(NotLoggedInUser):
         return super().get_nav_items() + [
             ('User stuff links', 'fas fa-horse', '#!')
         ]
+    
+    def is_authorized(self):
+        return True
+
 
 class Manager(User):
 
