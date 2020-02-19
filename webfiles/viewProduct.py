@@ -1,32 +1,22 @@
 #!/usr/bin/python3
-from cgi import FieldStorage
-from python.login import *
-from python.html_components import *
+from python.webpage_functions import print_main
 from python.databases.databaseQueries import select_all
 
-print('Content-Type: text/html')
-print()
-print_head()
-print_nav()
-
-try:
-    items = select_all("products")
-    items_html = """<section id='header'>
-                        <span><b>ID</b></span>
-                        <span><b>Title</b></span>
-                        <!-- <span><b>Dessscription</b></span> -->
-                        </section> """
-    for i in items:
-        item = """<span>%d</span>
-                  <span>%s</span>
-                  <!-- <span>%s</span> -->""" % (i[0], i[1], i[2])
-        items_html += """<section class='item' onclick="getInfo(id=%s);">
-                            %s
-                         </section>""" % (i[0], str(item))
+items = select_all("products")
+items_html = """<section id='header'>
+                    <span><b>ID</b></span>
+                    <span><b>Title</b></span>
+                    <!-- <span><b>Dessscription</b></span> -->
+                    </section> """
+for i in items:
+    item = """<span>%d</span>
+              <span>%s</span>
+              <!-- <span>%s</span> -->""" % (i[0], i[1], i[2])
+    items_html += """<section class='item' onclick="getInfo(id=%s);">
+                        %s
+                     </section>""" % (i[0], str(item))
 
 
-except Exception as e:
-    print(e)
 
 html = """
 <main>
@@ -196,4 +186,6 @@ javascript = """
     } 
     
     </script> """
-print(html, style, javascript)
+
+
+print_main(html + style + javascript)
