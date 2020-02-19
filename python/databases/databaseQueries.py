@@ -232,6 +232,37 @@ def get_count_of_product_expiring_soon(limit=100):
 
     return label_results_rows(result)
 
+def get_list_of_product_expiring_soon(limit=100):
+    """
+    This function returns products and their info up to a certain expiry date.
+
+    Arguments:
+        limit -- int - Represents the number of rows you wish to see in the result
+
+    Returns:
+        result -- List of tuples representing each row in the selection
+    """
+
+    sql = """SELECT id, location, expiry_date, title
+             FROM products
+             ORDER BY expiry_date
+             LIMIT %d;
+            """ % limit
+
+    execute(sql)
+
+    result = cursor.fetchall()
+
+    return result
+
+def get_total_number_of_products():
+    """
+    This function returns the number of products in the database.
+    """
+    sql = "Select * from products"
+    execute(sql)
+    return (len(cursor.fetchall()))
+
 def add_user(fname, lname, email, password):
     """
     Adds user info to the database
