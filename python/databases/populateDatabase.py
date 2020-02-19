@@ -29,17 +29,20 @@ def populate_products_table():
     print("Populating products table")
 
     try:
-        sql = "INSERT INTO products (title, description, location, comments) VALUES (?, ?, ?, ?)"
+        sql = "INSERT INTO products (title, description, location, comments, photo, expiry_date, volume) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        types_of_food = ["Cod", "Salmon", "Tuna", "Calamari", "Chicken Wings", "Chicken Breasts", "Sirloin Steak", "Strawberries",
+                            "Blueberries", "Pineapples", "Cranberries", "Bananas", "Milk", "Eggs", ]
+        descriptions = ["Cod fresh from the Atlantic", "Fresh fillets of salmon", "John West Tuna", "Fresh Calamari from the Irish Sea", "Shannonvale Chicken Wings", "Shannonvale Chicken Wings",
+                           "Angus Sirloin from West Cork", "Bushby's Strawberries", "Blueberries from USA", "Pineapples from South America", "Cranberries from Chile", "Bananas from Ecuador", "Milk from Clona", "Eggs from Greenfield Foods", ]
+        for i in range(0,50):
+            randomNum = random.randint(0, 13)
 
-        for i in range(1):
-            val = [
-                ("Cod", "Fresh cod from off the cost of South Africa. 1tn", randint(1, 9), 1),
-                ("Salmon", "Frozen salmon from the Irish sea. 2.tn", randint(1, 9), 2),
-                ("Strawberries", "Fresh Wexford Strawberries. 10kg (40 x 250g)", randint(1, 9), 3),
-                ("Pineapple Tin", "Tin of pineapple in syrup. 50kg (500 x 100g)", randint(1, 10), 4)
-            ]
-
-            cursor.executemany(sql, val)
+            day = random.randint(1,28)
+            if day < 10:
+                date="2020-03-0"+str(day)
+            else:
+                date = "2020-03-"+str(day)
+            cursor.execute(sql, (types_of_food[randomNum], descriptions[randomNum], random.randint(0, 30), randomNum, None, date, random.randint(0, 30)))
             connection.commit()
 
         print("Populated products table")
