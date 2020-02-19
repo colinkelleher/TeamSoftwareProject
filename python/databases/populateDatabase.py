@@ -32,7 +32,7 @@ def populate_products_table():
         sql = "INSERT INTO products (title, description, location, comments, photo, expiry_date, volume) VALUES (?, ?, ?, ?, ?, ?, ?)"
         types_of_food = ["Cod", "Salmon", "Tuna", "Calamari", "Chicken Wings", "Chicken Breasts", "Sirloin Steak", "Strawberries",
                             "Blueberries", "Pineapples", "Cranberries", "Bananas", "Milk", "Eggs", ]
-        descriptions = ["Cod fresh from the Atlantic", "Fresh fillets of salmon", "John West Tuna", "Fresh Calamari from the Irish Sea", "Shannonvale Chicken Wings", "Shannonvale Chicken Wings",
+        descriptions = ["Cod fresh from the Atlantic", "Fresh fillets of salmon", "John West Tuna", "Fresh Calamari from the Irish Sea", "Shannonvale Chicken Wings", "Shannonvale Chicken Breasts",
                            "Angus Sirloin from West Cork", "Bushby's Strawberries", "Blueberries from USA", "Pineapples from South America", "Cranberries from Chile", "Bananas from Ecuador", "Milk from Clona", "Eggs from Greenfield Foods", ]
         for i in range(0,50):
             randomNum = random.randint(0, 13)
