@@ -1,5 +1,5 @@
-from databases.connectToDatabase import connect
-from databases.databaseQueries import select_all
+from python.databases.connectToDatabase import connect
+from python.databases.databaseQueries import select_all
 from cgitb import enable
 from html import escape
 enable()
