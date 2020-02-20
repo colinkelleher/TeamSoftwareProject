@@ -273,6 +273,7 @@ def add_user(fname, lname, email, password):
                           VALUES (?, ?, ?, ? , ?)""", (email, fname, lname, password, "0"))
         connection.commit()
     except Exception as e:
+        print(e)
         return False
 
     return True
