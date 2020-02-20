@@ -66,7 +66,7 @@ html = """
 
 style = """
 <style>
-        html, body {
+    html, body {
         max-width: 100%;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -74,8 +74,9 @@ style = """
     #main{
         height:100%;
         width:100%;
+        padding-left:230px;
         display: grid;
-        grid-template-columns: 1.5fr 2fr 0.5fr;
+        grid-template-columns: 1fr 2fr 0.5fr;
     }
     #right{
         float:right;
@@ -84,9 +85,8 @@ style = """
         overflow: scroll;
     }
     img{
-        grid-column:1;
          display:inline;
-         width:80%;
+         height:100%;
     }
     .item{
         padding:5px;
