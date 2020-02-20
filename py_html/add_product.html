@@ -2,29 +2,32 @@
 <div class="col-xl-6">
     <div class="card spur-card">
         <div class="card-header">
-                                        <i class="fas fa-chart-bar"> Add a location</i>
+                                        <i class="fas fa-location-arrow"> Add a location</i>
                                     </div>
 <div class="card-body ">
 <form action="" id="addProductForm">
 <!--    (title, location, description, comments)-->
-    <label for="title">Title: </label>
-    <input type="text" name="title" id="title" value="${title}"/>
-    <br>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" placeholder="Insert Title...">
+    </div>
 
-    <label for="loc">Location: </label>
-    <input type="text" name="loc" id="loc" value="${loc}"/>
-    <br>
+    <div class="form-group">
+        <label for="loc">Location</label>
+        <input type="text" class="form-control" id="loc" placeholder="Insert Location...">
+    </div>
 
-    <label for="description">Description: </label>
-    <input type="text" name="description" id="description"/>
-    <br>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" placeholder="Insert Descriptions...">
+    </div>
 
-    <!-- Need to send list of comments -->
-    <label for="comments">Comments: </label>
-    <input type="text" name="comments" id="comments"/>
-    <br>
+    <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea class="form-control" id="comments" rows="3" placeholder="Insert comments here ...."></textarea>
+    </div>
 
-    <input type="submit">
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
                                 </div></div></div>
