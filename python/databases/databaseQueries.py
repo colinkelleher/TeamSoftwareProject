@@ -290,16 +290,7 @@ def update_user(email, field, value):
 
     return True
 
+
 if __name__ == "__main__":
-    print(get_product_info(1))
-    print(get_location_info(1))
-
-    print(select_all_with_join("products", "locations", "products.location", "locations.id", "expiry_date", "2020-01-30"))
-
-    print(get_product_that_expires_on("2020-01-30"))
-
     print(select_fullness_of_locations())
-
-    print()
-
-    print(get_count_of_product_expiring_soon())
+    print(select_all("locations"))
