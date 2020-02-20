@@ -14,16 +14,17 @@ values = {
     'title': '',
     'description': '',
     'loc': '',
-    'comments': ''
+    'comments': '',
+    'result': ''
 }
 
+og = values.copy()
 
 def show_add_product():
     # get_form_data might return None so switch that to '' for printing
     for k, v in values.items():
         if not v:
             values[k] = ''
-
     print_main('add_product.html', values)
 
 
@@ -31,23 +32,15 @@ reason = "No reason"
 valid = False
 
 if has_form_data():
-    for key in values.keys():
-        values[key] = get_form_data(key)
-    for r in required:
-        if not values[r] or values[r] == '':
-            valid = False
-            break
-        else:
-            valid = True
+    title = get_form_data("title")
+    location = get_form_data("loc")
+    description = get_form_data("description")
+    date = get_form_data("date")
+    comments = get_form_data("comments")
+    result = addProduct(title, description, location, comments=comments, expiry_date=date)
+    og['result'] = date
 
-    if valid:
-        vals = [values[x] for x in order]
-        vals[3] = 1
-        result = addProduct(vals)
-        if result == -1:
-            valid = False
-        else:
-            print_main('redirect.html', dict(url='viewProduct.py'))
-
+    print_main('add_product.html', {'result':result})
+    valid = True
 if not valid:
     show_add_product()

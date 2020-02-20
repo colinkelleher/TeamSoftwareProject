@@ -2,10 +2,11 @@ from python.databases.connectToDatabase import connect
 from python.databases.databaseQueries import select_all
 from cgitb import enable
 from html import escape
+
 enable()
 
 
-def addProduct(values):
+def addProduct(title, description, location, comments = "null", volume='null', photo="", expiry_date="null"):
     """
       Function to add a product to the database."
 
@@ -15,34 +16,23 @@ def addProduct(values):
     """
     try:
         connection, cursor = connect()
-        id = values[0]
-        title = values[1]
-        description = values[2]
-        location = values[3]
-        comments = values[4]
-        photo = values[5]
-        expiry_date = values[6]
-        volume = values[7]
-        if id == None or id == "":
-            return ("Please enter and id.")
-        else:
-            sql = "SELECT id from products where id = ?;"
-            cursor.execute(sql, (int(id),))
-            if len(cursor.fetchall()) > 0:
-                connection.commit()
-                return ("Product is already in the database.")
 
-            else:
-                try:
-                    sql = "INSERT INTO products (id, title, description, location, comments, photo, expiry_date, volume) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
-                    cursor.execute(sql, (int(values[0]), values[1], values[2], values[3], values[4], values[5], values[6], values[7]))
-                    connection.commit()
-                    return ("Product successfully added!")
-                except Exception as e:
-                    print(e)
+
+        try:
+            sql = "INSERT INTO products (title, description, location, comments, photo, expiry_date, volume) VALUES (?, ?, ?, ?, ?, ?, ?);"
+            cursor.execute(sql,
+                           (title, description, location, comments, photo, expiry_date, volume))
+            connection.commit()
+
+            return ("Product successfully added!")
+        except Exception as e:
+
+            return ("ERROR %s" % e)
 
     except Exception as e:
-        print(e)
+
+        return ("ERROR %s" % e)
+
 
 def removeProduct(id):
     """
@@ -57,9 +47,8 @@ def removeProduct(id):
     try:
         connection, cursor = connect()
 
-
         if id == None or id == "":
-            return("Please enter and id.")
+            return ("Please enter and id.")
         else:
             sql = "SELECT id from products where id = ?;"
             cursor.execute(sql, (int(id),))
@@ -78,7 +67,6 @@ def removeProduct(id):
 
     except Exception as e:
         print(e)
-
 
 
 if __name__ == "__main__":
