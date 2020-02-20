@@ -278,19 +278,28 @@ def add_user(fname, lname, email, password):
 
     return True
 
-def update_user(email, field, value):
+def update_user(id, field, value):
     """Update details about a user in the database
     @return True or False if successful or not 
     """
     try:
-        cursor.execute("""UPDATE users SET ? = ? WHERE email = ?""", (field, value, email))
+        cursor.execute("""UPDATE users SET ? = ? WHERE id = ?""", (field, value, id))
         connection.commit()
     except Exception as e:
         return False
 
     return True
 
-
 if __name__ == "__main__":
+    print(get_product_info(1))
+    print(get_location_info(1))
+
+    print(select_all_with_join("products", "locations", "products.location", "locations.id", "expiry_date", "2020-01-30"))
+
+    print(get_product_that_expires_on("2020-01-30"))
+
     print(select_fullness_of_locations())
-    print(select_all("locations"))
+
+    print()
+
+    print(get_count_of_product_expiring_soon())
