@@ -63,7 +63,7 @@ class Manager(User):
 
     def get_nav_items(self):
         return super().get_nav_items() + [
-
+            ('Analytics', 'fas fa-chart-pie-alt', '/webfiles/analytics.py')
         ]
 
 
