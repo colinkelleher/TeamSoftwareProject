@@ -16,8 +16,6 @@ for i in items:
                         %s
                      </section>""" % (i['id'], str(item))
 
-
-
 html = """
 <main>
     <section id="main">
@@ -123,20 +121,20 @@ style = """
     tr *{
          padding-left: 1em;
     }
-    
+
     #admin{
         position: absolute;
         bottom: 10%;
     }
-    
+
     #linfo{
         margin-top: 40%;
     }
-    
+
     h3{
         text-align:center;
     }
-    
+
 </style>
 """
 
@@ -144,7 +142,7 @@ javascript = """
 <script>
     function getInfo(id){
         console.log(id);
-        
+
         var xhttp1 = new XMLHttpRequest();
         xhttp1.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -161,27 +159,27 @@ javascript = """
         };
         xhttp1.open("GET", "/api/get_product_info.py?pid="+id, true);
         xhttp1.send();
-        
-        
+
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var map = document.getElementById("map").src = this.responseText;
-                
+
 
             }
         };
         xhttp.open("GET", "/api/get_product_map.py?pid="+id, true);
         xhttp.send();
-        
-        
+
+
     }
-    
+
     function generate(){ 
         var message = document.getElementById("generate_message").innerHTML = "Print out is being \
                       generated. It will be available <a href='#'>Here</a> in a few seconds" 
     }
-    
+
     function delete_prod(){ 
         if (confirm('Are you sure you want to save this thing into the database?')) {
             var message = document.getElementById("delete_message").innerHTML = "This has been deleted. Refresh to stop seeing it" 
@@ -189,8 +187,7 @@ javascript = """
             return;
         }
     } 
-    
-    </script> """
 
+    </script> """
 
 print_main(html + style + javascript)
