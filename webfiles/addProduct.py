@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from python.webpage_functions import print_html, get_form_data, has_form_data
+from python.webpage_functions import print_html, get_form_data, has_form_data, print_main
 from python.addRemoveProduct import addProduct
 """
 Checks if (title, location, description, comments) form values are there
@@ -24,7 +24,7 @@ def show_add_product():
         if not v:
             values[k] = ''
 
-    print_html('add_product.html', values)
+    print_main('add_product.html', values)
 
 
 reason = "No reason"
@@ -47,7 +47,7 @@ if has_form_data():
         if result == -1:
             valid = False
         else:
-            print_html('redirect.html', dict(url='${webfiles}/viewProduct.py'))
+            print_main('redirect.html', dict(url='viewProduct.py'))
 
 if not valid:
     show_add_product()

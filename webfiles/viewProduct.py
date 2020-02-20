@@ -74,19 +74,23 @@ style = """
     #main{
         height:100%;
         width:100%;
-        padding-left:230px;
         display: grid;
         grid-template-columns: 1fr 2fr 0.5fr;
     }
     #right{
+        height: 1000px;
         float:right;
         grid-column:3;
         background-color:lightgrey;
         overflow: scroll;
     }
     img{
+         padding:0;
+         margin:0;
+         grid-column:1;
          display:inline;
-         height:100%;
+         width:100%;
+         height: 700px;
     }
     .item{
         padding:5px;
@@ -107,6 +111,7 @@ style = """
         text-align: center;
         grid-column:2;
         display:inline;
+        width: 450px;
     }
     table{
         width:100%;
