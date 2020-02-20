@@ -139,15 +139,17 @@ def logOut():
             cookie.load(http_cookie_header)
             if 'sid' in cookie:
                 sid = cookie['sid'].value
-                session_store = open(get_abs_paths()['python'] + 'sessions/sess_' + sid, writeback = True)
+                path = get_abs_paths()['python'] + '/sessions/se ss_' + sid
+                session_store = open(path, writeback = True)
                 session_store['authenticated'] = False
                 session_store.close()
                 global _loggedIn
                 _loggedIn = False
         # successfully logged out
         return True
-    except IOError:
+    except IOError as e:
         # failed to access the session files
+        print(e)
         return False
 
 def register(email, pword, fname, lname):
