@@ -10,11 +10,12 @@ if not get_user().logged_in:
         # collect data
         fname, lname, email, pword = get_form_data("fname"), get_form_data("lname"), get_form_data("email"), Password(get_form_data("pword"))
         #send to db
-        registered = register(email, pword, fname, lname)
+        registered = register(email, str(pword), fname, lname)
+        print(registered)
         # check if successfully registered
         if registered:
             ## Print "successfully registered" page
-            print_html("login.html")
+            print_html('redirect.html', dict(url='../index.py'))
         else:
             # print signup page
             #### preferably with error message
@@ -22,4 +23,4 @@ if not get_user().logged_in:
     else:
         print_html("signup.html")
 else:
-    print_html('redirect.html', dict(url='index.py'))
+    print_html('redirect.html', dict(url='../index.py'))

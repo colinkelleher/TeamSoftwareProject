@@ -46,6 +46,7 @@
 
     scanLocation.addEventListener('click', function(){
         scanQrCode(scanLocation, function(id){
+            locationInfo.innerText = 'Current Location: ' + id;
             lid = id;
             makeAjax('/api/get_location_name.py?lid=' + id, function(nameJSON){
                 const result = JSON.parse(nameJSON);
