@@ -38,7 +38,7 @@ class NotLoggedInUser:
     def get_nav_items(self):
         return [('Home', 'fas fa-home', '/index.py'),
                 ('Update Location', 'fas fa-qrcode','/webfiles/updateLocation.py'),
-                ('Product Location', 'fas fa-map-marker-alt', '/webfiles/viewProduct.py')]
+                ('Product Location', 'fas fa-map-marker-alt', '/webfiles/viewProduct.py'),                    ('Add Product', 'fas fa-box', '/webfiles/addProduct.py') ]
 
 
 class User(NotLoggedInUser):
