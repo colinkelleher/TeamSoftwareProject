@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import csv
 from python.databases.databaseQueries import select_fullness_of_locations, get_count_of_product_expiring_soon
+from python.path_stuff import get_abs_paths
 
-product_history_csv_path = "../output/product_history.csv"
-path_to_created_graphs = "../output/created_graphs"
+product_history_csv_path = get_abs_paths()["python"] + "/stockInfo/output/product_history.csv"
+path_to_created_graphs = get_abs_paths()["python"] + "/stockInfo/output/created_graphs"
 
 
 def _draw_bar_chart(title, x_label, y_label, x_items, item_counts, png_name):
@@ -86,7 +87,7 @@ def create_graph_of_times_all_locations_have_been_used():
     This function creates a bar chart that shows the number of times a location has been used
     """
 
-    locations = _get_number_of_occurrences_in_csv_file_by_index(product_history_csv_path, 3)
+    locations = _get_number_of_occurrences_in_csv_file_by_index(product_history_csv_path, 2)
 
     location_names = []
     location_count = []
@@ -119,7 +120,7 @@ def create_graph_of_how_full_locations_are():
         full_size.append(float((used/capacity) * 100))
         empty_size.append(float(100 - ((used/capacity) * 100)))
 
-        location_names.append(row[1])
+        location_names.append(row["title"])
 
     used = plt.bar(index, full_size, color="b")
     available = plt.bar(index, empty_size, color="r", bottom=full_size)
