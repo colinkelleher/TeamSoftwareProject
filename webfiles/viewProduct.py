@@ -74,7 +74,6 @@ style = """
     #main{
         height:100%;
         width:100%;
-        padding-left:230px;
         display: grid;
         grid-template-columns: 1fr 2fr 0.5fr;
     }
