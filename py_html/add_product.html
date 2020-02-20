@@ -13,33 +13,33 @@
 <!--    (title, location, description, comments)-->
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" placeholder="Insert Title..." required>
+        <input name="title" type="text" class="form-control" id="title" placeholder="Insert Title..." required>
     </div>
 
     <div class="form-group">
         <label for="loc">Location</label>
-        <input type="text" class="form-control" id="loc" placeholder="Insert Location..." required>
+        <input name="location" type="text" class="form-control" id="loc" placeholder="Insert Location..." required>
     </div>
 
     <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" placeholder="Insert Descriptions..." required>
+        <input name="description" type="text" class="form-control" id="description" placeholder="Insert Descriptions..." required>
     </div>
 
-<!--    <div class="form-group">-->
-<!--        <label for="expdate">Expiry Date</label>-->
-<!--        <input type="date" class="form-control" id="expdate">-->
-<!--    </div>-->
+    <div class="form-group">
+        <label for="expdate">Expiry Date</label>
+        <input name="date" type="date" class="form-control" id="expdate">
+    </div>
 
-<!--    <div class="form-group">-->
-<!--        <label for="qty">Quantity</label>-->
-<!--        <input type="text" class="form-control" id="qty" placeholder="Insert Quantity here..." required>-->
-<!--    </div>-->
+    <div class="form-group">
+        <label for="qty">Quantity</label>
+        <input name="qty" type="text" class="form-control" id="qty" placeholder="Insert Quantity here..." required>
+    </div>
 
-<!--    <div class="form-group">-->
-<!--        <label for="comments">Comments</label>-->
-<!--        <textarea class="form-control" id="comments" rows="3" placeholder="Insert comments here ...."></textarea>-->
-<!--    </div>-->
+    <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea name="comments" class="form-control" id="comments" rows="3" placeholder="Insert comments here ...."></textarea>
+    </div>
 
     <button type="submit" class="btn btn-primary" >Submit</button>
     <p id="jonny">${result}</p>
