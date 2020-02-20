@@ -113,7 +113,7 @@ def print_main(content, inputs={}):
     if content.endswith('.html'):
         html = path_stuff.get_abs_paths()['py_html'] + '/' + content
         if exists(html):
-            content = open(html, 'r').read()
+            content = get_html_template(html).safe_substitute(inputs)
     inputs['main'] = content
     print_html('main.html', inputs)
 
