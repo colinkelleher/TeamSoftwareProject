@@ -5,16 +5,19 @@ from python.databases.databaseQueries import select_all_with_conditions, update_
 
 userForm = ""
 users = select_all_with_conditions("users", "role", "0")
-for row in users:
-    userForm += '<option value="%s">%s %s</option>' %(row["id"],row["fname"],row["lname"])
+if len(users) > 0:
+    for row in users:
+        userForm += '<option value="%s">%s %s</option>' %(row["id"],row["fname"],row["lname"])
+else:
+    userForm += '<option value="">None</option>'
 
 if get_user().logged_in:
     if has_form_data():
         user_id = get_form_data("users")
-        updated = update_user(user_id, "role", "1")
+        updated = update_user(int(user_id), "role", "1")
         if updated:
             #successful
-            print_main("makeAdmin.html", dict(msg="Successfully made admin", users=userForm))
+            print_main("makeAdmin.html", dict(msg="Successful!", users=userForm))
         else:
             #failed
             print_main("makeAdmin.html", dict(msg="Unsuccessful, try again", users=userForm))
