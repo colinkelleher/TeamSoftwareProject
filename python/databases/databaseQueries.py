@@ -263,14 +263,14 @@ def get_total_number_of_products():
     execute(sql)
     return (len(cursor.fetchall()))
 
-def add_user(fname, lname, email, password):
+def add_user(fname, lname, email, password, role="0"):
     """
     Adds user info to the database
     returns True if successful
     """
     try:
         cursor.execute("""INSERT INTO users (email, fname, lname, password, role)
-                          VALUES (?, ?, ?, ? , ?)""", (email, fname, lname, password, "0"))
+                          VALUES (?, ?, ?, ? , ?)""", (email, fname, lname, password, role))
         connection.commit()
     except Exception as e:
         print(e)
@@ -280,7 +280,7 @@ def add_user(fname, lname, email, password):
 
 def update_user(id, field, value):
     """Update details about a user in the database
-    @return True or False if successful or not 
+    @return True or False if successful or not
     """
     try:
         cursor.execute("UPDATE users SET %s = ? WHERE id = ?" % field, (value, id))
