@@ -283,7 +283,7 @@ def update_user(id, field, value):
     @return True or False if successful or not 
     """
     try:
-        cursor.execute("""UPDATE users SET ? = ? WHERE id = ?""", (field, value, id))
+        cursor.execute("UPDATE users SET %s = ? WHERE id = ?" % field, (value, id))
         connection.commit()
     except Exception as e:
         return False
