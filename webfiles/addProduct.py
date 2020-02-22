@@ -16,6 +16,7 @@ values = {
     'loc': '',
     'comments': '',
     'result': '',
+    'id': ''
 }
 
 og = values.copy()
@@ -33,14 +34,17 @@ valid = False
 
 if has_form_data():
     title = get_form_data("title")
-    location = get_form_data("loc")
+    location = get_form_data("location")
     description = get_form_data("description")
     date = get_form_data("date")
     comments = get_form_data("comments")
     result, new_id = addProduct(title, description, location, comments=comments, expiry_date=date)
     og['result'] = date
 
-    print_main('add_product.html', {'result':result})
+    if new_id == -1:
+        new_id = ''
+
+    print_main('add_product.html', {'result':result, 'id': new_id})
     valid = True
 if not valid:
     show_add_product()

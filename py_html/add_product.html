@@ -43,8 +43,19 @@
 
     <button type="submit" class="btn btn-primary" >Submit</button>
     <p id="jonny">${result}</p>
+
+    <a id="viewProduct"><button type="button" class="btn btn-primary mb-1">View Product</button></a>
 </form>
 </div></div>
+
+<script>
+    let pid = '${id}';
+    let link = document.getElementById('viewProduct');
+    if (pid === '')
+        link.parentElement.removeChild(link);
+    else
+        link.setAttribute('href', '/webfiles/viewProduct.py?pid=' + pid);
+</script>
 
 
 
