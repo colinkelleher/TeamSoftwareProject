@@ -100,27 +100,30 @@ def create_graph_of_times_all_locations_have_been_used():
                     "location_history")
 
 
-def create_graph_of_how_full_locations_are():
-    """
-    This function creates a graph showing how much space has been used in each location
-    """
-
+def get_how_full_locations_are():
     rows = select_fullness_of_locations()
 
     full_size = []
     empty_size = []
     location_names = []
 
-    index = [i for i in range(0, len(rows), 1)]
-
     for row in rows:
         used = row['full']
         capacity = row['capacity']
 
-        full_size.append(float((used/capacity) * 100))
-        empty_size.append(float(100 - ((used/capacity) * 100)))
+        full_size.append(float((used / capacity) * 100))
+        empty_size.append(float(100 - ((used / capacity) * 100)))
 
         location_names.append(row["title"])
+
+    return location_names, full_size, empty_size
+
+def create_graph_of_how_full_locations_are():
+    """
+    This function creates a graph showing how much space has been used in each location
+    """
+    location_names, full_size, empty_size = get_how_full_locations_are()
+    index = [i for i in range(0, len(location_names), 1)]
 
     used = plt.bar(index, full_size, color="b")
     available = plt.bar(index, empty_size, color="r", bottom=full_size)
@@ -155,13 +158,7 @@ def create_pie_chart_showing_where_majority_of_stock_is():
     plt.savefig(path_to_created_graphs + "/pie_chart_of_space_used.png", bbox_inches="tight")
 
 
-def create_bar_chart_showing_count_of_expiring_food():
-    """
-    This function creates a bar chart where each day that has product expiring on it is represented by a bar,
-    and the height of the bar represents how much product is expiring on that day
-
-    """
-
+def get_count_of_expiring_food():
     rows = get_count_of_product_expiring_soon()
 
     dates = []
@@ -170,6 +167,18 @@ def create_bar_chart_showing_count_of_expiring_food():
     for row in rows:
         dates.append(row['expiry_date'])
         date_count.append(row['count'])
+
+    return dates, date_count
+
+
+def create_bar_chart_showing_count_of_expiring_food():
+    """
+    This function creates a bar chart where each day that has product expiring on it is represented by a bar,
+    and the height of the bar represents how much product is expiring on that day
+
+    """
+
+    dates, date_count = get_count_of_product_expiring_soon()
 
     _draw_bar_chart("Product Expiring On", "Date", "Amount of Product", dates, date_count, "product_expiring_soon")
 
