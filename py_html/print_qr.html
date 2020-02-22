@@ -1,0 +1,18 @@
+<center><h1>${title}</h1></center>
+
+<hr>
+
+<center>${qrcode}</center>
+
+<style>
+    .pyqrcode {
+        width: 50%;
+        height: auto;
+    }
+
+</style>
+<script>
+    var qrElement = document.getElementsByClassName('pyqrcode')[0];
+    var width = window.innerWidth/2;
+    qrElement.setAttribute("viewBox", "0 0 30 30");
+</script>

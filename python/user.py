@@ -38,7 +38,7 @@ class NotLoggedInUser:
     def get_nav_items(self):
         return [('Home', 'fas fa-home', '/index.py'),
                 ('Update Location', 'fas fa-qrcode','/webfiles/updateLocation.py'),
-                ('Product Location', 'fas fa-map-marker-alt', '/webfiles/viewProduct.py'),                    ('Add Product', 'fas fa-box', '/webfiles/addProduct.py') ]
+                ('Product Location', 'fas fa-map-marker-alt', '/webfiles/viewProduct.py')]
 
 
 class User(NotLoggedInUser):
@@ -63,7 +63,7 @@ class Manager(User):
 
     def get_nav_items(self):
         return super().get_nav_items() + [
-            ('Analytics', 'fas fa-chart-bar', '/webfiles/analytics.py'), ('Add User', 'fas fa-user-check', '/webfiles/addUser.py')
+
         ]
 
 
