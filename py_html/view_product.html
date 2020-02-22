@@ -165,4 +165,12 @@
         }
     }
 
+    // Check if any pid has been given in the url
+    // If there has, get info for that id
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('pid')){
+        getInfo(urlParams.get('pid'))
+    }
+
 </script>
