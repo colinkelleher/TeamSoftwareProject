@@ -22,16 +22,17 @@ def addProduct(title, description, location, comments = "null", volume='null', p
             sql = "INSERT INTO products (title, description, location, comments, photo, expiry_date, volume) VALUES (?, ?, ?, ?, ?, ?, ?);"
             cursor.execute(sql,
                            (title, description, location, comments, photo, expiry_date, volume))
+            row_id = cursor.lastrowid
             connection.commit()
 
-            return ("Product successfully added!")
+            return ("Product successfully added!"), row_id
         except Exception as e:
 
-            return ("ERROR %s" % e)
+            return ("ERROR %s" % e), -1
 
     except Exception as e:
 
-        return ("ERROR %s" % e)
+        return ("ERROR %s" % e), -1
 
 
 def removeProduct(id):
@@ -71,14 +72,16 @@ def removeProduct(id):
 
 if __name__ == "__main__":
     # TESTING
-    values = ["45", "x", "xx", "xxx", "xxxx", "xxxx", 34, "xxxxxx"]
-    print(addProduct(values))
+    values = ["45", "x", 2, 'xxx', 30, '', '2020-02-01']
+    message, pid = addProduct(*values)
+    print(message)
     print(select_all("products"))
 
     print("\n\n")
-    print(addProduct(values))
+    message2, pid2 = addProduct(*values)
+    print(message2)
     print(select_all("products"))
     print("\n\n")
-    print(removeProduct("45"))
+    print(removeProduct(pid))
     print(select_all("products"))
-    print(removeProduct("45"))
+    print(removeProduct(pid2))

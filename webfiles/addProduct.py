@@ -15,7 +15,7 @@ values = {
     'description': '',
     'loc': '',
     'comments': '',
-    'result': ''
+    'result': '',
 }
 
 og = values.copy()
@@ -37,7 +37,7 @@ if has_form_data():
     description = get_form_data("description")
     date = get_form_data("date")
     comments = get_form_data("comments")
-    result = addProduct(title, description, location, comments=comments, expiry_date=date)
+    result, new_id = addProduct(title, description, location, comments=comments, expiry_date=date)
     og['result'] = date
 
     print_main('add_product.html', {'result':result})
