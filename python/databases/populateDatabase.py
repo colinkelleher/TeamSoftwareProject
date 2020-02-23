@@ -42,7 +42,7 @@ def populate_products_table():
                 date="2020-03-0"+str(day)
             else:
                 date = "2020-03-"+str(day)
-            cursor.execute(sql, (types_of_food[randomNum], descriptions[randomNum], random.randint(0, 30), randomNum, None, date, random.randint(0, 30)))
+            cursor.execute(sql, (types_of_food[randomNum], descriptions[randomNum], random.randint(1, 9), randomNum, None, date, random.randint(0, 30)))
             connection.commit()
 
         print("Populated products table")
