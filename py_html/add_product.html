@@ -45,16 +45,23 @@
     <p id="jonny">${result}</p>
 
     <a id="viewProduct"><button type="button" class="btn btn-primary mb-1">View Product</button></a>
+    <a id="print"><button type="button" class="btn btn-primary mb-1">Print</button></a>
+
 </form>
 </div></div>
 
 <script>
     let pid = '${id}';
     let link = document.getElementById('viewProduct');
-    if (pid === '')
+    let print = document.getElementById('print');
+    if (pid === '') {
         link.parentElement.removeChild(link);
-    else
+        print.parentElement.removeChild(print);
+    }
+    else {
         link.setAttribute('href', '/webfiles/viewProduct.py?pid=' + pid);
+        print.setAttribute('href', '/webfiles/print_product.py?id=' + pid);
+    }
 </script>
 
 
