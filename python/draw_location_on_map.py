@@ -23,4 +23,4 @@ def draw_point(path_to_blank_map, x, y, output_path, point_size=20, color=(255, 
 
 
 if __name__ == "__main__":
-    draw_point("../images/locations/main.png", 100, 100, "test.png")
+    draw_point("/images/locations/main.png", 100, 100, "test.png")

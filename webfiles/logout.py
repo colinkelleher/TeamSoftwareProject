@@ -5,4 +5,4 @@ from python.password import Password
 from python.login import logOut
 
 logOut()
-print_html('redirect.html', dict(url='../index.py'))
+print_html('redirect.html', dict(url='/index.py'))

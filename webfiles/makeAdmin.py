@@ -24,4 +24,4 @@ if get_user().logged_in:
     else:
         print_main("makeAdmin.html", dict(msg="", users=userForm))
 else:
-    print_html('redirect.html', dict(url='../index.py'))
+    print_html('redirect.html', dict(url='/index.py'))

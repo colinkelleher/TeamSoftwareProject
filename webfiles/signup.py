@@ -15,7 +15,7 @@ if not get_user().logged_in:
         # check if successfully registered
         if registered:
             ## Print "successfully registered" page
-            print_html('redirect.html', dict(url='../index.py'))
+            print_html('redirect.html', dict(url='/index.py'))
         else:
             # print signup page
             #### preferably with error message
@@ -23,4 +23,4 @@ if not get_user().logged_in:
     else:
         print_html("signup.html")
 else:
-    print_html('redirect.html', dict(url='../index.py'))
+    print_html('redirect.html', dict(url='/index.py'))
