@@ -49,7 +49,7 @@ def create_header(title, pdf):
 	path.lineTo(25*cm,0*cm)
 	#this creates a rectangle the size of the sheet
 	pdf.drawPath(path,True,True)
-	pdf.drawInlineImage(get_abs_paths()['data_store'] + "/pdfs/logo.png", 100, 745)
+	pdf.drawInlineImage(get_abs_paths()['assets'] + "/images/logo.png", 100, 745)
 	pdf.setFillColor(HexColor("#080807"))
 	pdf.line(0, 725, 850, 725)
 
@@ -75,11 +75,11 @@ def stockDates(pdf):
 
 	total_products = get_total_number_of_products()
 	stock_expiring_soon = get_count_of_product_expiring_soon(10)
-	final_date = stock_expiring_soon[9][1]
+	final_date = stock_expiring_soon[9]['expiry_date']
 
 	stockNum=0
 	for day in stock_expiring_soon:
-		stockNum+=day[0]
+		stockNum+=day['count']
 
 	text = pdf.beginText(50, 610)
 	text.setFont('Vera', 12)
@@ -98,7 +98,7 @@ def stockDates(pdf):
 	text = pdf.beginText(50, 500)
 	text.setFont('Vera', 11)
 	for day in stock_expiring_soon:
-		text.textLine("   %d              %s" %(day[0], day[1]))
+		text.textLine("   %d              %s" %(day['count'], day['expiry_date']))
 	pdf.drawText(text)
 	pdf.setFont('VeraBd', 13)
 	pdf.drawString(50, 340, "Below are some products expiring in the next few days:")
