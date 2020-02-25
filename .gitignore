@@ -1,5 +1,5 @@
 
 .DS_Store
-python/sessions
+data_store/sessions
 *__pycache__*
 .idea

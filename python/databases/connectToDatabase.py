@@ -1,6 +1,8 @@
 import sqlite3
 from os import path
 
+from python.path_stuff import get_abs_paths
+
 
 def connect(url="DEFAULT"):
     """
@@ -11,13 +13,7 @@ def connect(url="DEFAULT"):
     """
 
     if url == "DEFAULT":
-        url = "databases/database.db"
-        if not path.exists(url):
-            url = "../databases/database.db"
-            if not path.exists(url):
-                url = "../../databases/database.db"
-                if not path.exists(url):
-                    url = "../../../databases/database.db"
+        url = get_abs_paths()['data_store'] + '/database.db'
 
     if path.exists(url):
         connection = sqlite3.connect(url)

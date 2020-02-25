@@ -15,9 +15,9 @@ roles = {1: "Admin", 0: "Normal User"}
 
 if user_info["image"] is None:
     if user_info["role"] == 0:
-        user_info["image"] = "/images/default_user.png"
+        user_info["image"] = "/assets/images/default_user.png"
     elif user_info["role"] == 1:
-        user_info["image"] = "/images/default_manager.png"
+        user_info["image"] = "/assets/images/default_manager.png"
 
 
 # Print the html page with users info

@@ -4,8 +4,9 @@ from reportlab.lib.units import cm
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 import cv2  #pip install opencv-python
-from databases.databaseQueries import *
-from databases.connectToDatabase import connect
+from python.databases.databaseQueries import *
+from python.databases.connectToDatabase import connect
+from python.path_stuff import get_abs_paths
 
 pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
@@ -48,7 +49,7 @@ def create_header(title, pdf):
 	path.lineTo(25*cm,0*cm)
 	#this creates a rectangle the size of the sheet
 	pdf.drawPath(path,True,True)
-	pdf.drawInlineImage("pdfs/logo.png", 100, 745)
+	pdf.drawInlineImage(get_abs_paths()['data_store'] + "/pdfs/logo.png", 100, 745)
 	pdf.setFillColor(HexColor("#080807"))
 	pdf.line(0, 725, 850, 725)
 
@@ -149,4 +150,4 @@ def drawMyRuler(pdf):
 	pdf.drawString(10,800, 'y800')
 
 if __name__ == "__main__":
-	generatePDF("pdfs/StockDates.pdf", "StockDates", "dates")
+	generatePDF(get_abs_paths()['data_store'] + "/StockDates.pdf", "StockDates", "dates")

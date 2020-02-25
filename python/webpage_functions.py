@@ -67,7 +67,7 @@ def get_form_data(key):
 
 
 def get_html_template(filename):
-    path = path_stuff.get_abs_paths()['py_html'] + '/' + filename
+    path = path_stuff.get_abs_paths()['assets'] + '/py_html/' + filename
     return Template(open(path, 'r').read())
 
 
@@ -88,10 +88,6 @@ def print_html(filename, inputs={}):
     template = get_html_template(filename)
     # Need to merge default dictionary with inputs dict
     default = {
-        'qrScanner':    """
-                            <script src="/js/qrscanner.js"></script>
-                            <script src="/js/libs/jsQR.js"></script>
-                        """,
         'nav': get_nav(get_user().get_nav_items())
     }
     # First substitute all user inputs in the html like ${main} into whatever passed through in inputs dict
@@ -111,7 +107,7 @@ def print_main(content, inputs={}):
     """
     # If content endswith .html and a file like it exists in py_html, read that in as new content
     if content.endswith('.html'):
-        html = path_stuff.get_abs_paths()['py_html'] + '/' + content
+        html = path_stuff.get_abs_paths()['assets'] + '/py_html/' + content
         if exists(html):
             content = get_html_template(content).safe_substitute(inputs)
     inputs['main'] = content

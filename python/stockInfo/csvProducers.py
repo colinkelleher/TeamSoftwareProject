@@ -1,10 +1,10 @@
 import csv
 import os
 
-# Location to csv outputs
-csv_output_location = "output/"
+from python.path_stuff import get_abs_paths
+
 # Location of product csv file
-product_history_output_path = csv_output_location + "product_history.csv"
+product_history_output_path = get_abs_paths()['data_store'] + "/product_history.csv"
 
 
 def add_product_to_history(product_id, product_title, location_id, location_name):

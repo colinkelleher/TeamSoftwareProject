@@ -3,8 +3,8 @@ import csv
 from python.databases.databaseQueries import select_fullness_of_locations, get_count_of_product_expiring_soon
 from python.path_stuff import get_abs_paths
 
-product_history_csv_path = get_abs_paths()["python"] + "/stockInfo/output/product_history.csv"
-path_to_created_graphs = get_abs_paths()["python"] + "/stockInfo/output/created_graphs"
+product_history_csv_path = get_abs_paths()["data_store"] + "/product_history.csv"
+path_to_created_graphs = get_abs_paths()["data_store"] + "/created_graphs"
 
 
 def _draw_bar_chart(title, x_label, y_label, x_items, item_counts, png_name):

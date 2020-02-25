@@ -1,11 +1,6 @@
-try:
-    from python.password import Password
-    from python.databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user
-    from python.path_stuff import get_abs_paths
-
-except:
-    from password import Password
-    from databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user, update_user
+from python.password import Password
+from python.databases.databaseQueries import select_all_with_conditions, select_all_with_2_conditions, add_user, update_user
+from python.path_stuff import get_abs_paths
 
 from os import environ
 from hashlib import sha256
@@ -54,7 +49,7 @@ def loggedIn():
         else:
             sid = cookie['sid'].value
             #print(get_abs_paths()['python'] + 'sessions/sess_' + sid)
-            session_store = open(get_abs_paths()['python'] + '/sessions/sess_' + sid, writeback = True)
+            session_store = open(get_abs_paths()['data_store'] + '/sessions/sess_' + sid, writeback = True)
             authenticated = session_store.get("authenticated")
             user_id = session_store.get("user_id")
 
@@ -109,7 +104,7 @@ def tryLogIn(user_id, password):
         cookie = SimpleCookie()
         sid = sha256(repr(time()).encode()).hexdigest()
         cookie['sid'] = sid
-        session_store = open(get_abs_paths()['python'] + '/sessions/sess_' + sid, writeback = True)
+        session_store = open(get_abs_paths()['data_store'] + '/sessions/sess_' + sid, writeback = True)
         session_store['authenticated'] = True
         session_store['user_id'] = user_id
         session_store.close()
@@ -139,7 +134,7 @@ def logOut():
             cookie.load(http_cookie_header)
             if 'sid' in cookie:
                 sid = cookie['sid'].value
-                path = get_abs_paths()['python'] + '/sessions/sess_' + sid
+                path = get_abs_paths()['data_store'] + '/sessions/sess_' + sid
                 session_store = open(path, writeback = True)
                 session_store['authenticated'] = False
                 session_store.close()
