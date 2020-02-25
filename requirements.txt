@@ -1,0 +1,4 @@
+reportlab
+opencv-python
+pyqrcode
+matplotlib
