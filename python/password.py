@@ -1,3 +1,14 @@
+"""
+TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
+
+This python file allows us to to generate a password which is sha256 encoded
+
+Within this file we have
+- Constructor for class: __init__
+- method to generate password: _generate
+- method to return string of hashed password: __str__
+- method to compare to other passwords: __eq__
+"""
 import hashlib
 
 
@@ -32,8 +43,4 @@ class Password(object):
         """
         return self._password == Password(clear_text)._password
 
-
-if __name__ == "__main__":
-    print(Password("123"))
-    print(Password("123") == "123")
 
