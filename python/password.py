@@ -1,3 +1,4 @@
+import hashlib
 """
 TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
 
@@ -9,8 +10,6 @@ Within this file we have
 - method to return string of hashed password: __str__
 - method to compare to other passwords: __eq__
 """
-import hashlib
-
 
 class Password(object):
     """
