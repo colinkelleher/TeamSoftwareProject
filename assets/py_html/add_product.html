@@ -1,3 +1,4 @@
+<!--This file is a html file providing a html form and script for adding products to the database-->
 <style>
     .card-header{
     margin:1em;
@@ -9,7 +10,7 @@
         </div>
 <div class="card-body ">
 <form action="" id="addProductForm">
-<!--    (title, location, description, comments)-->
+<!--    (title, location, description, expiry date, quantity, comments)-->
     <div class="form-group">
         <label for="title">Title</label>
         <input name="title" type="text" class="form-control" id="title" placeholder="Insert Title..." required>
@@ -49,6 +50,7 @@
 </form>
 </div></div>
 
+<!--script for accessing various elements-->
 <script>
     let pid = '${id}';
     let link = document.getElementById('viewProduct');
