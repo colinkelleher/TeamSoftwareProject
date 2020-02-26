@@ -1,6 +1,8 @@
 from os import listdir, chdir, getcwd
 from os.path import isdir, exists, abspath
-
+"""
+TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
+"""
 
 def get_abs_paths():
     """
