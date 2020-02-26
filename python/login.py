@@ -8,7 +8,12 @@ from time import time
 from shelve import open
 from http.cookies import SimpleCookie
 
+
 """
+TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
+
+This python file allows us to do the following:
+
 loggedIn() -> Can be run to check if a user is logged in on loading each page
 isAdmin() -> Can be run to check if a user has admin rights before allowing access to restricted content
 tryLogIn() -> To be run to change state from logged out to logged in
@@ -16,8 +21,10 @@ logOut() -> To be run to change state from logged in to logged out
 register() -> Adds user details to database (should sanatize in future)
 """
 
-# Add these so can know that someone just logged in
-# Before a cookie has been printed
+"""
+This will allow us to check if a user is logged in or not
+before a cookie has been printed
+"""
 _loggedIn = False
 _user_id = ''
 
