@@ -1,6 +1,7 @@
 from http.server import HTTPServer, CGIHTTPRequestHandler
 import os
-import subprocess
+
+from python.databases import createDatabase, populateDatabase
 
 port = 8080
 
@@ -18,7 +19,15 @@ class CGIHandler(CGIHTTPRequestHandler):
         return False
 
 
+def new_database():
+    createDatabase.create_database()
+    populateDatabase.populate_users_table()
+    populateDatabase.populate_locations_table()
+    populateDatabase.populate_products_table()
+
+
 try:
+    new_database()
     # Get PYTHONPATH variable or '' if its not there
     pythonpath = os.environ.get('PYTHONPATH') or ''
     if os.getcwd() not in pythonpath:
