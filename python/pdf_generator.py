@@ -8,6 +8,12 @@ from python.databases.databaseQueries import *
 from python.databases.connectToDatabase import connect
 from python.path_stuff import get_abs_paths
 
+"""
+TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
+
+This python file provides functions and methods to allow us to generate PDFs
+"""
+
 pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 line_x_start = 0
