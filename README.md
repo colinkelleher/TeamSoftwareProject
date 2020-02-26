@@ -15,6 +15,16 @@
     Bash
     CSS
     HTML
+    
+## Installation
+    git clone https://github.com/colinkelleher/TeamSoftwareProject.git
+    cd TeamSoftwareProject
+    pip3 install --user -r requirements.txt
+    
+## Running
+    python3 app.py
+Open [localhost:8080/index.py](localhost:8080/index.py)
+    
 
 ## Coding Requirements
     All code will be commented to ensure everyone on the team can understand what is happening and ensure maintainability
