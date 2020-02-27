@@ -178,9 +178,20 @@ def create_bar_chart_showing_count_of_expiring_food():
 
     """
 
-    dates, date_count = get_count_of_product_expiring_soon()
+    rows = get_count_of_product_expiring_soon(10)
 
-    _draw_bar_chart("Product Expiring On", "Date", "Amount of Product", dates, date_count, "product_expiring_soon")
+    dates = []
+    date_count = []
+
+    for row in rows:
+        print(row)
+        date = row['expiry_date']
+        new_date = date[8:10] +"-" +date[5:7]
+        print(new_date)
+        dates.append(new_date)
+        date_count.append(row['count'])
+
+    _draw_bar_chart("Products expiring in the next 10 days", "Date", "Number of Products", dates, date_count, "product_expiring_soon")
 
 
 if __name__ == "__main__":
