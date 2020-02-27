@@ -263,6 +263,13 @@ def get_total_number_of_products():
     execute(sql)
     return (len(cursor.fetchall()))
 
+def getCountOfEachProduct():
+    sql="select COUNT(*), title from products group by title;"
+    try:
+        execute(sql)
+        return(cursor.fetchall())
+    except Exception as e:
+        print(e)
 def add_user(fname, lname, email, password, role="0"):
     """
     Adds user info to the database
