@@ -65,9 +65,11 @@ def removeProduct(id):
                     return ("Product successfully removed.")
                 except Exception as e:
                     print(e)
+                    return e
 
     except Exception as e:
         print(e)
+        return e
 
 
 if __name__ == "__main__":
