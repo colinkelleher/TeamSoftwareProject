@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 from python.webpage_functions import print_main, get_html_template
-from python.stockInfo.graphing_functions.graphing_functions import get_how_full_locations_are, \
-    get_count_of_expiring_food
+from python.stockInfo.graphing_functions.graphing_functions_js import *
+from python.stockInfo.graphing_functions.graphing_functions import get_how_full_locations_are
 from json import dumps
 
 
@@ -16,7 +16,7 @@ def get_chart_data(name, data, backgroundColor):
     return dict(label=name, data=data, backgroundColor=backgroundColor)
 
 
-def _get_chart(type, title, column_names, *bar_data):
+def _get_chart(type, title, column_names, scales, *bar_data):
     """
     Returns javascript bar chart html
     *bar_data will be stacked if more than one is given
@@ -26,15 +26,28 @@ def _get_chart(type, title, column_names, *bar_data):
     :*bar_data as much bar data dictionaries as you want
     """
     global bar_html
-    return bar_html.safe_substitute(type=type, title=title, column_names=column_names, bar_data=dumps([*bar_data]))
+    return bar_html.safe_substitute(type=type, title=title, column_names=column_names, scales=scales, bar_data=dumps([*bar_data]))
 
 
 def get_pie_chart(title, column_names, *bar_data):
-    return _get_chart('pie', title, column_names, *bar_data)
+    return _get_chart('pie', title, column_names, '', *bar_data)
 
 
 def get_bar_chart(title, column_names, *bar_data):
-    return _get_chart('bar', title, column_names, *bar_data)
+    scales = '''
+        scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+    '''
+    return _get_chart('bar', title, column_names, scales, *bar_data)
 
 
 bar_html = get_html_template('chart_template.html')
@@ -47,8 +60,22 @@ empty_data = get_chart_data('Total Space', empty_space, 'red')
 output += get_bar_chart('Location Space Usage', names, used_data, empty_data)
 
 # Get bar chart for dates food expires at
-dates, dates_count = get_count_of_expiring_food()
+dates, dates_count = count_of_expiring_food()
 expiring_data = get_chart_data('Amount of Product', dates_count, 'blue')
 output += get_bar_chart('Product Expiring On', dates, expiring_data)
+
+# count_of_expiring_food_to_total_of_that_product
+names, total, expiring = count_of_expiring_food_to_total_of_that_product()
+total_data = get_chart_data('Total Product', total, 'blue')
+expiring_data = get_chart_data('Expiring Product', expiring, 'red')
+output += get_bar_chart('Number of Products Expiring in 10 days', names, expiring_data, total_data)
+
+# pie_chart_showing_distribution_of_products
+names, values = pie_chart_showing_distribution_of_products()
+# TODO need to pass a list of different colors to make it nicer
+data = get_chart_data('Products', values, 'blue')
+output += get_pie_chart('Distribution of Product', names, data)
+
+
 
 print_main(output)

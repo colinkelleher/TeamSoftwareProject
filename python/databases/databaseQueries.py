@@ -255,6 +255,7 @@ def get_list_of_product_expiring_soon(limit=100):
 
     return result
 
+
 def get_total_number_of_products():
     """
     This function returns the number of products in the database.
@@ -263,6 +264,7 @@ def get_total_number_of_products():
     execute(sql)
     return (len(cursor.fetchall()))
 
+
 def getCountOfEachProduct():
     sql="select COUNT(*), title from products group by title;"
     try:
@@ -270,6 +272,8 @@ def getCountOfEachProduct():
         return(cursor.fetchall())
     except Exception as e:
         print(e)
+
+
 def add_user(fname, lname, email, password, role="0"):
     """
     Adds user info to the database

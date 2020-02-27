@@ -15,17 +15,7 @@ var myChart = new Chart(ctx, {
             display: true,
             text: '${title}'
         },
-        scales: {
-            xAxes: [{
-                stacked: true,
-            }],
-            yAxes: [{
-                stacked: true,
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+        ${scales}
     }
 });
 </script>
