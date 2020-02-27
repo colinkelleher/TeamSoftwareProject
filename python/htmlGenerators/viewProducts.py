@@ -1,6 +1,30 @@
 from python.databases.databaseQueries import select_all, select_all_with_conditions, get_product_that_expires_on
 from datetime import datetime
 
+table = '''
+<div class="card spur-card">
+    <div class="card-header">
+        <div class="spur-card-icon">
+            <i class="fas fa-table"></i>
+        </div>
+        <div class="spur-card-title">%s</div>
+    </div>
+    <div class="card-body ">
+        <table class="table table-hover table-in-card">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                %s
+            </tbody>
+        </table>
+    </div>
+</div>
+'''
+
 
 def create_table_of_locations():
     """
@@ -39,15 +63,11 @@ def create_table_of_products_from_location(location_id, location_name):
 
     products_stored_in_location = select_all_with_conditions("products", "location", location_id)
 
-    output += "<table><tr><th>%s</th></tr>" % location_name
-    output += "<tr><th>Product:</th><th>Description</th></tr>"
-
     for product in products_stored_in_location:
-        output += "<tr><td>%s</td><td>%s</td></tr>" % (product['title'], product['description'])
+        output += "<tr><td scope='row'>%s</td><td>%s</td></tr>" % (product['title'], product['description'])
 
-    output += "</table>"
 
-    return output
+    return table % (location_name, output)
 
 
 def create_table_of_products_that_expire_today():
