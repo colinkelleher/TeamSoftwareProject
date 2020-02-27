@@ -5,6 +5,14 @@ from python.stockInfo.graphing_functions.graphing_functions_js import *
 from python.stockInfo.graphing_functions.graphing_functions import get_how_full_locations_are
 from json import dumps
 
+# Randomized list from https://gist.github.com/mucar/3898821
+colorArray = ['#E6B333', '#66664D', '#FF1A66', '#4DB380', '#809900', '#4DB3FF', '#80B300', '#3366E6', '#4D8066',
+              '#E666B3', '#E6FF80', '#66991A', '#FFB399', '#E666FF', '#00E680', '#809980', '#1AB399', '#E6331A',
+              '#6680B3', '#66E64D', '#FF4D4D', '#99E6E6', '#4D80CC', '#9900B3', '#B366CC', '#FFFF99', '#B33300',
+              '#CCCC00', '#999933', '#33991A', '#E6B3B3', '#B3B31A', '#66994D', '#4D8000', '#00B3E6', '#33FFCC',
+              '#CCFF1A', '#6666FF', '#991AFF', '#FF99E6', '#CC9999', '#CC80CC', '#FF33FF', '#B34D4D', '#999966',
+              '#FF6633', '#FF3380', '#1AFF33', '#99FF99', '#E64D66']
+
 
 def get_chart_data(name, data, backgroundColor):
     """
@@ -26,7 +34,8 @@ def _get_chart(type, title, column_names, scales, *bar_data):
     :*bar_data as much bar data dictionaries as you want
     """
     global bar_html
-    return bar_html.safe_substitute(type=type, title=title, column_names=column_names, scales=scales, bar_data=dumps([*bar_data]))
+    return bar_html.safe_substitute(type=type, title=title, column_names=column_names, scales=scales,
+                                    bar_data=dumps([*bar_data]))
 
 
 def get_pie_chart(title, column_names, *bar_data):
@@ -72,10 +81,7 @@ output += get_bar_chart('Number of Products Expiring in 10 days', names, expirin
 
 # pie_chart_showing_distribution_of_products
 names, values = pie_chart_showing_distribution_of_products()
-# TODO need to pass a list of different colors to make it nicer
-data = get_chart_data('Products', values, 'blue')
+data = get_chart_data('Products', values, colorArray)
 output += get_pie_chart('Distribution of Product', names, data)
-
-
 
 print_main(output)
