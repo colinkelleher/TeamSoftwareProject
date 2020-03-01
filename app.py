@@ -29,7 +29,11 @@ def new_database():
 
 def setup():
     new_database()
-    os.makedirs(get_abs_paths()['data_store'] + '/sessions')
+    try:
+        os.makedirs(get_abs_paths()['data_store'] + '/sessions')
+    except FileExistsError:
+        pass
+
 
 try:
     setup()
