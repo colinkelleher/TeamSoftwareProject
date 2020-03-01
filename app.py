@@ -2,6 +2,7 @@ from http.server import HTTPServer, CGIHTTPRequestHandler
 import os
 
 from python.databases import createDatabase, populateDatabase
+from python.path_stuff import get_abs_paths
 
 port = 8080
 
@@ -26,8 +27,12 @@ def new_database():
     populateDatabase.populate_products_table()
 
 
-try:
+def setup():
     new_database()
+    os.makedirs(get_abs_paths()['data_store'] + '/sessions')
+
+try:
+    setup()
     # Get PYTHONPATH variable or '' if its not there
     pythonpath = os.environ.get('PYTHONPATH') or ''
     if os.getcwd() not in pythonpath:
