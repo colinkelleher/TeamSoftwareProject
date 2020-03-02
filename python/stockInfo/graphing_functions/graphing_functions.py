@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import csv
 from python.databases.databaseQueries import select_fullness_of_locations, get_count_of_product_expiring_soon
 from python.path_stuff import get_abs_paths
@@ -8,6 +7,8 @@ path_to_created_graphs = get_abs_paths()["data_store"] + "/created_graphs"
 
 
 def _draw_bar_chart(title, x_label, y_label, x_items, item_counts, png_name):
+    import matplotlib.pyplot as plt
+
     """
     A function to draw and save bar charts as files
 
@@ -122,6 +123,8 @@ def create_graph_of_how_full_locations_are():
     """
     This function creates a graph showing how much space has been used in each location
     """
+    import matplotlib.pyplot as plt
+
     location_names, full_size, empty_size = get_how_full_locations_are()
     index = [i for i in range(0, len(location_names), 1)]
 
@@ -140,6 +143,8 @@ def create_pie_chart_showing_where_majority_of_stock_is():
     This function creates a pie chart that shows what percentage of the total product stored, is
     stored at each location
     """
+    import matplotlib.pyplot as plt
+
     rows = select_fullness_of_locations()
 
     labels = []
