@@ -66,7 +66,8 @@ class Manager(User):
         return super().get_nav_items() + [
             ('Analytics', 'fas fa-chart-bar', '/webfiles/analytics_charts_js.py'),
             ('Manage Users', 'fas fa-male', [('Add User', '', '/webfiles/addUser.py'),
-            ('Make User Admin', '', '/webfiles/makeAdmin.py')])
+            ('Make User Admin', '', '/webfiles/makeAdmin.py'),
+                                             ("Delete User", "", "/webfiles/deleteUser.py")])
         ]
 
 
