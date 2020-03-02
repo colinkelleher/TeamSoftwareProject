@@ -155,5 +155,11 @@ def drawMyRuler(pdf):
 	pdf.drawString(10,700, 'y700')
 	pdf.drawString(10,800, 'y800')
 
-if __name__ == "__main__":
+
+def generateStockInfo():
 	generatePDF(get_abs_paths()['data_store'] + "/StockDates.pdf", "StockDates", "dates")
+	return '/data_store/StockDates.pdf'
+
+
+if __name__ == "__main__":
+	generateStockInfo()

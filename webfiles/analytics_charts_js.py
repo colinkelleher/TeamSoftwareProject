@@ -59,7 +59,7 @@ def get_bar_chart(title, column_names, *bar_data):
 
 
 bar_html = get_html_template('chart_template.html')
-output = ''
+output = get_html_template('pdf_buttons.html').safe_substitute()
 
 # Get bar chart for location space usage
 names, full_space, empty_space = get_how_full_locations_are()
