@@ -36,9 +36,7 @@ class NotLoggedInUser:
         return uri in ['/webfiles/signup.py', '/index.py']
 
     def get_nav_items(self):
-        return [('Home', 'fas fa-home', '/index.py'),
-                ('Update Location', 'fas fa-qrcode','/webfiles/updateLocation.py'),
-                ('Product Location', 'fas fa-map-marker-alt', '/webfiles/viewProduct.py')]
+        return []
 
 
 class User(NotLoggedInUser):
@@ -49,7 +47,10 @@ class User(NotLoggedInUser):
 
     def get_nav_items(self):
         return super().get_nav_items() + [
-
+            ('Home', 'fas fa-home', '/index.py'),
+            ('Update Location', 'fas fa-qrcode', '/webfiles/updateLocation.py'),
+            ('Product Location', 'fas fa-map-marker-alt', '/webfiles/viewProduct.py'),
+            ('Add Product', 'fas fa-plus', '/webfiles/addProduct.py')
         ]
     
     def is_authorized(self):
@@ -63,7 +64,9 @@ class Manager(User):
 
     def get_nav_items(self):
         return super().get_nav_items() + [
-            ('Analytics', 'fas fa-chart-bar', '/webfiles/analytics_charts_js.py')
+            ('Analytics', 'fas fa-chart-bar', '/webfiles/analytics_charts_js.py'),
+            ('Manage Users', 'fas fa-male', [('Add User', '', '/webfiles/addUser.py'),
+            ('Make User Admin', '', '/webfiles/makeAdmin.py')])
         ]
 
 
