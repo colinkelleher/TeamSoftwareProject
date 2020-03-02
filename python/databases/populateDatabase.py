@@ -15,6 +15,12 @@ def populate_users_table():
     try:
         cursor.execute("""INSERT INTO users (email, fname, lname, password, role) 
                           VALUES ('t@t.c', 'Liam', 'de la Cour', ? , 1)""", (str(_hashed_password),))
+
+        cursor.execute("""INSERT INTO users (email, fname, lname, password, role) 
+                                  VALUES ('t_user@t.c', 'Pat', 'Murphy', ? , 0)""", (str(_hashed_password),))
+
+        cursor.execute("""INSERT INTO users (email, fname, lname, password, role) 
+                                          VALUES ('klaas@t.c', 'Klaas-Jan', 'Stol', ? , 0)""", (str(_hashed_password),))
         connection.commit()
         print("Populated users table")
     except Exception as e:
