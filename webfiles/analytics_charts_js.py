@@ -49,7 +49,6 @@ def get_bar_chart(title, column_names, *bar_data):
                     stacked: true,
                 }],
                 yAxes: [{
-                    stacked: true,
                     ticks: {
                         beginAtZero: true
                     }
