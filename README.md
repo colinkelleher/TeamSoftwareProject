@@ -36,12 +36,14 @@ Open [localhost:8080/index.py](localhost:8080/index.py)
     <!--All HTML comments should be written in this format, above the code you wish to comment -->
     
     Python Comments
+    
         Within Functions
             """
             :param other: password to compare
             :return: True if password matches the clear text
                       False if the do not match
             """
+            
        At the beginning of the file
             """
             TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
@@ -54,6 +56,9 @@ Open [localhost:8080/index.py](localhost:8080/index.py)
             - what function2 does: name of function2
             - what function3 does: name of function3
             """
+            
+      Additional single line comments
+            # this is an example of a simple line comment
     
  
  
