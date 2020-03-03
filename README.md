@@ -37,24 +37,23 @@ Open [localhost:8080/index.py](localhost:8080/index.py)
     
     Python Comments
         Within Functions
-        """
-        :param other: password to compare
-        :return: True if password matches the clear text
-                 False if the do not match
-        """
+            """
+            :param other: password to compare
+            :return: True if password matches the clear text
+                      False if the do not match
+            """
+       At the beginning of the file
+            """
+            TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
         
-        At the beginning of the file
-        """
-        TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
+            Description of what the file / python program does
         
-        Description of what the file / python program does
-        
-        Within this file we have (list the functions within the file)
-        - Constructor for class: __init__
-        - what function1 does: name of function1
-        - what function2 does: name of function2
-        - what function3 does: name of function3
-"""
+            Within this file we have (list the functions within the file)
+            - Constructor for class: __init__
+            - what function1 does: name of function1
+            - what function2 does: name of function2
+            - what function3 does: name of function3
+            """
     
  
  
