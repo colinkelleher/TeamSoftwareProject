@@ -1,0 +1,76 @@
+<div class="card spur-card" id="table">
+    <div class="card-header">
+        <div class="spur-card-icon">
+            <i class="fas fa-table"></i>
+        </div>
+        <div class="spur-card-title">Products Removed</div>
+    </div>
+    <div class="card-body ">
+        <table class="table table-striped table-in-card">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<button type="button" class="btn btn-secondary btn-lg btn-block mb-1" onclick="removeProduct(this)">Remove a product</button>
+
+<div role="alert" id="message"></div>
+<script>
+    let table = document.getElementById('table');
+    let rows = document.getElementById('table-body');
+    let msg = document.getElementById('message');
+
+    //table.style.visibility = 'collapse';
+
+    function makeAjax(url, onResult){
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4){
+                console.log(xhr.responseText);
+                onResult(xhr.responseText === "" ? "" : JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.open('GET', url);
+        xhr.send();
+    }
+
+    function updateTable(pid){
+        makeAjax('/api/get_product_info.py?pid=' + pid, function (json) {
+            if (json !== "") {
+                //table.style.visibility = 'visible';
+                rows.innerHTML += `
+                <tr>
+                    <th scope="row">${pid}</th>
+                    <td>${json.title}</td>
+                    <td>${json.description}</td>
+                </tr>`;
+            }
+            remove(pid);
+        });
+
+    }
+
+    function remove(code) {
+        let url = '/api/remove_product.py?pid=' + code;
+        makeAjax(url, function(result){
+            msg.innerText = result.message;
+            msg.className = result.success ? 'alert alert-success' : 'alert alert-warning';
+        });
+    }
+
+    function removeProduct(e) {
+        scanQrCode(e, function(code){
+            updateTable(code)
+        })
+
+    }
+</script>

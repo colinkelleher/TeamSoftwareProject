@@ -1,0 +1,22 @@
+<!--HTML page to print a qr code
+    This webpage also contains a script to do so which then inserts the QR code into the webpage -->
+<center><h1>${title}</h1></center>
+
+<hr>
+
+<center>${qrcode}</center>
+
+<style>
+    .pyqrcode {
+        width: 50%;
+        height: auto;
+    }
+
+</style>
+
+<!--Script to generate the QR code which is then insert into the web page-->
+<script>
+    var qrElement = document.getElementsByClassName('pyqrcode')[0];
+    var width = window.innerWidth/2;
+    qrElement.setAttribute("viewBox", "0 0 30 30");
+</script>

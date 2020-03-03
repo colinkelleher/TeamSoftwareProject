@@ -1,0 +1,69 @@
+<!--Web page to update the location of a product
+    This web page also contains a style sheet to provide additional styling to the bootstrap
+    This page also contains a script -->
+<style>
+    #qrcontainer, #productDiv {
+    margin: 0 auto;
+    }
+    #qrenterid, #scanProduct{
+    left: auto;
+    top:auto;
+   }
+   #qrButtonDiv, #locationName, #scanProduct {
+   text-align: center;
+   }
+
+</style>
+
+<button type="button" id="scanLocation" class="btn btn-primary btn-lg mb-1">Scan a Location</button>
+<h3 id="locationName"></h3>
+<div id="productDiv" style="visibility: collapse">
+    <button type="button" id="scanProduct" class="btn btn-primary btn-lg mb-1">Scan next Product</button>
+    <p id="scanProductMessage"></p>
+</div>
+
+<script>
+    var productDiv = document.getElementById('productDiv');
+    var scanLocation = document.getElementById('scanLocation');
+    var scanProduct = document.getElementById('scanProduct');
+    var locationInfo = document.getElementById('locationName');
+    var productMessage = document.getElementById('scanProductMessage');
+
+    var lid = 0;
+
+    function setMessage(success, message){
+        productMessage.style.color = success ? 'green' : 'red';
+        productMessage.innerHTML = message;
+    }
+
+    function makeAjax(url, onResult){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4){
+                onResult(xhr.responseText);
+            }
+        };
+        xhr.open('GET', url);
+        xhr.send();
+    }
+
+    scanLocation.addEventListener('click', function(){
+        scanQrCode(scanLocation, function(id){
+            lid = id;
+            makeAjax('/api/get_location_name.py?lid=' + id, function(nameJSON){
+                const result = JSON.parse(nameJSON);
+                locationInfo.innerText = 'Current Location: ' + result['name'];
+                productDiv.style.visibility = 'visible';
+            });
+        });
+    });
+    scanProduct.addEventListener('click', function(){
+        productMessage.innerHTML = '';
+        scanQrCode(scanProduct, function(id){
+            makeAjax('/api/update_product_location.py?lid=' + lid + '&pid=' + id, function(nameJSON){
+                const result = JSON.parse(nameJSON);
+                setMessage(result['updated'], result['message']);
+            });
+        });
+    });
+</script>

@@ -16,6 +16,8 @@ def _create_user_db():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email VARCHAR(255) UNIQUE,
+            username VARCHAR(255) UNIQUE,
             fname VARCHAR(255),
             lname VARCHAR(255),
             password VARCHAR(255),
@@ -36,7 +38,9 @@ def _create_product_db():
             description TEXT,
             location INTEGER,
             comments INTEGER,
-            photo VARCHAR(255)
+            photo VARCHAR(255),
+            expiry_date DATE,
+            volume INTEGER
         );
     """)
     print("created product table")
@@ -50,9 +54,10 @@ def _create_location_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title VARCHAR(255),
             description TEXT,
-            comments INTEGER,
+            comments TEXT,
             map VARCHAR(255),
-            location_type integer
+            location_type INTEGER,
+            capacity INTEGER
         );
     """)
     print("created location table")

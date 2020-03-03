@@ -1,0 +1,69 @@
+<!--This file is a html file providing a html form and script for adding products to the database-->
+<style>
+    .card-header{
+    margin:1em;
+    }
+</style>
+<div class="card spur-card">
+        <div class="card-header">
+            <i class="fas fa-box">  Add a Product</i>
+        </div>
+<div class="card-body ">
+<form action="" id="addProductForm">
+<!--    (title, location, description, expiry date, quantity, comments)-->
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input name="title" type="text" class="form-control" id="title" placeholder="Insert Title..." required>
+    </div>
+
+    <div class="form-group">
+        <label for="loc">Location</label>
+        <input name="location" type="text" class="form-control" id="loc" placeholder="Insert Location..." required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input name="description" type="text" class="form-control" id="description" placeholder="Insert Descriptions..." required>
+    </div>
+
+    <div class="form-group">
+        <label for="expdate">Expiry Date</label>
+        <input name="date" type="date" class="form-control" id="expdate">
+    </div>
+
+    <div class="form-group">
+        <label for="qty">Quantity</label>
+        <input name="qty" type="text" class="form-control" id="qty" placeholder="Insert Quantity here..." required>
+    </div>
+
+    <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea name="comments" class="form-control" id="comments" rows="3" placeholder="Insert comments here ...."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" >Submit</button>
+    <p id="jonny">${result}</p>
+
+    <a id="viewProduct"><button type="button" class="btn btn-primary mb-1">View Product</button></a>
+    <a id="print"><button type="button" class="btn btn-primary mb-1">Print</button></a>
+
+</form>
+</div></div>
+
+<!--script for accessing various elements-->
+<script>
+    let pid = '${id}';
+    let link = document.getElementById('viewProduct');
+    let print = document.getElementById('print');
+    if (pid === '') {
+        link.parentElement.removeChild(link);
+        print.parentElement.removeChild(print);
+    }
+    else {
+        link.setAttribute('href', '/webfiles/viewProduct.py?pid=' + pid);
+        print.setAttribute('href', '/webfiles/print_product.py?id=' + pid);
+    }
+</script>
+
+
+

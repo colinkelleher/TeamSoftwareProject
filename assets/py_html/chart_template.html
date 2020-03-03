@@ -1,0 +1,21 @@
+<div class="chart-container" style="position: relative; width: 95%;">
+    <canvas id="${title}" class="chartjs-render-monitor"></canvas>
+</div>
+
+<script>
+var ctx = document.getElementById('${title}').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: '${type}',
+    data: {
+        labels: ${column_names},
+        datasets: ${bar_data},
+    },
+    options: {
+        title: {
+            display: true,
+            text: '${title}'
+        },
+        ${scales}
+    }
+});
+</script>

@@ -11,7 +11,7 @@ API returns an image tag containing the map
 """
 print('Content-Type: text/html')
 print()
-message = "/TeamSoftwareProject/images/404.gif"
+message = "/assets/images/404.gif"
 if not loggedIn():
     pass
 else:

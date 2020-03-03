@@ -1,0 +1,62 @@
+<!--HTML form for adding a user to the database-->
+<style>
+<!--used for styling the html output-->
+    .card-header{
+    margin:1em;
+    }
+</style>
+<div class="card spur-card">
+        <div class="card-header">
+            <i class="fas fa-user-check">  Add a User</i>
+        </div>
+<div class="card-body ">
+<form action="" id="addProductForm">
+<!--    (email, username, first name, last name, password, role, image)-->
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input name="email" type="email" class="form-control" id="email" placeholder="joe@sms.ie" required>
+    </div>
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input name="username" type="text" class="form-control" id="username" placeholder="joe123" required>
+    </div>
+
+    <div class="form-group">
+        <label for="fname">First Name</label>
+        <input name="fname" type="text" class="form-control" id="fname" placeholder="Joe" required>
+    </div>
+
+    <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input name="lname" type="text" class="form-control" id="lname" placeholder="Bloggs" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" id="password" minlength="5" placeholder="******">
+    </div>
+
+<!--    This is a select form, which allows to user to select if the new user being added is a manager or a worker
+        value 1 is sent if the new user is a manager
+        value 0 is sent if the new user is a worker-->
+    <div class="form-group">
+    <label for="exampleFormControlSelect1">Role</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+            <option value="1">Manager</option>
+            <option value="0">Worker</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input name="image" type="file" accept="image/*" class="form-control" id="image">
+    </div>
+
+    <button type="submit" class="btn btn-primary" >Submit</button>
+    <p id="jonny">${result}</p>
+</form>
+</div></div>
+
+
+

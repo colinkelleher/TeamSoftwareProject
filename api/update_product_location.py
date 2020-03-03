@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+
+from json import dumps
 from cgi import FieldStorage
 from python.login import *
 from python.update_product_location import update_location
@@ -12,7 +14,7 @@ from python.update_product_location import update_location
     "message" field --> Different messages depending on outcome. These are ready to be inserted into HTML and displayed to the the user.
 
 """
-print('Content-Type: text/html')
+print('Content-Type: text/json')
 print()
 message = {"updated": False, "message": ""}
 if not loggedIn():
@@ -23,7 +25,7 @@ else:
     lid = form_data.getfirst("lid")
     if pid and lid:
         result = update_location(pid, lid)
-        if result:
+        if result == 1:
             message["message"] = "That was updated"
             message["updated"] = True
         elif result == 0:
@@ -44,4 +46,4 @@ else:
     elif not lid:
         message["message"] = "Sorry, the location ID is empty"
 
-print(str(message), end="")
+print(dumps(message))

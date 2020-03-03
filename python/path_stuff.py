@@ -1,38 +1,8 @@
 from os import listdir, chdir, getcwd
 from os.path import isdir, exists, abspath
-from pathlib import Path
-
-
-def get_username_prefix():
-    """
-    cs1 servers need the ~kpp1 before actual path to file
-    check if its a cs server and return it
-    """
-    cwd = getcwd()
-    while not exists('public_html'):
-        chdir('../')
-    public = Path('public_html')
-    prefix = ''
-    if public.group() == 'www-data':
-        prefix = '/~' + public.owner()
-    chdir(cwd)
-    return prefix
-
-
-def get_urls():
-    """
-    Return absolute url dictionary to all directories lowercase in the project
-    For linking stuff in html
-    """
-    dirs = dict()
-    paths = get_abs_paths()
-
-    for key, path in paths.items():
-        path = path[path.rfind('public_html') + len('public_html'):] + "/"
-        path = get_username_prefix() + path
-        dirs[key] = path
-    return dirs
-
+"""
+TeamSoftwareProject (CK, JH, PO'D, CO'D, LdlC, KP)
+"""
 
 def get_abs_paths():
     """
@@ -45,6 +15,7 @@ def get_abs_paths():
         chdir('../')
 
     dirs = dict()
+    dirs['root'] = getcwd()
     for file in listdir('.'):
         if isdir(file):
             dirs[file.lower()] = abspath(file)
@@ -54,7 +25,6 @@ def get_abs_paths():
 
 
 if __name__ == '__main__':
-    print(get_urls())
     print(get_abs_paths())
 
 

@@ -1,0 +1,27 @@
+<div class="card-body ">
+    <div>
+        <button type="button" class="btn btn-primary mb-1" onclick="openpdf()">Stock Info Pdf</button>
+        <button type="button" class="btn btn-secondary mb-1">Coming Soon Pdf</button>
+    </div>
+</div>
+
+<script>
+    function makeAjax(url, onResult){
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4){
+                console.log(xhr.responseText);
+                onResult(xhr.responseText === "" ? "" : JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.open('GET', url);
+        xhr.send();
+    }
+
+    function openpdf(){
+        makeAjax('/api/gen_stock_info.py', function(json){
+            console.log(json);
+            window.open(json.path);
+        });
+    }
+</script>
