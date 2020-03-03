@@ -32,8 +32,10 @@ Open [localhost:8080/index.py](localhost:8080/index.py)
 ## Coding Requirements
     All code will be commented to ensure everyone on the team can understand what is happening and ensure maintainability
     
-    HTML
+    HTML Comments
     <!--All HTML comments should be written in this format, above the code you wish to comment -->
+    
+    Python Comments
     
  
  
