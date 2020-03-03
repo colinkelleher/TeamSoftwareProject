@@ -23,12 +23,19 @@
     
 ## Running
     python3 app.py
-Open [localhost:8080/index.py](localhost:8080/index.py)
+
+
+## Running
     
+Open [localhost:8080/index.py](localhost:8080/index.py)
 
 ## Coding Requirements
     All code will be commented to ensure everyone on the team can understand what is happening and ensure maintainability
     
+    HTML
+    <!--All HTML comments should be written in this format, above the code you wish to comment -->
+    
+ 
  
 ## Due Dates
 https://github.com/colinkelleher/TeamSoftwareProject/issues/3
