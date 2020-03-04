@@ -65,6 +65,7 @@ class Manager(User):
     def get_nav_items(self):
         return super().get_nav_items() + [
             ('Analytics', 'fas fa-chart-bar', '/webfiles/analytics_charts_js.py'),
+            ('Remove Product', 'fas fa-trash-alt', '/webfiles/remove_product.py'),
             ('Manage Users', 'fas fa-male', [('Add User', '', '/webfiles/addUser.py'),
             ('Make User Admin', '', '/webfiles/makeAdmin.py'),
                                              ("Delete User", "", "/webfiles/deleteUser.py")])
