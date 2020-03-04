@@ -45,7 +45,7 @@ def get_items(item, depth=0):
 
 def get_nav(items):
     """
-    Items is list of dictionaries fpr however many items you want in dropdown nav
+    Items is list of dictionaries for however many items you want in dropdown nav
     """
     nav = start_nav
     for item in items:

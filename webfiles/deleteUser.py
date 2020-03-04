@@ -2,6 +2,10 @@
 
 from python.webpage_functions import print_html, get_form_data, has_form_data, print_main, get_user
 from python.databases.databaseQueries import select_all, delete_user
+
+"""
+Webpage to delete a user.
+"""
 if get_user().logged_in:
     if has_form_data():
         user_id = get_form_data("users")

@@ -2,6 +2,11 @@
 
 from python.webpage_functions import print_html, get_form_data, has_form_data, print_main, get_user
 from python.databases.databaseQueries import select_all_with_conditions, update_user
+
+"""
+Webpage to make a user an admin
+"""
+
 if get_user().logged_in:
     if has_form_data():
         user_id = get_form_data("users")
