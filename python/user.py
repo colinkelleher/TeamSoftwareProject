@@ -20,7 +20,9 @@ Can add role specific methods like
 
 
 class NotLoggedInUser:
-
+    """
+    Class to represent a user that is not logged in .
+    """
     def __init__(self, email=None):
         self.logged_in = False
         self.email = email
@@ -40,7 +42,9 @@ class NotLoggedInUser:
 
 
 class User(NotLoggedInUser):
-
+    """
+    Class to represent a user who is logged in but is not a manager
+    """
     def __init__(self, email):
         NotLoggedInUser.__init__(self, email)
         self.logged_in = True
@@ -58,13 +62,16 @@ class User(NotLoggedInUser):
 
 
 class Manager(User):
-
+    """
+    Class to represent a user who is logged in and is a manager
+    """
     def __init__(self, email):
         User.__init__(self, email)
 
     def get_nav_items(self):
         return super().get_nav_items() + [
             ('Analytics', 'fas fa-chart-bar', '/webfiles/analytics_charts_js.py'),
+            ('Remove Product', 'fas fa-trash-alt', '/webfiles/remove_product.py'),
             ('Manage Users', 'fas fa-male', [('Add User', '', '/webfiles/addUser.py'),
             ('Make User Admin', '', '/webfiles/makeAdmin.py'),
                                              ("Delete User", "", "/webfiles/deleteUser.py")])
@@ -72,6 +79,10 @@ class Manager(User):
 
 
 def get_user():
+    """
+    Function to gert a user
+    :return: User or subclass representing the user
+    """
     logged_in, email = loggedIn()
     if not logged_in:
         return NotLoggedInUser()
